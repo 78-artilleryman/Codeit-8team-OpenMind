@@ -4,6 +4,7 @@ import styled from 'styled-components';
 const Card = styled.div`
   display: flex;
   width: 220px;
+  height: 187px;
   padding: 20px;
   flex-direction: column;
   justify-content: space-between;
@@ -24,9 +25,24 @@ const CardFooter = styled.div`
   justify-content: space-between;
 `;
 
+const CommentBox = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+`;
+
+const Text = styled.p`
+  color: var(--gray40, #818181);
+  font-size: 16px;
+  font-weight: 400;
+`;
+
 const Profile = styled.img`
   width: 60px;
   height: 60px;
+  border-radius: 50%;
+  margin-bottom: 12px;
 `;
 
 const Title = styled.h2`
@@ -35,16 +51,19 @@ const Title = styled.h2`
   font-weight: 400;
 `;
 
-function CardItem() {
+function CardItem({ name, imageSource, questionCount }) {
   return (
     <Card>
       <CardHeader>
-        <Profile src="" alt="" />
-        <Title>아초는 고양이</Title>
+        <Profile src={imageSource} alt="profile" />
+        <Title>{name}</Title>
       </CardHeader>
       <CardFooter>
-        <div></div>
-        <p>9개</p>
+        <CommentBox>
+          <img src="/icons/commentIcon.png" alt="comment" />
+          <Text>받은 질문</Text>
+        </CommentBox>
+        <Text>{questionCount}</Text>
       </CardFooter>
     </Card>
   );

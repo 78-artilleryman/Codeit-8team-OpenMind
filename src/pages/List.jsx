@@ -1,7 +1,12 @@
 import React from 'react';
+import CardList from 'components/list/CardList';
 
 function List() {
-  return <div>List</div>;
+  return (
+    <div>
+      <CardList />
+    </div>
+  );
 }
 
 export default List;
