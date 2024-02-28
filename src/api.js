@@ -43,4 +43,3 @@ export async function getAllSubject(limit, offset, sort) {
     return null;
   }
 }
-
