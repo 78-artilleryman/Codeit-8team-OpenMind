@@ -7,6 +7,11 @@ const StyledTitle = styled.span`
     'clig' off,
     'liga' off;
   font-size: 2.5rem;
+
+  @media (max-width: 375px) {
+    font-size: 1.5rem;
+    line-height: 1.875rem;
+  }
 `;
 
 function Title() {

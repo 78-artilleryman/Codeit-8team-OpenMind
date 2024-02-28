@@ -7,7 +7,6 @@ const StyledSelectBox = styled.div`
   position: relative;
   width: 4.9375rem;
   padding: 0.5rem 0.75rem;
-  gap: 0.25rem;
 
   display: flex;
   justify-content: center;
