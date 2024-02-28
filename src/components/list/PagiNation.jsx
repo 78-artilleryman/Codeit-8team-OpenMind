@@ -61,19 +61,18 @@ const PagiNation = ({
       >
         <Arrow>{'<'}</Arrow>
       </PageBox>
-      {[...Array(pageCount)].map((a, i) => (
-        <>
-          {start + i <= totalPages && (
+      {[...Array(pageCount)].map(
+        (page, index) =>
+          start + index <= totalPages && (
             <PageBox
-              key={i}
-              to={`?page=${start + i}`}
-              onClick={() => handleClick(start + i)}
+              key={start + index}
+              to={`?page=${start + index}`}
+              onClick={() => handleClick(start + index)}
             >
-              <Number>{start + i}</Number>
+              <Number>{start + index}</Number>
             </PageBox>
-          )}
-        </>
-      ))}
+          ),
+      )}
       <PageBox
         disabled={noNext}
         onClick={() => handleClick(start + pageCount)}
