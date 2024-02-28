@@ -31,7 +31,7 @@ export async function getAllSubject(limit, offset, sort) {
 
   try {
     const response = await fetch(
-      `${BASE_URL}subjects/?limit=${limit}&offset=${offset}&sort=${sort}`,
+      `${BASE_URL}/subjects/?limit=${limit}&offset=${offset}&sort=${sort}`,
     );
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
@@ -43,4 +43,3 @@ export async function getAllSubject(limit, offset, sort) {
     return null;
   }
 }
-
