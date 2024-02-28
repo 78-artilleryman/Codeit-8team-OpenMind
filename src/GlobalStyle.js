@@ -1,5 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 
+
 const GlobalStyle = createGlobalStyle`
   :root {
     --gray10: #ffffff;
@@ -23,6 +24,7 @@ const GlobalStyle = createGlobalStyle`
     --shadow-2pt: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
     --shadow-3pt: 0px 16px 20px 0px rgba(48, 48, 48, 0.62);
   }
+
 
   * {
     box-sizing: border-box;
@@ -56,3 +58,4 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 export default GlobalStyle;
+
