@@ -15,7 +15,6 @@ const BasicButton = styled.button`
 
   opacity: ${({ inactive }) => inactive && 0.5};
 
-  margin: auto;
   white-space: nowrap;
   display: flex;
   align-items: center;
