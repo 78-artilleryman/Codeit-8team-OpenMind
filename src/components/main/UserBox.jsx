@@ -10,9 +10,7 @@ const UserBoxContainer = styled.div`
   gap: 16px;
   margin: auto;
   margin-top: 5%;
-
   max-width: 400px;
-
   background-color: var(--gray10);
   padding: 24px;
   border-radius: 16px;
