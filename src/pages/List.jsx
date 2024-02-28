@@ -1,12 +1,12 @@
 import React from 'react';
 import CardList from 'components/list/CardList';
 
-function List() {
+const List = () => {
   return (
-    <div>
+    <>
       <CardList />
-    </div>
+    </>
   );
-}
+};
 
 export default List;

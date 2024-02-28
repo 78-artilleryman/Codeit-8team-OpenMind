@@ -13,7 +13,7 @@ const Container = styled.section`
   margin: 0 auto;
 `;
 
-function CardList() {
+const CardList = () => {
   const [cards, setCards] = useState(null);
   const [searchParams] = useSearchParams();
   const page = searchParams.get('page');
@@ -58,6 +58,6 @@ function CardList() {
       )}
     </>
   );
-}
+};
 
 export default CardList;

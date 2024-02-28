@@ -51,7 +51,7 @@ const Title = styled.h2`
   font-weight: 400;
 `;
 
-function CardItem({ name, imageSource, questionCount }) {
+const CardItem = ({ name, imageSource, questionCount }) => {
   return (
     <Card>
       <CardHeader>
@@ -67,6 +67,6 @@ function CardItem({ name, imageSource, questionCount }) {
       </CardFooter>
     </Card>
   );
-}
+};
 
 export default CardItem;

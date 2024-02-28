@@ -26,13 +26,13 @@ const Arrow = styled.p`
 
 const Number = styled(Arrow)``;
 
-function PagiNation({
+const PagiNation = ({
   totalItems,
   itemCountPerPage,
   pageCount,
   currentPage,
   onPageChange,
-}) {
+}) => {
   const totalPages = Math.ceil(totalItems / itemCountPerPage); // 총 페이지 개수 //6
   const [start, setStart] = useState(1); // 시작 페이지 //1
   const noPrev = start === 1; // 이전 페이지가 없는 경우
@@ -83,6 +83,6 @@ function PagiNation({
       </PageBox>
     </PaigeNation>
   );
-}
+};
 
 export default PagiNation;
