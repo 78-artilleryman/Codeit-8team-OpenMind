@@ -1,5 +1,16 @@
+import styled from 'styled-components';
+
+const StyledTitle = styled.span`
+  color: var(--gray60, #000);
+  text-align: center;
+  font-feature-settings:
+    'clig' off,
+    'liga' off;
+  font-size: 2.5rem;
+`;
+
 function Title() {
-  return <div>누구에게 질문할까요?</div>;
+  return <StyledTitle>누구에게 질문할까요?</StyledTitle>;
 }
 
 export default Title;
