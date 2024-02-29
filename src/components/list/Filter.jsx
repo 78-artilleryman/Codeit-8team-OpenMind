@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import ArrowDown from '../../assets/icons/Arrow-down.svg';
 import ArrowUp from '../../assets/icons/Arrow-up.svg';
@@ -83,6 +84,7 @@ function Filter() {
   // 드롭다운 메뉴의 표시, 기본 false 상태로 숨겨져 있음
   const [isShow, setIsShow] = useState(false);
   const ref = useRef(null);
+  const navigate = useNavigate();
 
   // 요구사항에는 없지만, 드롭다운 메뉴밖 영역을 선택했을때 드롭다운 메뉴 표시가 꺼지도록 설정
   useEffect(() => {
@@ -108,6 +110,7 @@ function Filter() {
   const handleSelect = value => {
     setFilter(value);
     setIsShow(false);
+    navigate(`?sort=${value}`);
   };
 
   return (
