@@ -21,6 +21,7 @@ const UserBoxContainer = styled.div`
 `;
 
 const SubmitButton = styled(Button)`
+  margin: auto;
   @media (max-width: 767px) {
     width: 257px;
   }
