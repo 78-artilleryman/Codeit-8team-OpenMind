@@ -15,7 +15,7 @@ const Header = styled.header`
   padding: 40px 40px;
   margin: 0 auto;
 
-  @media (max-width: 374px) {
+  @media (max-width: 375px) {
     flex-direction: column;
     gap: 20px;
   }
@@ -29,7 +29,7 @@ const MainLogo = styled(LogoBox)`
 `;
 
 const HeadButton = styled(Button)`
-  @media (max-width: 374px) {
+  @media (max-width: 375px) {
     width: 130px;
     height: 42px;
     font-size: 14px;
