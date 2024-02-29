@@ -79,6 +79,7 @@ const CardList = () => {
             pageCount={5} // 보여줄 페이지 개수
             currentPage={page && parseInt(page) > 0 ? parseInt(page) : 1} // 현재 페이지 반환
             onPageChange={handlePageChange} // 페이지 변경 핸들러
+            selectPageNumber={page}
           />
         </>
       ) : (

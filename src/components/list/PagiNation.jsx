@@ -26,12 +26,20 @@ const Arrow = styled.p`
 
 const Number = styled(Arrow)``;
 
+const SelectNumber = styled(Arrow)`
+  color: var(--brown40, #542f1a);
+  text-align: center;
+  font-size: 30px;
+  font-family: Actor;
+`;
+
 const PagiNation = ({
   totalItems,
   itemCountPerPage,
   pageCount,
   currentPage,
   onPageChange,
+  selectPageNumber,
 }) => {
   const totalPages = Math.ceil(totalItems / itemCountPerPage); // 총 페이지 개수 //6
   const [start, setStart] = useState(1); // 시작 페이지 //1
@@ -46,11 +54,6 @@ const PagiNation = ({
   const handleClick = page => {
     onPageChange(page);
   };
-
-  const pages = [];
-  for (let i = start; i < start + pageCount && i <= totalPages; i++) {
-    pages.push(i);
-  }
 
   return (
     <PaigeNation>
@@ -69,7 +72,11 @@ const PagiNation = ({
               to={`?page=${start + index}`}
               onClick={() => handleClick(start + index)}
             >
-              <Number>{start + index}</Number>
+              {+selectPageNumber === start + index ? (
+                <SelectNumber>{start + index}</SelectNumber>
+              ) : (
+                <Number>{start + index}</Number>
+              )}
             </PageBox>
           ),
       )}
