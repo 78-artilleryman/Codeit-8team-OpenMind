@@ -1,6 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
 
-
 const GlobalStyle = createGlobalStyle`
   :root {
     --gray10: #ffffff;
@@ -33,11 +32,11 @@ const GlobalStyle = createGlobalStyle`
     'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   }
 
-  html,
+  /* html,
   body {
     font-size: 62.5%;
     
-  }
+  } */
 
   a {
     color: inherit;
@@ -58,4 +57,3 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 export default GlobalStyle;
-
