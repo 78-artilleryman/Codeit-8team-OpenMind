@@ -2,6 +2,7 @@ import UserBox from '../components/main/UserBox.jsx';
 import LogoBox from '../components/common/LogoBox.jsx';
 import styled from 'styled-components';
 import Button from '../components/common/Button.jsx';
+import { Link } from 'react-router-dom';
 
 const HeadButton = styled(Button)`
   position: absolute;
@@ -47,9 +48,9 @@ const Main = () => {
     <>
       <MainContainer>
         <MainLogo />
-        <HeadButton width={123} bright={true}>
-          질문하러 가기
-        </HeadButton>
+        <Link to="list">
+          <HeadButton bright={true}>질문하러 가기 →</HeadButton>
+        </Link>
         <UserBox />
       </MainContainer>
     </>
