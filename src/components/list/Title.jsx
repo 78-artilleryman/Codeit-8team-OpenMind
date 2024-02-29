@@ -11,6 +11,7 @@ const StyledTitle = styled.span`
   @media (max-width: 375px) {
     font-size: 1.5rem;
     line-height: 1.875rem;
+    word-break: keep-all;
   }
 `;
 

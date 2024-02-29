@@ -13,10 +13,10 @@ const Container = styled.section`
   gap: 20px;
   margin: 0 auto;
 
-  @media (max-width: 767px) {
+  @media (max-width: 768px) {
     grid-template: repeat(2, 1fr) / repeat(3, 1fr);
   }
-  @media (max-width: 374px) {
+  @media (max-width: 375px) {
     grid-template: repeat(2, 1fr) / repeat(2, 1fr);
   }
 `;
