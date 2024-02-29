@@ -43,7 +43,7 @@ const CardList = () => {
   };
 
   const handlePageChange = newPage => {
-    fetchData(newPage);
+    fetchData(newPage, sort);
   };
 
   // 페이지 당 보여질 아이템 수를 결정하는 함수
@@ -58,7 +58,7 @@ const CardList = () => {
 
   useEffect(() => {
     fetchData(page, sort);
-  }, [limit]);
+  }, [limit, sort]);
 
   useEffect(() => {
     handleMaxCard();
@@ -80,6 +80,7 @@ const CardList = () => {
             currentPage={page && parseInt(page) > 0 ? parseInt(page) : 1} // 현재 페이지 반환
             onPageChange={handlePageChange} // 페이지 변경 핸들러
             selectPageNumber={page}
+            sort={sort}
           />
         </>
       ) : (

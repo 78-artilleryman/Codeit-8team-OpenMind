@@ -40,6 +40,7 @@ const PagiNation = ({
   currentPage,
   onPageChange,
   selectPageNumber,
+  sort,
 }) => {
   const totalPages = Math.ceil(totalItems / itemCountPerPage); // 총 페이지 개수 //6
   const [start, setStart] = useState(1); // 시작 페이지 //1
@@ -60,7 +61,7 @@ const PagiNation = ({
       <PageBox
         disabled={noPrev}
         onClick={() => handleClick(currentPage - 1)}
-        to={`?page=${start - 1}`}
+        to={`?page=${start - 1}&sort=${sort}`}
       >
         <Arrow>{'<'}</Arrow>
       </PageBox>
@@ -69,7 +70,7 @@ const PagiNation = ({
           start + index <= totalPages && (
             <PageBox
               key={start + index}
-              to={`?page=${start + index}`}
+              to={`?page=${start + index}&sort=${sort}`}
               onClick={() => handleClick(start + index)}
             >
               {+selectPageNumber === start + index ? (
@@ -83,7 +84,7 @@ const PagiNation = ({
       <PageBox
         disabled={noNext}
         onClick={() => handleClick(start + pageCount)}
-        to={`?page=${start + pageCount}`}
+        to={`?page=${start + pageCount}&sort=${sort}`}
       >
         <Arrow>{`>`}</Arrow>
       </PageBox>
