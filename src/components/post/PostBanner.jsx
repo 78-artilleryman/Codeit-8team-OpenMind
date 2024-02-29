@@ -13,16 +13,17 @@ const BannerContainer = styled.div`
   align-items: center;
   gap: 10px;
 
-  background: url('/images/background_image.svg') no-repeat center;
+  background: url('/images/Banner.svg') no-repeat center;
   background-size: cover;
 
   @media (max-width: 767px) {
-    background-size: auto;
+    height: 177px;
   }
 `;
 
 const PostLogo = styled(LogoBox)`
-  margin-top: 5%;
+  position: absolute;
+  top: 50px;
   width: 170px;
 
   @media (max-width: 767px) {

@@ -22,9 +22,9 @@ const Post = () => {
     const screenWidth = window.innerWidth;
     if (screenWidth <= 767) {
       setShortButton(true);
-    } else {
-      setShortButton(false);
+      return;
     }
+    setShortButton(false);
   };
 
   useEffect(() => {
