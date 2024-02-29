@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
 import ArrowDown from '../../assets/icons/Arrow-down.svg';
 import ArrowUp from '../../assets/icons/Arrow-up.svg';
 
 const StyledSelectBox = styled.div`
   position: relative;
-  width: 4.9375rem;
+  min-width: 4.9375rem;
   padding: 0.5rem 0.75rem;
 
   display: flex;
@@ -81,10 +81,13 @@ const Option = styled.li`
 function Filter() {
   // 드롭다운(필터) 옵션, 기본 선택은 최신순(createdAt)
   const [filter, setFilter] = useState('createdAt');
+  const [searchPage] = useSearchParams();
   // 드롭다운 메뉴의 표시, 기본 false 상태로 숨겨져 있음
   const [isShow, setIsShow] = useState(false);
   const ref = useRef(null);
   const navigate = useNavigate();
+
+  const page = searchPage.get('page');
 
   // 요구사항에는 없지만, 드롭다운 메뉴밖 영역을 선택했을때 드롭다운 메뉴 표시가 꺼지도록 설정
   useEffect(() => {
@@ -110,7 +113,7 @@ function Filter() {
   const handleSelect = value => {
     setFilter(value);
     setIsShow(false);
-    navigate(`?sort=${value}`);
+    navigate(`?page=${page}&sort=${value}`);
   };
 
   return (

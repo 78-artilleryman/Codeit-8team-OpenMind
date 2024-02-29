@@ -13,10 +13,10 @@ const Container = styled.section`
   gap: 20px;
   margin: 0 auto;
 
-  @media (max-width: 767px) {
+  @media (max-width: 768px) {
     grid-template: repeat(2, 1fr) / repeat(3, 1fr);
   }
-  @media (max-width: 374px) {
+  @media (max-width: 375px) {
     grid-template: repeat(2, 1fr) / repeat(2, 1fr);
   }
 `;
@@ -43,7 +43,7 @@ const CardList = () => {
   };
 
   const handlePageChange = newPage => {
-    fetchData(newPage);
+    fetchData(newPage, sort);
   };
 
   // 페이지 당 보여질 아이템 수를 결정하는 함수
@@ -58,7 +58,7 @@ const CardList = () => {
 
   useEffect(() => {
     fetchData(page, sort);
-  }, [limit]);
+  }, [limit, sort]);
 
   useEffect(() => {
     handleMaxCard();
@@ -79,6 +79,8 @@ const CardList = () => {
             pageCount={5} // 보여줄 페이지 개수
             currentPage={page && parseInt(page) > 0 ? parseInt(page) : 1} // 현재 페이지 반환
             onPageChange={handlePageChange} // 페이지 변경 핸들러
+            selectPageNumber={page}
+            sort={sort}
           />
         </>
       ) : (
