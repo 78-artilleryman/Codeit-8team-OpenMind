@@ -45,20 +45,20 @@ const PostAvatar = styled(Avatar)`
 
 const PostUserName = styled.div`
   position: absolute;
-  bottom: -90px;
+  bottom: -80px;
 
   font-size: 32px;
   font-weight: 400;
 `;
 
-const PostBanner = ({userProfileImage, userName}) => {
-    return (
-        <BannerContainer>
-            <PostLogo/>
-            <PostAvatar imageSrc={userProfileImage}/>
-            <PostUserName>{userName}</PostUserName>
-        </BannerContainer>
-    );
+const PostBanner = ({ userProfileImage, userName }) => {
+  return (
+    <BannerContainer>
+      <PostLogo />
+      <PostAvatar imageSrc={userProfileImage} />
+      <PostUserName>{userName}</PostUserName>
+    </BannerContainer>
+  );
 };
 
 export default PostBanner;

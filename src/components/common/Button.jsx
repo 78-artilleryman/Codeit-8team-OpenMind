@@ -31,19 +31,31 @@ const BasicButton = styled.button`
   }
 `;
 
-const Button = ({ children, className, onClick, width, bright, inactive }) => {
+const Button = ({
+  children,
+  className,
+  onClick,
+  width,
+  bright,
+  inactive,
+  varient,
+}) => {
   return (
     <>
-      <BasicButton
-        onClick={onClick}
-        className={className}
-        width={width}
-        bright={bright}
-        inactive={inactive}
-        disabled={inactive}
-      >
-        {children}
-      </BasicButton>
+      {varient === 'icon' ? (
+        <button onClick={onClick}>{children}</button>
+      ) : (
+        <BasicButton
+          onClick={onClick}
+          className={className}
+          width={width}
+          bright={bright}
+          inactive={inactive}
+          disabled={inactive}
+        >
+          {children}
+        </BasicButton>
+      )}
     </>
   );
 };

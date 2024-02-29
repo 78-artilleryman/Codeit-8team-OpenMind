@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PostBanner from 'components/post/PostBanner';
 import { useParams } from 'react-router-dom';
 import { getSubjectById } from '../api';
+import Share from 'components/post/Share';
 
 const Post = () => {
   const { postId } = useParams();
@@ -13,10 +14,15 @@ const Post = () => {
 
   return (
     <div>
-      <PostBanner
-        userProfileImage={postData.imageSource}
-        userName={postData.name}
-      ></PostBanner>
+      {postData && (
+        <>
+          <PostBanner
+            userProfileImage={postData.imageSource}
+            userName={postData.name}
+          ></PostBanner>
+          <Share />
+        </>
+      )}
     </div>
   );
 };
