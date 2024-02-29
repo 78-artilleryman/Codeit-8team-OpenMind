@@ -51,14 +51,14 @@ const PostUserName = styled.div`
   font-weight: 400;
 `;
 
-const PostBanner = () => {
-  return (
-    <BannerContainer>
-      <PostLogo />
-      <PostAvatar imageSrc="/images/sample_user.svg" />
-      <PostUserName>아초는 고양이</PostUserName>
-    </BannerContainer>
-  );
+const PostBanner = ({userProfileImage, userName}) => {
+    return (
+        <BannerContainer>
+            <PostLogo/>
+            <PostAvatar imageSrc={userProfileImage}/>
+            <PostUserName>{userName}</PostUserName>
+        </BannerContainer>
+    );
 };
 
 export default PostBanner;

@@ -43,3 +43,17 @@ export async function getAllSubject(limit, offset, sort) {
     return null;
   }
 }
+
+export async function getSubjectById(id) {
+  try {
+    const response = await fetch(`${BASE_URL}/subjects/${id}/`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    return response.json();
+  } catch (error) {
+    // 네트워크 연결 오류 처리
+    console.error('Network error:', error);
+    return null;
+  }
+}

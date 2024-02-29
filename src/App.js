@@ -12,7 +12,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/list" element={<List />} />
-          <Route path="/post" element={<Post />} />
+          <Route path="/post/:postId" element={<Post />} />
         </Routes>
       </BrowserRouter>
     </>
