@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import CardItem from './CardItem';
 import PagiNation from './PagiNation';
 import { getAllSubject } from 'api';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import useBrowserSize from 'hooks/useBrowserSize';
 
 const Container = styled.section`
@@ -23,18 +23,19 @@ const Container = styled.section`
 
 const CardList = () => {
   const [cards, setCards] = useState(null);
-  const [searchParams] = useSearchParams();
+  const [searchPage] = useSearchParams();
+  const [searchSort] = useSearchParams();
   const [limit, setLimit] = useState(8);
 
-  const page = searchParams.get('page');
-  const navigator = useNavigate();
+  const page = searchPage.get('page');
+  const sort = searchSort.get('sort');
 
   const { windowWidth } = useBrowserSize();
 
-  const fetchData = async newPage => {
+  const fetchData = async (newPage, sort) => {
     const offset = (newPage - 1) * limit; // 페이지당 limit개씩
     try {
-      const data = await getAllSubject(limit, offset, 'time');
+      const data = await getAllSubject(limit, offset, sort);
       setCards(data);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -56,8 +57,7 @@ const CardList = () => {
   }, [windowWidth]);
 
   useEffect(() => {
-    fetchData();
-    navigator(`?page=${1}`);
+    fetchData(page, sort);
   }, [limit]);
 
   useEffect(() => {
@@ -77,7 +77,7 @@ const CardList = () => {
             totalItems={cards.count} // 데이터의 총 개수
             itemCountPerPage={limit} // 페이지 당 보여줄 데이터 개수
             pageCount={5} // 보여줄 페이지 개수
-            currentPage={page && parseInt(page) > 0 ? parseInt(page) : 1} // 현재 페이지 3반환
+            currentPage={page && parseInt(page) > 0 ? parseInt(page) : 1} // 현재 페이지 반환
             onPageChange={handlePageChange} // 페이지 변경 핸들러
           />
         </>
