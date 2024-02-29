@@ -60,7 +60,6 @@ const PagiNation = ({
     <PaigeNation>
       {noPrev === false && (
         <PageBox
-          disabled={noPrev}
           onClick={() => handleClick(currentPage - 1)}
           to={`?page=${start - 1}&sort=${sort}`}
         >
@@ -85,7 +84,6 @@ const PagiNation = ({
       )}
       {noNext === false && (
         <PageBox
-          disabled={noNext}
           onClick={() => handleClick(start + pageCount)}
           to={`?page=${start + pageCount}&sort=${sort}`}
         >
