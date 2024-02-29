@@ -45,6 +45,7 @@ const UserBox = () => {
     const isFilled = checkEmptyNickName();
     if (isFilled) {
       createInterviewer(nickName);
+      alert('사용자 등록이 완료되었습니다.');
     } else {
       alert('닉네임을 입력해주세요.');
     }
