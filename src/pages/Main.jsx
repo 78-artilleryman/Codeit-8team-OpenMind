@@ -35,7 +35,6 @@ const MainLogo = styled(LogoBox)`
   margin: auto;
 
   width: 456px;
-  height: 180px;
 
   @media (max-width: 767px) {
     width: 248px;
