@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 import CardItem from './CardItem';
 import PagiNation from './PagiNation';
 import { getAllSubject } from 'api';
 import { useSearchParams } from 'react-router-dom';
+import useBrowserSize from 'hooks/useBrowserSize';
 
 const Container = styled.section`
   max-width: 940px;
@@ -11,17 +12,30 @@ const Container = styled.section`
   grid-template: repeat(2, 1fr) / repeat(4, 1fr);
   gap: 20px;
   margin: 0 auto;
+
+  @media (max-width: 767px) {
+    grid-template: repeat(2, 1fr) / repeat(3, 1fr);
+  }
+  @media (max-width: 374px) {
+    grid-template: repeat(2, 1fr) / repeat(2, 1fr);
+  }
 `;
 
-function CardList() {
+const CardList = () => {
   const [cards, setCards] = useState(null);
-  const [searchParams] = useSearchParams();
-  const page = searchParams.get('page');
+  const [searchPage] = useSearchParams();
+  const [searchSort] = useSearchParams();
+  const [limit, setLimit] = useState(8);
 
-  const fetchData = async newPage => {
-    const offset = (newPage - 1) * 8; // 페이지당 8개씩
+  const page = searchPage.get('page');
+  const sort = searchSort.get('sort');
+
+  const { windowWidth } = useBrowserSize();
+
+  const fetchData = async (newPage, sort) => {
+    const offset = (newPage - 1) * limit; // 페이지당 limit개씩
     try {
-      const data = await getAllSubject(8, offset, 'time');
+      const data = await getAllSubject(limit, offset, sort);
       setCards(data);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -32,9 +46,23 @@ function CardList() {
     fetchData(newPage);
   };
 
+  // 페이지 당 보여질 아이템 수를 결정하는 함수
+  const handleMaxCard = useCallback(() => {
+    if (!windowWidth) return;
+    if (windowWidth >= 767) {
+      setLimit(8);
+    } else {
+      setLimit(6);
+    }
+  }, [windowWidth]);
+
   useEffect(() => {
-    fetchData();
-  }, []);
+    fetchData(page, sort);
+  }, [limit]);
+
+  useEffect(() => {
+    handleMaxCard();
+  }, [handleMaxCard]);
 
   return (
     <>
@@ -47,9 +75,9 @@ function CardList() {
           </Container>
           <PagiNation
             totalItems={cards.count} // 데이터의 총 개수
-            itemCountPerPage={8} // 페이지 당 보여줄 데이터 개수
+            itemCountPerPage={limit} // 페이지 당 보여줄 데이터 개수
             pageCount={5} // 보여줄 페이지 개수
-            currentPage={page && parseInt(page) > 0 ? parseInt(page) : 1} // 현재 페이지 3반환
+            currentPage={page && parseInt(page) > 0 ? parseInt(page) : 1} // 현재 페이지 반환
             onPageChange={handlePageChange} // 페이지 변경 핸들러
           />
         </>
@@ -58,6 +86,6 @@ function CardList() {
       )}
     </>
   );
-}
+};
 
 export default CardList;
