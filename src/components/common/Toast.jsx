@@ -2,13 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 
 const StyledBox = styled.span`
-  background-color: rgba(0, 0, 0, 0.9);
-  color: white;
-  padding: 12px;
+  background-color: var(--gray60);
+  color: var(--gray10);
+  padding: 12px 20px;
   text-align: center;
   font-size: 14px;
-  border-radius: 15px;
-  box-shadow: 3px 5px 7px 0 #636161;
+  font-weight: 500;
+  border-radius: 8px;
+  box-shadow: 0px 4px 4px 0px #00000040;
 
   position: fixed;
   bottom: 5%;
@@ -20,8 +21,8 @@ const StyledBox = styled.span`
     font-size: 12px;
   }
 `;
-const CopiedMessage = ({ show }) => {
-  return show && <StyledBox>클립보드에 복사되었습니다.</StyledBox>;
+const Toast = ({ show }) => {
+  return show && <StyledBox>URL이 복사되었습니다.</StyledBox>;
 };
 
-export default CopiedMessage;
+export default Toast;
