@@ -16,7 +16,7 @@ const SubText = styled.p`
   font-size: 14px;
   font-weight: 500;
   color: ${({ type }) =>
-    type === 'answer' ? 'var(--gray60)' : 'var(--gray40)'};
+    type === 'question' ? 'var(--gray40)' : 'var(--gray60)'};
 `;
 
 const TimeText = styled(SubText)`
@@ -26,8 +26,10 @@ const TimeText = styled(SubText)`
 const TextContents = styled.div`
   font-size: 18px;
   font-weight: 400;
-  color: var(--gray60);
+  color: ${({ type }) =>
+    type === 'rejected answer' ? 'var(--red)' : 'var(--gray60)'};
 `;
+
 const QuestionContent = ({ subInformation, time, textContents, type }) => {
   return (
     <Container>
@@ -35,7 +37,7 @@ const QuestionContent = ({ subInformation, time, textContents, type }) => {
         <SubText type={type}>{subInformation}</SubText>
         <TimeText>{time}</TimeText>
       </SubInformation>
-      <TextContents>{textContents}</TextContents>
+      <TextContents type={type}>{textContents}</TextContents>
     </Container>
   );
 };

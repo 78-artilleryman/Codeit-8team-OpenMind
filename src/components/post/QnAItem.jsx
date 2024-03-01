@@ -29,6 +29,7 @@ const QnAItem = ({ qnaData, userData }) => {
         subInformation="질문 ·"
         time={getTimeDifference(qnaData.createdAt)}
         textContents={qnaData.content}
+        type="question"
       />
       {qnaData.answer && (
         <Answer>
@@ -36,8 +37,14 @@ const QnAItem = ({ qnaData, userData }) => {
           <QuestionContent
             subInformation={userData.name}
             time={getTimeDifference(qnaData.answer.createdAt)}
-            textContents={qnaData.answer.content}
-            type="answer"
+            textContents={
+              qnaData.answer.isRejected === true
+                ? '답변거절'
+                : qnaData.answer.content
+            }
+            type={
+              qnaData.answer.isRejected === true ? 'rejected answer' : 'answer'
+            }
           />
         </Answer>
       )}
