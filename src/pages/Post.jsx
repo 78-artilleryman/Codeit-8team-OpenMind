@@ -5,16 +5,43 @@ import { getSubjectById } from '../api';
 import Share from 'components/post/Share';
 import Button from 'components/common/Button';
 import styled from 'styled-components';
+import PostCount from 'components/post/PostCount';
+import PostList from 'components/post/PostList';
 
-const AddQuestionButton = styled(Button)`
-  @media (max-width: 767px) {
-    width: 123px;
+const PostContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 46px;
+
+  padding: 2%;
+`;
+
+const AddQuestionButton = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+
+const Feed = styled.div`
+  border: 1px solid var(--brown30);
+  border-radius: 16px;
+  background-color: var(--brown10);
+  padding: 16px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  width: 70%;
+  margin: auto;
+
+  @media (max-width: 768px) {
+    width: 90%;
   }
 `;
 
 const Post = () => {
   const { postId } = useParams();
-  const [postData, setPostData] = useState();
+  const [userData, setUserData] = useState();
   const [shortButton, setShortButton] = useState(false);
 
   // 창 크기가 바뀔 때 질문 작성 버튼 문구 변경
@@ -28,28 +55,29 @@ const Post = () => {
   };
 
   useEffect(() => {
-    getSubjectById(postId).then(setPostData);
+    getSubjectById(postId).then(setUserData);
   }, [postId]);
 
+  if (!userData) return <></>;
   return (
-    <div>
-      {postData && (
-        <>
-          <PostBanner
-            userProfileImage={postData.imageSource}
-            userName={postData.name}
-          ></PostBanner>
-          <Share />
-          <AddQuestionButton
-            varient="floating"
-            width={208}
-            location={{ top: '90%', right: '32px' }}
-          >
+    <>
+      <PostBanner
+        userProfileImage={userData.imageSource}
+        userName={userData.name}
+      ></PostBanner>
+      <PostContainer>
+        <Share />
+        <Feed>
+          <PostCount questionCount={userData.questionCount} />
+          <PostList />
+        </Feed>
+        <AddQuestionButton>
+          <Button varient="floating" width={208}>
             {shortButton ? '질문작성' : '질문 작성하기'}
-          </AddQuestionButton>
-        </>
-      )}
-    </div>
+          </Button>
+        </AddQuestionButton>
+      </PostContainer>
+    </>
   );
 };
 
