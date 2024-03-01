@@ -6,14 +6,18 @@ import * as Icons from 'components/common/Icons';
 const ButtonsContainer = styled.div`
   display: flex;
   gap: 32px;
+  border-top: 1px solid var(--gray30);
+  padding-top: 32px;
 `;
+
 const LikeButton = styled(Button)`
   display: flex;
   gap: 6px;
+  align-items: center;
   color: ${({ clicked }) => (clicked ? 'var(--blue)' : 'var(--gray40)')};
 `;
 
-const LikeDislike = () => {
+const Reactions = () => {
   const [likeCount, setLikeCount] = useState(null);
   const [dislikeCount, setDislikeCount] = useState(null);
 
@@ -48,4 +52,4 @@ const LikeDislike = () => {
   );
 };
 
-export default LikeDislike;
+export default Reactions;
