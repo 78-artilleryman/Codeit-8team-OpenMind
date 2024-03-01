@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { getTimeDifference } from 'utils/dateUtils';
 import Avatar from 'components/common/Avatar';
+import QuestionContent from 'components/post/QuestionContent';
 
 const Container = styled.div`
   display: flex;
@@ -8,25 +9,7 @@ const Container = styled.div`
   gap: 32px;
 `;
 
-const QuestionBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-`;
-
-const QuestionTitle = styled.div`
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--gray40);
-`;
-
-const Question = styled.div`
-  font-size: 18px;
-  font-weight: 400;
-  color: var(--gray60);
-`;
-
-const AnswerBox = styled.div`
+const Answer = styled.div`
   display: flex;
   gap: 12px;
 `;
@@ -36,55 +19,27 @@ const ProfileImage = styled(Avatar)`
   height: 48px;
 `;
 
-const AnswerContent = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-`;
-
-const Nickname = styled.div`
-  font-size: 18px;
-  font-weight: 400;
-  color: var(--gray60);
-
-  display: flex;
-  align-items: center;
-  gap: 6px;
-`;
-
-const Answer = styled.div`
-  font-size: 16px;
-  font-weight: 400;
-  color: var(--gray60);
-  line-height: 22px;
-`;
-
 const QnAItem = ({ qnaData, userData }) => {
   if (!qnaData) {
     return <></>;
   }
   return (
     <Container>
-      <QuestionBox>
-        <QuestionTitle>
-          질문 · {getTimeDifference(qnaData.createdAt)}
-        </QuestionTitle>
-        <Question>{qnaData.content}</Question>
-      </QuestionBox>
+      <QuestionContent
+        subInformation="질문 ·"
+        time={getTimeDifference(qnaData.createdAt)}
+        textContents={qnaData.content}
+      />
       {qnaData.answer && (
-        <AnswerBox>
+        <Answer>
           <ProfileImage imageSrc={userData.imageSource} />
-          <AnswerContent>
-            <Nickname>
-              {userData.name}
-              <QuestionTitle>
-                {getTimeDifference(qnaData.answer.createdAt)}
-              </QuestionTitle>
-            </Nickname>
-
-            <Answer>{qnaData.answer.content}</Answer>
-          </AnswerContent>
-        </AnswerBox>
+          <QuestionContent
+            subInformation={userData.name}
+            time={getTimeDifference(qnaData.answer.createdAt)}
+            textContents={qnaData.answer.content}
+            type="answer"
+          />
+        </Answer>
       )}
     </Container>
   );
