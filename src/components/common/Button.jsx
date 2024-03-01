@@ -32,14 +32,12 @@ const BasicButton = styled.button`
 `;
 
 const FloatingButton = styled(BasicButton)`
-  position: fixed;
   box-shadow: 0 4px 4px 0 #00000040;
   border-radius: 200px;
 
-  bottom: ${({ location }) => location.bottom};
-  top: ${({ location }) => location.top};
-  left: ${({ location }) => location.left};
-  right: ${({ location }) => location.right};
+  @media (max-width: 767px) {
+    width: 123px;
+  }
 `;
 const Button = ({
   children,
@@ -49,7 +47,6 @@ const Button = ({
   bright,
   inactive,
   varient,
-  location = { bottom: '0', top: '0', left: '0', right: '0' },
 }) => {
   return (
     <>
@@ -65,7 +62,6 @@ const Button = ({
           bright={bright}
           inactive={inactive}
           disabled={inactive}
-          location={location}
         >
           {children}
         </FloatingButton>

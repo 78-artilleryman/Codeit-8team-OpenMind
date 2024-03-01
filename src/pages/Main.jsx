@@ -9,7 +9,7 @@ const HeadButton = styled(Button)`
   top: 45px;
   right: 6%;
 
-  @media (max-width: 767px) {
+  @media (max-width: 768px) {
     position: static;
     display: flex;
     justify-content: center;
@@ -37,9 +37,8 @@ const MainLogo = styled(LogoBox)`
 
   width: 456px;
 
-  @media (max-width: 767px) {
+  @media (max-width: 768px) {
     width: 248px;
-    height: 98px;
   }
 `;
 

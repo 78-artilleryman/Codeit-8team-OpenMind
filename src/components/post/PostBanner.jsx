@@ -5,6 +5,7 @@ import styled from 'styled-components';
 
 const BannerContainer = styled.div`
   height: 234px;
+  margin-bottom: 90px;
 
   position: relative;
 
@@ -16,7 +17,7 @@ const BannerContainer = styled.div`
   background: url('/images/Banner.svg') no-repeat center;
   background-size: cover;
 
-  @media (max-width: 767px) {
+  @media (max-width: 768px) {
     height: 177px;
   }
 `;
@@ -26,7 +27,7 @@ const PostLogo = styled(LogoBox)`
   top: 50px;
   width: 170px;
 
-  @media (max-width: 767px) {
+  @media (max-width: 768px) {
     width: 124px;
   }
 `;
@@ -38,7 +39,7 @@ const PostAvatar = styled(Avatar)`
   right: 0;
   margin: auto;
 
-  @media (max-width: 767px) {
+  @media (max-width: 768px) {
     width: 104px;
     height: 104px;
   }

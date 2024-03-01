@@ -15,14 +15,14 @@ const UserBoxContainer = styled.div`
   padding: 24px;
   border-radius: 16px;
 
-  @media (max-width: 767px) {
+  @media (max-width: 768px) {
     width: 305px;
   }
 `;
 
 const SubmitButton = styled(Button)`
   margin: auto;
-  @media (max-width: 767px) {
+  @media (max-width: 768px) {
     width: 257px;
   }
 `;
@@ -31,17 +31,14 @@ const UserBox = () => {
   const [nickName, setNickName] = useState(null);
 
   const checkEmptyNickName = () => {
-    if (nickName) {
-      return true;
-    }
-    return false;
+    return nickName;
   };
 
   const handleChangeNickName = e => {
     setNickName(e.target.value);
   };
 
-  const handleQuestionClick = e => {
+  const handleQuestionClick = () => {
     const isFilled = checkEmptyNickName();
     if (isFilled) {
       createInterviewer(nickName);

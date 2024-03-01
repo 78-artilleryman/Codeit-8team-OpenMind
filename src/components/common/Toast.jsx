@@ -17,7 +17,7 @@ const StyledBox = styled.span`
   transform: translate(-50%, -50%);
   z-index: 1;
 
-  @media (min-width: 0px) and (max-width: 767px) {
+  @media (max-width: 768px) {
     font-size: 12px;
   }
 `;
