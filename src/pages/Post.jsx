@@ -69,7 +69,7 @@ const Post = () => {
         <Share />
         <Feed>
           <PostCount questionCount={userData.questionCount} />
-          <PostList />
+          <PostList userData={userData} />
         </Feed>
         <AddQuestionButton>
           <Button varient="floating" width={208}>

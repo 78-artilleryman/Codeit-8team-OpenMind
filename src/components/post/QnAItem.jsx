@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { getTimeDifference } from 'utils/dateUtils';
+import Avatar from 'components/common/Avatar';
 
 const Container = styled.div`
   display: flex;
@@ -12,6 +13,7 @@ const QuestionBox = styled.div`
   flex-direction: column;
   gap: 12px;
 `;
+
 const QuestionTitle = styled.div`
   font-size: 14px;
   font-weight: 500;
@@ -29,7 +31,7 @@ const AnswerBox = styled.div`
   gap: 12px;
 `;
 
-const ProfileImage = styled.div`
+const ProfileImage = styled(Avatar)`
   width: 48px;
   height: 48px;
 `;
@@ -44,6 +46,10 @@ const Nickname = styled.div`
   font-size: 18px;
   font-weight: 400;
   color: var(--gray60);
+
+  display: flex;
+  align-items: center;
+  gap: 6px;
 `;
 
 const Answer = styled.div`
@@ -53,7 +59,7 @@ const Answer = styled.div`
   line-height: 22px;
 `;
 
-const QnAItem = ({ qnaData }) => {
+const QnAItem = ({ qnaData, userData }) => {
   if (!qnaData) {
     return <></>;
   }
@@ -67,10 +73,16 @@ const QnAItem = ({ qnaData }) => {
       </QuestionBox>
       {qnaData.answer && (
         <AnswerBox>
-          <ProfileImage>{qnaData.profileImage}</ProfileImage>
+          <ProfileImage imageSrc={userData.imageSource} />
           <AnswerContent>
-            <Nickname>{qnaData.name}</Nickname>
-            <Answer>{qnaData.answer}</Answer>
+            <Nickname>
+              {userData.name}
+              <QuestionTitle>
+                {getTimeDifference(qnaData.answer.createdAt)}
+              </QuestionTitle>
+            </Nickname>
+
+            <Answer>{qnaData.answer.content}</Answer>
           </AnswerContent>
         </AnswerBox>
       )}

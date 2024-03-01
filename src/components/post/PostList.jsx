@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { getQuestionsById } from '../../api';
 import { useParams } from 'react-router-dom';
 
-const PostList = () => {
+const PostList = ({ userData }) => {
   const { postId } = useParams();
   const [postData, setPostData] = useState();
 
@@ -17,7 +17,7 @@ const PostList = () => {
     <NoQuestion />
   ) : (
     postData.results.map(item => (
-      <PostItem key={item.id} qnaData={item} {...item} />
+      <PostItem key={item.id} qnaData={item} {...item} userData={userData} />
     ))
   );
 };

@@ -14,13 +14,15 @@ const PostContainer = styled.div`
   box-shadow: 0px 4px 4px 0px #8c8c8c40;
 `;
 
-const PostItem = ({ qnaData }) => {
+const PostItem = ({ qnaData, userData }) => {
+  if (!qnaData) return <></>;
+
   return (
     <PostContainer>
       <div>
-        <AnswerBadge isAnswered={true} />
+        <AnswerBadge isAnswered={qnaData.answer} />
       </div>
-      <div>{qnaData && <QnAItem qnaData={qnaData} />}</div>
+      <div>{qnaData && <QnAItem qnaData={qnaData} userData={userData} />}</div>
       <Reactions qnaData={qnaData} />
     </PostContainer>
   );
