@@ -21,7 +21,7 @@ const PostItem = ({ qnaData }) => {
         <AnswerBadge isAnswered={true} />
       </div>
       <div>{qnaData && <QnAItem qnaData={qnaData} />}</div>
-      <Reactions />
+      <Reactions qnaData={qnaData} />
     </PostContainer>
   );
 };

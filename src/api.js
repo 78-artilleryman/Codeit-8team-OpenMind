@@ -71,3 +71,26 @@ export async function getQuestionsById(id) {
     return null;
   }
 }
+
+export async function postQuestionsReaction(id, type) {
+  try {
+    const response = await fetch(`${BASE_URL}/questions/${id}/reaction/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        type: type,
+      }),
+    });
+
+    if (response.ok) {
+      return response.json();
+    }
+    return new Error('');
+  } catch (e) {
+    if (e instanceof Error) {
+      return e;
+    }
+  }
+}
