@@ -1,10 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const StyledBox = styled.div`
+const StyledBox = styled.span`
   background-color: rgba(0, 0, 0, 0.9);
   color: white;
-  width: 20vw;
   padding: 12px;
   text-align: center;
   font-size: 14px;
@@ -13,18 +12,12 @@ const StyledBox = styled.div`
 
   position: fixed;
   bottom: 5%;
-  margin: auto;
-  left: 0;
-  right: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
   z-index: 1;
-
-  @media (min-width: 767px) and (max-width: 1124px) {
-    width: 30vw;
-  }
 
   @media (min-width: 0px) and (max-width: 767px) {
     font-size: 12px;
-    width: 50vw;
   }
 `;
 const CopiedMessage = ({ show }) => {
