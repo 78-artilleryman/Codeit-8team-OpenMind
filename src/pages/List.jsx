@@ -15,7 +15,7 @@ const Header = styled.header`
   padding: 40px 40px;
   margin: 0 auto;
 
-  @media (max-width: 375px) {
+  @media (max-width: 661px) {
     flex-direction: column;
     gap: 20px;
   }
@@ -29,7 +29,7 @@ const MainLogo = styled(LogoBox)`
 `;
 
 const HeadButton = styled(Button)`
-  @media (max-width: 375px) {
+  @media (max-width: 661px) {
     width: 130px;
     height: 42px;
     font-size: 14px;
@@ -40,7 +40,8 @@ const HeadButton = styled(Button)`
 const Section = styled.section`
   margin: 0 2rem;
 
-  @media (max-width: 375px) {
+  @media (max-width: 662px) {
+    min-width: 20.6875rem;
     margin: 0 1.5rem;
   }
 `;
@@ -53,7 +54,7 @@ const TitleFilterArea = styled.div`
   align-items: center;
   gap: 0.75rem;
 
-  @media (max-width: 375px) {
+  @media (max-width: 661px) {
     width: auto;
     flex-direction: row;
     justify-content: space-between;
