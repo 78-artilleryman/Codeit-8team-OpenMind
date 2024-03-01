@@ -54,7 +54,9 @@ const Button = ({
   return (
     <>
       {varient === 'icon' ? (
-        <button onClick={onClick}>{children}</button>
+        <button onClick={onClick} className={className}>
+          {children}
+        </button>
       ) : varient === 'floating' ? (
         <FloatingButton
           onClick={onClick}
