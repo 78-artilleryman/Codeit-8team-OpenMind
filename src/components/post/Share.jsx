@@ -4,20 +4,19 @@ import * as Icons from 'components/common/Icons';
 import { CopyToClipboard } from 'react-copy-to-clipboard/src';
 import { shareFacebook, shareKakao } from 'utils/shareUtils';
 import styled from 'styled-components';
-import CopiedMessage from 'components/common/CopiedMessage';
+import Toast from 'components/common/Toast';
 
 const Container = styled.div`
-  padding-top: 100px;
   display: flex;
   gap: 12px;
   justify-content: center;
 `;
 const Share = () => {
-  const [showCopiedMessage, setShowCopiedMessage] = useState(false);
+  const [showToast, setShowToast] = useState(false);
 
-  const handleShowCopiedMessage = () => {
-    setShowCopiedMessage(true);
-    setTimeout(() => setShowCopiedMessage(false), 1000);
+  const handleShowToast = () => {
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 1000);
   };
 
   return (
@@ -26,7 +25,7 @@ const Share = () => {
         <CopyToClipboard
           className="CopyLink"
           text={window.location.href}
-          onCopy={handleShowCopiedMessage}
+          onCopy={handleShowToast}
         >
           <Button varient="icon">
             <Icons.LinkCopy />
@@ -40,9 +39,7 @@ const Share = () => {
         </Button>
       </Container>
 
-      <CopiedMessage show={showCopiedMessage}>
-        클립보드에 복사되었습니다
-      </CopiedMessage>
+      <Toast show={showToast}>클립보드에 복사되었습니다</Toast>
     </>
   );
 };
