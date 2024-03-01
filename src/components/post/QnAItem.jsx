@@ -53,24 +53,24 @@ const Answer = styled.div`
   line-height: 22px;
 `;
 
-const QnAItem = ({ QnAData }) => {
-  if (!QnAData) {
+const QnAItem = ({ qnaData }) => {
+  if (!qnaData) {
     return <></>;
   }
   return (
     <Container>
       <QuestionBox>
         <QuestionTitle>
-          질문 · {getTimeDifference(QnAData.createdAt)}
+          질문 · {getTimeDifference(qnaData.createdAt)}
         </QuestionTitle>
-        <Question>{QnAData.content}</Question>
+        <Question>{qnaData.content}</Question>
       </QuestionBox>
-      {QnAData.answer && (
+      {qnaData.answer && (
         <AnswerBox>
-          <ProfileImage>{QnAData.profileImage}</ProfileImage>
+          <ProfileImage>{qnaData.profileImage}</ProfileImage>
           <AnswerContent>
-            <Nickname>{QnAData.name}</Nickname>
-            <Answer>{QnAData.answer}</Answer>
+            <Nickname>{qnaData.name}</Nickname>
+            <Answer>{qnaData.answer}</Answer>
           </AnswerContent>
         </AnswerBox>
       )}

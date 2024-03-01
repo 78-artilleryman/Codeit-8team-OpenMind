@@ -14,13 +14,13 @@ const PostContainer = styled.div`
   box-shadow: 0px 4px 4px 0px #8c8c8c40;
 `;
 
-const PostItem = ({ QnAData }) => {
+const PostItem = ({ qnaData }) => {
   return (
     <PostContainer>
       <div>
         <AnswerBadge isAnswered={true} />
       </div>
-      <div>{QnAData && <QnAItem QnAData={QnAData} />}</div>
+      <div>{qnaData && <QnAItem qnaData={qnaData} />}</div>
       <Reactions />
     </PostContainer>
   );

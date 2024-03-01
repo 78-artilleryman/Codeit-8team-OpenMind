@@ -17,19 +17,19 @@ const LikeButton = styled(Button)`
   color: ${({ clicked }) => (clicked ? 'var(--blue)' : 'var(--gray40)')};
 `;
 
-const Reactions = () => {
+const Reactions = ({ qnaData }) => {
   const [likeCount, setLikeCount] = useState(null);
   const [dislikeCount, setDislikeCount] = useState(null);
 
   const [likeClicked, setLikeClicked] = useState(false);
   const [dislikeClicked, setDislikeClicked] = useState(false);
 
-  const handleLike = e => {
+  const handleLike = () => {
     setLikeCount(likeCount + 1);
     setLikeClicked(true);
   };
 
-  const handleDislike = e => {
+  const handleDislike = () => {
     setDislikeCount(dislikeCount + 1);
     setDislikeClicked(true);
   };

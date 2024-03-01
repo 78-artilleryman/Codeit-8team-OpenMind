@@ -17,7 +17,7 @@ const PostList = () => {
     <NoQuestion />
   ) : (
     postData.results.map(item => (
-      <PostItem key={item.id} QnAData={item} {...item} />
+      <PostItem key={item.id} qnaData={item} {...item} />
     ))
   );
 };
