@@ -3,6 +3,7 @@ import { useState } from 'react';
 import UserInputForm from './UserInputForm';
 import { createInterviewer } from 'api';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 const UserBoxContainer = styled.div`
   display: flex;
@@ -30,6 +31,8 @@ const SubmitButton = styled(Button)`
 const UserBox = () => {
   const [nickName, setNickName] = useState(null);
 
+  const navigate = useNavigate();
+
   const checkEmptyNickName = () => {
     return nickName;
   };
@@ -41,8 +44,9 @@ const UserBox = () => {
   const handleQuestionClick = () => {
     const isFilled = checkEmptyNickName();
     if (isFilled) {
-      createInterviewer(nickName);
-      alert('사용자 등록이 완료되었습니다.');
+      createInterviewer(nickName).then(result =>
+        navigate(`/post/${result.id}`),
+      );
     } else {
       alert('닉네임을 입력해주세요.');
     }
