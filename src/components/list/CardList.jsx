@@ -9,15 +9,18 @@ import useBrowserSize from 'hooks/useBrowserSize';
 const Container = styled.section`
   max-width: 940px;
   display: grid;
-  grid-template: repeat(2, 1fr) / repeat(4, 1fr);
+  grid-template: repeat(2, 1fr) / repeat(auto-fit, minmax(186px, 1fr));
   gap: 20px;
   margin: 0 auto;
 
-  @media (max-width: 768px) {
-    grid-template: repeat(2, 1fr) / repeat(3, 1fr);
+  @media (min-width: 868px) {
+    grid-template: repeat(2, 1fr) / repeat(4, minmax(186px, 1fr));
   }
-  @media (max-width: 375px) {
-    grid-template: repeat(2, 1fr) / repeat(2, 1fr);
+  @media (max-width: 867px) and (min-width: 662px) {
+    grid-template: repeat(2, 1fr) / repeat(3, minmax(186px, 1fr));
+  }
+  @media (max-width: 661px) {
+    grid-template: repeat(3, 1fr) / repeat(2, minmax(155.5px, 1fr));
   }
 `;
 
@@ -49,7 +52,7 @@ const CardList = () => {
   // 페이지 당 보여질 아이템 수를 결정하는 함수
   const handleMaxCard = useCallback(() => {
     if (!windowWidth) return;
-    if (windowWidth >= 767) {
+    if (windowWidth >= 868) {
       setLimit(8);
     } else {
       setLimit(6);
