@@ -18,6 +18,7 @@ const Header = styled.header`
 
   @media (max-width: 661px) {
     flex-direction: column;
+    padding: 40px 40px 52px;
     gap: 20px;
   }
 `;
