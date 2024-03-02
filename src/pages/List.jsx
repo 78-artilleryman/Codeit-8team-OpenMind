@@ -5,6 +5,7 @@ import LogoBox from 'components/common/LogoBox';
 import Button from 'components/common/Button';
 import Title from 'components/list/Title';
 import Filter from 'components/list/Filter';
+import { Link } from 'react-router-dom';
 
 const Header = styled.header`
   display: flex;
@@ -69,7 +70,9 @@ const List = () => {
   return (
     <>
       <Header>
-        <MainLogo />
+        <Link to="/">
+          <MainLogo />
+        </Link>
         <HeadButton width={160} bright={true}>
           답변하러 가기
         </HeadButton>
