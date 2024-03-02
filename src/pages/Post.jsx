@@ -8,6 +8,7 @@ import styled from 'styled-components';
 import PostCount from 'components/post/PostCount';
 import PostList from 'components/post/PostList';
 import useBrowserSize from 'hooks/useBrowserSize';
+import Modal from 'components/common/Modal';
 
 const PostContainer = styled.div`
   display: flex;
@@ -43,7 +44,10 @@ const Feed = styled.div`
 const Post = () => {
   const { postId } = useParams();
   const [userData, setUserData] = useState();
+  console.log(userData);
   const [shortButton, setShortButton] = useState(false);
+  const [isModalOpen, setModalOpen] = useState(false);
+
   const { windowWidth } = useBrowserSize();
 
   // 창 크기가 바뀔 때 질문 작성 버튼 문구 변경
@@ -76,6 +80,15 @@ const Post = () => {
   if (!userData) return <></>;
   return (
     <>
+      {isModalOpen && (
+        <Modal
+          userName={userData.name}
+          imageSource={userData.imageSource}
+          onClick={() => {
+            setModalOpen(false);
+          }}
+        />
+      )}
       <PostBanner
         userProfileImage={userData.imageSource}
         userName={userData.name}
@@ -87,7 +100,13 @@ const Post = () => {
           <PostList userData={userData} />
         </Feed>
         <AddQuestionButton>
-          <Button varient="floating" width={208}>
+          <Button
+            varient="floating"
+            width={208}
+            onClick={() => {
+              setModalOpen(true);
+            }}
+          >
             {shortButton ? '질문작성' : '질문 작성하기'}
           </Button>
         </AddQuestionButton>
