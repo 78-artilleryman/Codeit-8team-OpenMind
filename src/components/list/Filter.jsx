@@ -6,7 +6,7 @@ import ArrowUp from '../../assets/icons/Arrow-up.svg';
 
 const StyledSelectBox = styled.div`
   position: relative;
-  width: 4.9375rem;
+  min-width: 4.9375rem;
   padding: 0.5rem 0.75rem;
 
   display: flex;
