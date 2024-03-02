@@ -22,6 +22,7 @@ const Container = styled.section`
   }
   @media (max-width: 661px) {
     grid-template: repeat(3, 1fr) / repeat(2, minmax(155.5px, 1fr));
+    place-items: center;
   }
 `;
 
