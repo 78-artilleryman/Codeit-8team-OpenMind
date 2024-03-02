@@ -12,6 +12,7 @@ const Container = styled.section`
   display: grid;
   grid-template: repeat(2, 1fr) / repeat(auto-fit, minmax(186px, 1fr));
   gap: 20px;
+  margin: 0 auto;
 
   @media (min-width: 868px) {
     grid-template: repeat(2, 1fr) / repeat(4, minmax(186px, 1fr));
