@@ -12,6 +12,7 @@ const Header = styled.header`
   align-items: center;
   width: 100%;
   max-width: 1020px;
+  min-width: 375px;
   padding: 40px 40px;
   margin: 0 auto;
 
