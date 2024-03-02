@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import PostBanner from 'components/post/PostBanner';
 import { useParams } from 'react-router-dom';
 import { getSubjectById } from '../api';
@@ -7,6 +7,7 @@ import Button from 'components/common/Button';
 import styled from 'styled-components';
 import PostCount from 'components/post/PostCount';
 import PostList from 'components/post/PostList';
+import useBrowserSize from 'hooks/useBrowserSize';
 
 const PostContainer = styled.div`
   display: flex;
@@ -43,6 +44,7 @@ const Post = () => {
   const { postId } = useParams();
   const [userData, setUserData] = useState();
   const [shortButton, setShortButton] = useState(false);
+  const { windowWidth } = useBrowserSize();
 
   // 창 크기가 바뀔 때 질문 작성 버튼 문구 변경
   window.onresize = function () {
@@ -54,9 +56,22 @@ const Post = () => {
     setShortButton(false);
   };
 
+  const handleButtonsize = useCallback(() => {
+    if (windowWidth <= 767) {
+      setShortButton(true);
+      return;
+    } else {
+      setShortButton(false);
+    }
+  }, [windowWidth]);
+
   useEffect(() => {
     getSubjectById(postId).then(setUserData);
   }, [postId]);
+
+  useEffect(() => {
+    handleButtonsize();
+  }, [handleButtonsize]);
 
   if (!userData) return <></>;
   return (
