@@ -38,28 +38,28 @@ const HeadButton = styled(Button)`
 `;
 
 const Section = styled.section`
-  margin: 0 2rem;
+  margin: 0 32px;
 
   @media (max-width: 661px) {
-    min-width: 20.6875rem;
-    margin: 0 1.5rem;
+    min-width: 331px;
+    margin: 0 24px;
   }
 `;
 
 const TitleFilterArea = styled.div`
-  width: 21.3125rem;
-  margin: 0 auto 1.875rem;
+  width: 341px;
+  margin: 0 auto 30px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.75rem;
+  gap: 12px;
 
   @media (max-width: 661px) {
     width: auto;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin: 0 auto 1rem;
+    margin: 0 auto 16px;
   }
 `;
 
