@@ -26,13 +26,13 @@ const Arrow = styled.p`
 
 const Number = styled(Arrow)``;
 
-function PagiNation({
+const PagiNation = ({
   totalItems,
   itemCountPerPage,
   pageCount,
   currentPage,
   onPageChange,
-}) {
+}) => {
   const totalPages = Math.ceil(totalItems / itemCountPerPage); // 총 페이지 개수 //6
   const [start, setStart] = useState(1); // 시작 페이지 //1
   const noPrev = start === 1; // 이전 페이지가 없는 경우
@@ -61,19 +61,18 @@ function PagiNation({
       >
         <Arrow>{'<'}</Arrow>
       </PageBox>
-      {[...Array(pageCount)].map((a, i) => (
-        <>
-          {start + i <= totalPages && (
+      {[...Array(pageCount)].map(
+        (page, index) =>
+          start + index <= totalPages && (
             <PageBox
-              key={i}
-              to={`?page=${start + i}`}
-              onClick={() => handleClick(start + i)}
+              key={start + index}
+              to={`?page=${start + index}`}
+              onClick={() => handleClick(start + index)}
             >
-              <Number>{start + i}</Number>
+              <Number>{start + index}</Number>
             </PageBox>
-          )}
-        </>
-      ))}
+          ),
+      )}
       <PageBox
         disabled={noNext}
         onClick={() => handleClick(start + pageCount)}
@@ -83,6 +82,6 @@ function PagiNation({
       </PageBox>
     </PaigeNation>
   );
-}
+};
 
 export default PagiNation;

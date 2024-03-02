@@ -3,6 +3,7 @@ import { useState } from 'react';
 import UserInputForm from './UserInputForm';
 import { createInterviewer } from 'api';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 const UserBoxContainer = styled.div`
   display: flex;
@@ -10,20 +11,19 @@ const UserBoxContainer = styled.div`
   gap: 16px;
   margin: auto;
   margin-top: 5%;
-
   max-width: 400px;
-
   background-color: var(--gray10);
   padding: 24px;
   border-radius: 16px;
 
-  @media (max-width: 767px) {
+  @media (max-width: 768px) {
     width: 305px;
   }
 `;
 
 const SubmitButton = styled(Button)`
-  @media (max-width: 767px) {
+  margin: auto;
+  @media (max-width: 768px) {
     width: 257px;
   }
 `;
@@ -31,21 +31,22 @@ const SubmitButton = styled(Button)`
 const UserBox = () => {
   const [nickName, setNickName] = useState(null);
 
+  const navigate = useNavigate();
+
   const checkEmptyNickName = () => {
-    if (nickName) {
-      return true;
-    }
-    return false;
+    return nickName;
   };
 
   const handleChangeNickName = e => {
     setNickName(e.target.value);
   };
 
-  const handleQuestionClick = e => {
+  const handleQuestionClick = () => {
     const isFilled = checkEmptyNickName();
     if (isFilled) {
-      createInterviewer(nickName);
+      createInterviewer(nickName).then(result =>
+        navigate(`/post/${result.id}`),
+      );
     } else {
       alert('닉네임을 입력해주세요.');
     }

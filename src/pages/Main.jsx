@@ -2,13 +2,14 @@ import UserBox from '../components/main/UserBox.jsx';
 import LogoBox from '../components/common/LogoBox.jsx';
 import styled from 'styled-components';
 import Button from '../components/common/Button.jsx';
+import { Link } from 'react-router-dom';
 
 const HeadButton = styled(Button)`
   position: absolute;
   top: 45px;
   right: 6%;
 
-  @media (max-width: 767px) {
+  @media (max-width: 768px) {
     position: static;
     display: flex;
     justify-content: center;
@@ -35,11 +36,9 @@ const MainLogo = styled(LogoBox)`
   margin: auto;
 
   width: 456px;
-  height: 180px;
 
-  @media (max-width: 767px) {
+  @media (max-width: 768px) {
     width: 248px;
-    height: 98px;
   }
 `;
 
@@ -48,9 +47,9 @@ const Main = () => {
     <>
       <MainContainer>
         <MainLogo />
-        <HeadButton width={123} bright={true}>
-          질문하러 가기
-        </HeadButton>
+        <Link to="list">
+          <HeadButton bright={true}>질문하러 가기 →</HeadButton>
+        </Link>
         <UserBox />
       </MainContainer>
     </>

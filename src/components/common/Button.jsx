@@ -15,7 +15,6 @@ const BasicButton = styled.button`
 
   opacity: ${({ inactive }) => inactive && 0.5};
 
-  margin: auto;
   white-space: nowrap;
   display: flex;
   align-items: center;
@@ -32,19 +31,52 @@ const BasicButton = styled.button`
   }
 `;
 
-const Button = ({ children, className, onClick, width, bright, inactive }) => {
+const FloatingButton = styled(BasicButton)`
+  box-shadow: 0 4px 4px 0 #00000040;
+  border-radius: 200px;
+
+  @media (max-width: 767px) {
+    width: 123px;
+  }
+`;
+const Button = ({
+  children,
+  className,
+  onClick,
+  width,
+  bright,
+  inactive,
+  varient,
+}) => {
   return (
     <>
-      <BasicButton
-        onClick={onClick}
-        className={className}
-        width={width}
-        bright={bright}
-        inactive={inactive}
-        disabled={inactive}
-      >
-        {children}
-      </BasicButton>
+      {varient === 'icon' ? (
+        <button onClick={onClick} className={className}>
+          {children}
+        </button>
+      ) : varient === 'floating' ? (
+        <FloatingButton
+          onClick={onClick}
+          className={className}
+          width={width}
+          bright={bright}
+          inactive={inactive}
+          disabled={inactive}
+        >
+          {children}
+        </FloatingButton>
+      ) : (
+        <BasicButton
+          onClick={onClick}
+          className={className}
+          width={width}
+          bright={bright}
+          inactive={inactive}
+          disabled={inactive}
+        >
+          {children}
+        </BasicButton>
+      )}
     </>
   );
 };
