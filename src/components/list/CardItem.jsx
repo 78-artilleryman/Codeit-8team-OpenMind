@@ -14,7 +14,7 @@ const Card = styled.div`
   background: var(--gray10, #fff);
   font-family: Pretendard;
 
-  @media (max-width: 662px) {
+  @media (max-width: 661px) {
     min-width: 155.5px;
     padding: 16px;
   }

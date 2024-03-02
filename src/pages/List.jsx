@@ -40,7 +40,7 @@ const HeadButton = styled(Button)`
 const Section = styled.section`
   margin: 0 2rem;
 
-  @media (max-width: 662px) {
+  @media (max-width: 661px) {
     min-width: 20.6875rem;
     margin: 0 1.5rem;
   }
