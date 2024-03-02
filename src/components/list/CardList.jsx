@@ -81,14 +81,14 @@ const CardList = () => {
       </>
     );
 
-  return isLoading ? (
-    <Loding />
-  ) : (
+  return (
     <>
       <Container>
-        {cards.results.map(card => (
-          <CardItem key={card.id} {...card} />
-        ))}
+        {isLoading ? (
+          <Loding />
+        ) : (
+          cards.results.map(card => <CardItem key={card.id} {...card} />)
+        )}
       </Container>
       <PagiNation
         totalItems={cards.count} // 데이터의 총 개수
