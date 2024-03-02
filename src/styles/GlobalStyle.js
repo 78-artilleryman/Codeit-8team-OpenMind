@@ -24,35 +24,12 @@ const GlobalStyle = createGlobalStyle`
     --shadow-3pt: 0px 16px 20px 0px rgba(48, 48, 48, 0.62);
   }
 
-
   * {
     box-sizing: border-box;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: Pretendard;
+    padding: 0;
     margin: 0;
-    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
-    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-  }
-
-  /* html,
-  body {
-    font-size: 62.5%;
-    
-  } */
-
-  a {
-    color: inherit;
-    text-decoration: none;
-    cursor: pointer;
-  }
-
-  input:focus {
-    outline: none;
-  }
-
-  button {
-    border: none;
-    padding: unset;
-    background-color: unset;
-    cursor: pointer;
   }
 `;
 

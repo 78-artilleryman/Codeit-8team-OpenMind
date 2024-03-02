@@ -47,7 +47,7 @@ const Main = () => {
     <>
       <MainContainer>
         <MainLogo />
-        <Link to="list">
+        <Link to="/list?page=1&sort=createdAt">
           <HeadButton bright={true}>질문하러 가기 →</HeadButton>
         </Link>
         <UserBox />
