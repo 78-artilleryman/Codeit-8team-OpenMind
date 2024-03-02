@@ -8,7 +8,7 @@ const PaigeNation = styled.div`
   margin-top: 40px;
 
   @media (max-width: 661px) {
-    margin-top: 30px;
+    margin: 30px 0 40px;
   }
 `;
 
