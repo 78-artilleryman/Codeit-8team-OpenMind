@@ -61,7 +61,7 @@ const TitleFilterArea = styled.div`
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin: 0 auto 16px;
+    margin: 0 auto 18px;
   }
 `;
 
