@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import CardList from 'components/list/CardList';
 import LogoBox from 'components/common/LogoBox';
 import Button from 'components/common/Button';
+import Title from 'components/list/Title';
+import Filter from 'components/list/Filter';
 
 const Header = styled.header`
   display: flex;
@@ -35,6 +37,23 @@ const HeadButton = styled(Button)`
   }
 `;
 
+const StyledTitleFilterArea = styled.div`
+  width: 21.3125rem;
+  margin: 0 auto 1.875rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+
+  @media (max-width: 375px) {
+    width: auto;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 1.5rem 1rem 1.5rem;
+  }
+`;
+
 const List = () => {
   return (
     <>
@@ -44,6 +63,10 @@ const List = () => {
           답변하러 가기
         </HeadButton>
       </Header>
+      <StyledTitleFilterArea>
+        <Title />
+        <Filter />
+      </StyledTitleFilterArea>
       <CardList />
     </>
   );

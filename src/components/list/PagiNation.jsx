@@ -26,12 +26,21 @@ const Arrow = styled.p`
 
 const Number = styled(Arrow)``;
 
+const SelectNumber = styled(Arrow)`
+  color: var(--brown40, #542f1a);
+  text-align: center;
+  font-size: 30px;
+  font-family: Actor;
+`;
+
 const PagiNation = ({
   totalItems,
   itemCountPerPage,
   pageCount,
   currentPage,
   onPageChange,
+  selectPageNumber,
+  sort,
 }) => {
   const totalPages = Math.ceil(totalItems / itemCountPerPage); // 총 페이지 개수 //6
   const [start, setStart] = useState(1); // 시작 페이지 //1
@@ -47,39 +56,40 @@ const PagiNation = ({
     onPageChange(page);
   };
 
-  const pages = [];
-  for (let i = start; i < start + pageCount && i <= totalPages; i++) {
-    pages.push(i);
-  }
-
   return (
     <PaigeNation>
-      <PageBox
-        disabled={noPrev}
-        onClick={() => handleClick(currentPage - 1)}
-        to={`?page=${start - 1}`}
-      >
-        <Arrow>{'<'}</Arrow>
-      </PageBox>
+      {noPrev === false && (
+        <PageBox
+          onClick={() => handleClick(currentPage - 1)}
+          to={`?page=${start - 1}&sort=${sort}`}
+        >
+          <Arrow>{'<'}</Arrow>
+        </PageBox>
+      )}
       {[...Array(pageCount)].map(
         (page, index) =>
           start + index <= totalPages && (
             <PageBox
               key={start + index}
-              to={`?page=${start + index}`}
+              to={`?page=${start + index}&sort=${sort}`}
               onClick={() => handleClick(start + index)}
             >
-              <Number>{start + index}</Number>
+              {+selectPageNumber === start + index ? (
+                <SelectNumber>{start + index}</SelectNumber>
+              ) : (
+                <Number>{start + index}</Number>
+              )}
             </PageBox>
           ),
       )}
-      <PageBox
-        disabled={noNext}
-        onClick={() => handleClick(start + pageCount)}
-        to={`?page=${start + pageCount}`}
-      >
-        <Arrow>{`>`}</Arrow>
-      </PageBox>
+      {noNext === false && (
+        <PageBox
+          onClick={() => handleClick(start + pageCount)}
+          to={`?page=${start + pageCount}&sort=${sort}`}
+        >
+          <Arrow>{`>`}</Arrow>
+        </PageBox>
+      )}
     </PaigeNation>
   );
 };
