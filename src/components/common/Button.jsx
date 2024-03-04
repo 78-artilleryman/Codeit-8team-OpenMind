@@ -20,6 +20,11 @@ const BasicButton = styled.button`
   align-items: center;
   justify-content: center;
 
+  cursor: ${({ inactive }) => inactive && 'default'};
+
+  ${({ inactive }) =>
+    inactive === false &&
+    `
   &:hover {
     border: 2px solid var(--brown40);
   }
@@ -29,21 +34,20 @@ const BasicButton = styled.button`
     background-color: ${({ bright }) =>
       bright ? 'var(--brown20)' : 'var(--brown50)'};
   }
+  `}
 `;
 
 const FloatingButton = styled(BasicButton)`
   box-shadow: 0 4px 4px 0 #00000040;
   border-radius: 200px;
-
-  @media (max-width: 767px) {
-    width: 123px;
-  }
 `;
+
 const Button = ({
   children,
   className,
   onClick,
   width,
+  height,
   bright,
   inactive,
   varient,
@@ -51,7 +55,7 @@ const Button = ({
   return (
     <>
       {varient === 'icon' ? (
-        <button onClick={onClick} className={className}>
+        <button onClick={onClick} className={className} disabled={inactive}>
           {children}
         </button>
       ) : varient === 'floating' ? (
@@ -59,6 +63,7 @@ const Button = ({
           onClick={onClick}
           className={className}
           width={width}
+          height={height}
           bright={bright}
           inactive={inactive}
           disabled={inactive}
@@ -70,6 +75,7 @@ const Button = ({
           onClick={onClick}
           className={className}
           width={width}
+          height={height}
           bright={bright}
           inactive={inactive}
           disabled={inactive}
