@@ -58,7 +58,12 @@ const OptionButton = styled(Button)`
   }
 `;
 
-const KebabOptions = ({ isClicked, onEditClick, onDeleteClick }) => {
+const KebabOptions = ({
+  isClicked,
+  onEditClick,
+  onDeleteClick,
+  onRejectClick,
+}) => {
   return (
     <ToggleList isClicked={isClicked}>
       <OptionButton varient="icon" onClick={onEditClick}>
@@ -69,7 +74,7 @@ const KebabOptions = ({ isClicked, onEditClick, onDeleteClick }) => {
         <Icons.Delete />
         삭제하기
       </OptionButton>
-      <OptionButton varient="icon">
+      <OptionButton varient="icon" onClick={onRejectClick}>
         <Icons.Rejection />
         답변거절
       </OptionButton>
