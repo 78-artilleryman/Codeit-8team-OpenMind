@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Button from './Button';
+import { createquestion } from 'api';
+import { useParams } from 'react-router-dom';
 
 const EditorContainer = styled.div`
   display: flex;
@@ -27,9 +29,15 @@ const TextArea = styled.textarea`
 
 const Editor = ({ placeholder, width, height }) => {
   const [question, setQuestion] = useState('');
+  const { postId } = useParams();
 
   const questionValueHandler = e => {
     setQuestion(e.target.value);
+  };
+
+  const handlePostQuestion = () => {
+    createquestion(postId, question);
+    setQuestion('');
   };
 
   return (
@@ -40,8 +48,13 @@ const Editor = ({ placeholder, width, height }) => {
         placeholder={placeholder}
         height={height}
         onChange={questionValueHandler}
+        value={question}
       ></TextArea>
-      <Button inactive={question.length === 0} width={width}>
+      <Button
+        onClick={handlePostQuestion}
+        inactive={question.length === 0}
+        width={width}
+      >
         질문 보내기
       </Button>
     </EditorContainer>
