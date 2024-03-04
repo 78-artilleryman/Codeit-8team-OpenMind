@@ -1,9 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
+import AnswerInputForm from './AnswerInputForm';
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
   gap: 12px;
 `;
 
@@ -37,7 +39,13 @@ const QuestionContent = ({ subInformation, time, textContents, type }) => {
         <SubText type={type}>{subInformation}</SubText>
         <TimeText>{time}</TimeText>
       </SubInformation>
-      <TextContents type={type}>{textContents}</TextContents>
+      {type === 'create answer' ? (
+        <AnswerInputForm placeholder="답변을 입력해주세요" />
+      ) : type === 'edit answer' ? (
+        <AnswerInputForm>{textContents}</AnswerInputForm>
+      ) : (
+        <TextContents type={type}>{textContents}</TextContents>
+      )}
     </Container>
   );
 };
