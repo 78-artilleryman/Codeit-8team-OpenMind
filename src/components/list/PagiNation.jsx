@@ -6,6 +6,10 @@ const PaigeNation = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 40px;
+
+  @media (max-width: 661px) {
+    margin: 30px 0 40px;
+  }
 `;
 
 const PageBox = styled(Link)`

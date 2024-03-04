@@ -5,6 +5,7 @@ import LogoBox from 'components/common/LogoBox';
 import Button from 'components/common/Button';
 import Title from 'components/list/Title';
 import Filter from 'components/list/Filter';
+import { Link } from 'react-router-dom';
 
 const Header = styled.header`
   display: flex;
@@ -12,11 +13,13 @@ const Header = styled.header`
   align-items: center;
   width: 100%;
   max-width: 1020px;
+  min-width: 375px;
   padding: 40px 40px;
   margin: 0 auto;
 
-  @media (max-width: 374px) {
+  @media (max-width: 661px) {
     flex-direction: column;
+    padding: 40px 40px 52px;
     gap: 20px;
   }
 `;
@@ -29,7 +32,7 @@ const MainLogo = styled(LogoBox)`
 `;
 
 const HeadButton = styled(Button)`
-  @media (max-width: 374px) {
+  @media (max-width: 661px) {
     width: 130px;
     height: 42px;
     font-size: 14px;
@@ -37,20 +40,29 @@ const HeadButton = styled(Button)`
   }
 `;
 
-const StyledTitleFilterArea = styled.div`
-  width: 21.3125rem;
-  margin: 0 auto 1.875rem;
+const Section = styled.section`
+  margin: 0 32px;
+
+  @media (max-width: 661px) {
+    min-width: 331px;
+    margin: 0 24px;
+  }
+`;
+
+const TitleFilterArea = styled.div`
+  width: 341px;
+  margin: 0 auto 30px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.75rem;
+  gap: 12px;
 
-  @media (max-width: 375px) {
+  @media (max-width: 661px) {
     width: auto;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin: 0 1.5rem 1rem 1.5rem;
+    margin: 0 auto 18px;
   }
 `;
 
@@ -58,16 +70,20 @@ const List = () => {
   return (
     <>
       <Header>
-        <MainLogo />
+        <Link to="/">
+          <MainLogo />
+        </Link>
         <HeadButton width={160} bright={true}>
           답변하러 가기
         </HeadButton>
       </Header>
-      <StyledTitleFilterArea>
-        <Title />
-        <Filter />
-      </StyledTitleFilterArea>
-      <CardList />
+      <Section>
+        <TitleFilterArea>
+          <Title />
+          <Filter />
+        </TitleFilterArea>
+        <CardList />
+      </Section>
     </>
   );
 };

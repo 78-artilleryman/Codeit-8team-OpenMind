@@ -6,11 +6,12 @@ const StyledTitle = styled.span`
   font-feature-settings:
     'clig' off,
     'liga' off;
-  font-size: 2.5rem;
+  font-size: 40px;
 
-  @media (max-width: 375px) {
-    font-size: 1.5rem;
-    line-height: 1.875rem;
+  @media (max-width: 661px) {
+    font-size: 24px;
+    line-height: 30px;
+    word-break: keep-all;
   }
 `;
 

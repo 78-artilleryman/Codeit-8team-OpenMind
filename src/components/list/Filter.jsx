@@ -6,15 +6,15 @@ import ArrowUp from '../../assets/icons/Arrow-up.svg';
 
 const StyledSelectBox = styled.div`
   position: relative;
-  width: 4.9375rem;
-  padding: 0.5rem 0.75rem;
+  min-width: 79px;
+  padding: 8px 12px;
 
   display: flex;
   justify-content: center;
   align-items: center;
 
   outline: none;
-  border-radius: 0.5rem;
+  border-radius: 8px;
   border: 1px solid
     ${props =>
       props.isShow ? 'var(--gray60, #000)' : 'var(--gray40, #818181)'};
@@ -22,20 +22,20 @@ const StyledSelectBox = styled.div`
   color: ${props =>
     props.isShow ? 'var(--gray60, #000)' : 'var(--gray40, #818181)'};
 
-  font-size: 0.875rem;
+  font-size: 14px;
   font-weight: 500;
-  line-height: 1.125rem;
+  line-height: 18px;
 
   cursor: pointer;
 
   &::before {
     content: '';
-    width: 0.875rem;
-    height: 0.875rem;
+    width: 14px;
+    height: 14px;
     background-image: url(${props => (props.isShow ? ArrowUp : ArrowDown)});
-    background-size: 0.875rem 0.875rem;
+    background-size: 14px 14px;
     position: absolute;
-    right: 0.75rem;
+    right: 12px;
   }
 `;
 
@@ -50,13 +50,13 @@ const SelectOptions = styled.ul`
   list-style: none;
 
   display: flex;
-  width: 4.9375rem;
-  padding: 0.25rem 0rem;
+  width: 79px;
+  padding: 4px 0;
   flex-direction: column;
 
-  bottom: -4.875rem;
+  bottom: -78px;
 
-  border-radius: 0.5rem;
+  border-radius: 8px;
   border: 1px solid var(--gray30, #cfcfcf);
   background: var(--gray10, #fff);
 
@@ -65,17 +65,17 @@ const SelectOptions = styled.ul`
 
 const Option = styled.li`
   display: flex;
-  padding: 0.375rem 1rem;
+  padding: 6px 16px;
   justify-content: center;
   align-items: center;
-  gap: 0.5rem;
+  gap: 8px;
   align-self: stretch;
 
   color: ${props =>
     props.isSelected ? 'var(--blue, #1877F2)' : 'var(--gray50, #515151)'};
-  font-size: 0.875rem;
+  font-size: 14px;
   font-weight: 500;
-  line-height: 1.125rem;
+  line-height: 18px;
 `;
 
 function Filter() {
