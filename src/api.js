@@ -120,3 +120,20 @@ export async function createAnswer(id, content, isRejected = false) {
     }
   }
 }
+
+export async function deletePost(id) {
+  try {
+    const response = await fetch(`${BASE_URL}/subjects/${id}/`, {
+      method: 'DELETE',
+    });
+
+    if (response.ok) {
+      return;
+    }
+    return new Error('');
+  } catch (e) {
+    if (e instanceof Error) {
+      return e;
+    }
+  }
+}
