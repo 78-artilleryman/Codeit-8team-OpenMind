@@ -46,7 +46,12 @@ const OptionButton = styled(Button)`
         brightness(95%) contrast(99%);
     }
 
-    ${Icons.Delete} {
+    ${Icons.DeleteQuestion} {
+      filter: invert(33%) sepia(96%) saturate(1804%) hue-rotate(201deg)
+        brightness(95%) contrast(99%);
+    }
+
+    ${Icons.DeleteAnswer} {
       filter: invert(33%) sepia(96%) saturate(1804%) hue-rotate(201deg)
         brightness(95%) contrast(99%);
     }
@@ -61,7 +66,8 @@ const OptionButton = styled(Button)`
 const KebabOptions = ({
   isClicked,
   onEditClick,
-  onDeleteClick,
+  onDeleteQuestionClick,
+  onDeleteAnswerClick,
   onRejectClick,
 }) => {
   return (
@@ -70,9 +76,13 @@ const KebabOptions = ({
         <Icons.Edit />
         수정하기
       </OptionButton>
-      <OptionButton varient="icon" onClick={onDeleteClick}>
-        <Icons.Delete />
-        삭제하기
+      <OptionButton varient="icon" onClick={onDeleteQuestionClick}>
+        <Icons.DeleteQuestion />
+        질문삭제
+      </OptionButton>
+      <OptionButton varient="icon" onClick={onDeleteAnswerClick}>
+        <Icons.DeleteAnswer />
+        답변삭제
       </OptionButton>
       <OptionButton varient="icon" onClick={onRejectClick}>
         <Icons.Rejection />

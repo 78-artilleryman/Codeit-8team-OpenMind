@@ -178,3 +178,20 @@ export async function deleteQuestion(id) {
     }
   }
 }
+
+export async function deleteAnswer(id) {
+  try {
+    const response = await fetch(`${BASE_URL}/answers/${id}/`, {
+      method: 'DELETE',
+    });
+
+    if (response.ok) {
+      return;
+    }
+    return new Error('');
+  } catch (e) {
+    if (e instanceof Error) {
+      return e;
+    }
+  }
+}

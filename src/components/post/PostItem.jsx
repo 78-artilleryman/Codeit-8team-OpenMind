@@ -5,7 +5,12 @@ import QnAItem from './QnAItem';
 import Kebab from 'components/post/Kebab';
 import { useLocation } from 'react-router-dom';
 import { useState } from 'react';
-import { createAnswer, deleteQuestion, editAnswer } from '../../api';
+import {
+  createAnswer,
+  deleteAnswer,
+  deleteQuestion,
+  editAnswer,
+} from '../../api';
 
 const PostContainer = styled.div`
   display: flex;
@@ -34,6 +39,11 @@ const PostItem = ({ qnaData, userData }) => {
     deleteQuestion(qnaData.id).then(() => window.location.reload());
   };
 
+  const handleDeleteAnswer = () => {
+    if (!qnaData.answer) return;
+    deleteAnswer(qnaData.answer.id).then(() => window.location.reload());
+  };
+
   const handleRejectAnswer = () => {
     if (!qnaData.answer) {
       createAnswer(qnaData.id, '답변 거절', true).then(() =>
@@ -55,7 +65,8 @@ const PostItem = ({ qnaData, userData }) => {
         {isAnswerPage && (
           <Kebab
             onEditClick={() => setIsEdit(true)}
-            onDeleteClick={handleDeleteQuestion}
+            onDeleteQuestionClick={handleDeleteQuestion}
+            onDeleteAnswerClick={handleDeleteAnswer}
             onRejectClick={handleRejectAnswer}
           />
         )}
