@@ -22,6 +22,7 @@ const Container = styled.section`
   }
   @media (max-width: 661px) {
     grid-template: repeat(3, 1fr) / repeat(2, minmax(155.5px, 1fr));
+    place-items: center;
   }
 `;
 
@@ -58,10 +59,10 @@ const CardList = () => {
   // 페이지 당 보여질 아이템 수를 결정하는 함수
   const handleMaxCard = useCallback(() => {
     if (!windowWidth) return;
-    if (windowWidth >= 868) {
-      setLimit(8);
-    } else {
+    if (windowWidth <= 767) {
       setLimit(6);
+    } else {
+      setLimit(8);
     }
   }, [windowWidth]);
 
@@ -80,14 +81,14 @@ const CardList = () => {
       </>
     );
 
-  return isLoading ? (
-    <Loding />
-  ) : (
+  return (
     <>
       <Container>
-        {cards.results.map(card => (
-          <CardItem key={card.id} {...card} />
-        ))}
+        {isLoading ? (
+          <Loding />
+        ) : (
+          cards.results.map(card => <CardItem key={card.id} {...card} />)
+        )}
       </Container>
       <PagiNation
         totalItems={cards.count} // 데이터의 총 개수
