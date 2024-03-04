@@ -16,14 +16,14 @@ const UserBoxContainer = styled.div`
   padding: 24px;
   border-radius: 16px;
 
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     width: 305px;
   }
 `;
 
 const SubmitButton = styled(Button)`
   margin: auto;
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     width: 257px;
   }
 `;

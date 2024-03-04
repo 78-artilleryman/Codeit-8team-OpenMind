@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const PaigeNation = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 40px;
+  margin: 40px 0 100px;
 
   @media (max-width: 661px) {
     margin: 30px 0 40px;

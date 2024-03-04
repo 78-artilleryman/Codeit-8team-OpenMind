@@ -58,7 +58,7 @@ const CardList = () => {
   // 페이지 당 보여질 아이템 수를 결정하는 함수
   const handleMaxCard = useCallback(() => {
     if (!windowWidth) return;
-    if (windowWidth <= 767) {
+    if (windowWidth <= 867) {
       setLimit(6);
     } else {
       setLimit(8);
