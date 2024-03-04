@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Avatar from './Avatar';
 import Editor from './Editor';
 import useBrowserSize from 'hooks/useBrowserSize';
+import { useModal } from 'hooks/useModal';
 
 const BackgroundModal = styled.div`
   background-color: rgba(0, 0, 0, 0.56);
@@ -123,7 +124,7 @@ const Modal = ({ userName, imageSource, onClick }) => {
       // ref.current가 event.target을 포함하는지 판단하여 !연산
       // 즉, event.target이 외부에서 발생했다면 모달을 false하여 닫음
       if (ref.current && !ref.current.contains(event.target)) {
-        onClick(false);
+        onClick();
       }
     }
     document.addEventListener('mousedown', handleClickOutside);
@@ -160,6 +161,7 @@ const Modal = ({ userName, imageSource, onClick }) => {
           placeholder="질문을 입력해주세요"
           width={shortEditor ? 279 : 530}
           height={shortEditor ? 358 : 180}
+          ModalClose={onClick}
         />
       </ModalContainer>
     </BackgroundModal>

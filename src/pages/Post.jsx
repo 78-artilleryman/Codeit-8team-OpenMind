@@ -9,6 +9,7 @@ import PostCount from 'components/post/PostCount';
 import PostList from 'components/post/PostList';
 import useBrowserSize from 'hooks/useBrowserSize';
 import Modal from 'components/common/Modal';
+import { useModal } from 'hooks/useModal';
 
 const PostContainer = styled.div`
   display: flex;
@@ -55,7 +56,8 @@ const Post = () => {
   const { postId } = useParams();
   const [userData, setUserData] = useState();
   const [shortButton, setShortButton] = useState(false);
-  const [isModalOpen, setModalOpen] = useState(false);
+  // 모달 오픈 여부 변수
+  const { openModal, handleModalOpen, handleModalClose } = useModal();
 
   const { pathname } = useLocation();
   const paths = pathname.split('/');
@@ -64,16 +66,6 @@ const Post = () => {
   const { windowWidth } = useBrowserSize();
 
   const navigate = useNavigate();
-
-  // 창 크기가 바뀔 때 질문 작성 버튼 문구 변경
-  window.onresize = function () {
-    const screenWidth = window.innerWidth;
-    if (screenWidth <= 767) {
-      setShortButton(true);
-      return;
-    }
-    setShortButton(false);
-  };
 
   const handleButtonsize = useCallback(() => {
     if (windowWidth <= 767) {
@@ -99,13 +91,11 @@ const Post = () => {
   if (!userData) return <></>;
   return (
     <>
-      {isModalOpen && (
+      {openModal && (
         <Modal
           userName={userData.name}
           imageSource={userData.imageSource}
-          onClick={() => {
-            setModalOpen(false);
-          }}
+          onClick={handleModalClose}
         />
       )}
       <PostBanner
@@ -136,7 +126,7 @@ const Post = () => {
               varient="floating"
               width={208}
               onClick={() => {
-                setModalOpen(true);
+                handleModalOpen();
               }}
             >
               {shortButton ? '질문작성' : '질문 작성하기'}

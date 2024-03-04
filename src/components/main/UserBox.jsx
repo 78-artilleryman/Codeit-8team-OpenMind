@@ -4,6 +4,7 @@ import UserInputForm from './UserInputForm';
 import { createInterviewer } from 'api';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { setLocalStorage } from 'utils/useLocalStorage';
 
 const UserBoxContainer = styled.div`
   display: flex;
@@ -44,9 +45,10 @@ const UserBox = () => {
   const handleQuestionClick = () => {
     const isFilled = checkEmptyNickName();
     if (isFilled) {
-      createInterviewer(nickName).then(result =>
-        navigate(`/post/${result.id}/answer`),
-      );
+      createInterviewer(nickName).then(result => {
+        setLocalStorage(result.id, result.name);
+        navigate(`/post/${result.id}/answer`);
+      });
     } else {
       alert('닉네임을 입력해주세요.');
     }
