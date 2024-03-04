@@ -9,7 +9,7 @@ const HeadButton = styled(Button)`
   top: 45px;
   right: 6%;
 
-  @media (max-width: 767px) {
+  @media (max-width: 768px) {
     position: static;
     display: flex;
     justify-content: center;
@@ -36,11 +36,9 @@ const MainLogo = styled(LogoBox)`
   margin: auto;
 
   width: 456px;
-  height: 180px;
 
-  @media (max-width: 767px) {
+  @media (max-width: 768px) {
     width: 248px;
-    height: 98px;
   }
 `;
 
@@ -49,9 +47,9 @@ const Main = () => {
     <>
       <MainContainer>
         <MainLogo />
-        <HeadButton width={123} bright={true}>
-          <Link to={`/list?page=1&sort=createdAt`}>질문하러 가기</Link>
-        </HeadButton>
+        <Link to="/list?page=1&sort=createdAt">
+          <HeadButton bright={true}>질문하러 가기 →</HeadButton>
+        </Link>
         <UserBox />
       </MainContainer>
     </>

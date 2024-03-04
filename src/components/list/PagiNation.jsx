@@ -6,6 +6,10 @@ const PaigeNation = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 40px;
+
+  @media (max-width: 661px) {
+    margin: 30px 0 40px;
+  }
 `;
 
 const PageBox = styled(Link)`
@@ -58,13 +62,14 @@ const PagiNation = ({
 
   return (
     <PaigeNation>
-      <PageBox
-        disabled={noPrev}
-        onClick={() => handleClick(currentPage - 1)}
-        to={`?page=${start - 1}&sort=${sort}`}
-      >
-        <Arrow>{'<'}</Arrow>
-      </PageBox>
+      {noPrev === false && (
+        <PageBox
+          onClick={() => handleClick(currentPage - 1)}
+          to={`?page=${start - 1}&sort=${sort}`}
+        >
+          <Arrow>{'<'}</Arrow>
+        </PageBox>
+      )}
       {[...Array(pageCount)].map(
         (page, index) =>
           start + index <= totalPages && (
@@ -81,13 +86,14 @@ const PagiNation = ({
             </PageBox>
           ),
       )}
-      <PageBox
-        disabled={noNext}
-        onClick={() => handleClick(start + pageCount)}
-        to={`?page=${start + pageCount}&sort=${sort}`}
-      >
-        <Arrow>{`>`}</Arrow>
-      </PageBox>
+      {noNext === false && (
+        <PageBox
+          onClick={() => handleClick(start + pageCount)}
+          to={`?page=${start + pageCount}&sort=${sort}`}
+        >
+          <Arrow>{`>`}</Arrow>
+        </PageBox>
+      )}
     </PaigeNation>
   );
 };
