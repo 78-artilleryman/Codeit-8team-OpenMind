@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { getTimeDifference } from 'utils/dateUtils';
 import Avatar from 'components/common/Avatar';
 import QuestionContent from 'components/post/QuestionContent';
-import React, { useState } from 'react';
+import React from 'react';
 
 const Container = styled.div`
   display: flex;
@@ -21,19 +21,6 @@ const ProfileImage = styled(Avatar)`
 `;
 
 const QnAItem = ({ qnaData, userData, isAnswerPage }) => {
-  const [writingAnswer, setWritingAnswer] = useState('');
-
-  // const onAnswer = (questionId, Answer) => {
-  //   console.log("onAnswer");
-  //   //data에서 id.question에 answer 추가;
-  // };
-
-  const handleAnswer = () => {
-    //createAnswer(e.target.id, answer)
-    // onAnswer(id.question, writingAnswer)
-    console.log('handleAnswer');
-  };
-
   if (!qnaData) {
     return <></>;
   }
@@ -46,7 +33,7 @@ const QnAItem = ({ qnaData, userData, isAnswerPage }) => {
           textContents={qnaData.content}
           type="question"
         />
-        {!isAnswerPage && qnaData.answer && (
+        {qnaData.answer && (
           <Answer>
             <ProfileImage imageSrc={userData.imageSource} />
             <QuestionContent
@@ -65,7 +52,7 @@ const QnAItem = ({ qnaData, userData, isAnswerPage }) => {
             />
           </Answer>
         )}
-        {isAnswerPage && qnaData.answer && (
+        {/* {isAnswerPage && qnaData.answer && (
           <Answer>
             <ProfileImage imageSrc={userData.imageSource} />
             <QuestionContent
@@ -74,12 +61,13 @@ const QnAItem = ({ qnaData, userData, isAnswerPage }) => {
               textContents={qnaData.answer.content}
             />
           </Answer>
-        )}
+        )} */}
         {isAnswerPage && !qnaData.answer && (
           <Answer>
             <ProfileImage imageSrc={userData.imageSource} />
             <QuestionContent
               subInformation={userData.name}
+              questionId={qnaData.id}
               type="create answer"
             />
           </Answer>

@@ -94,3 +94,29 @@ export async function postQuestionsReaction(id, type) {
     }
   }
 }
+
+export async function createAnswer(id, content, isRejected = false) {
+  try {
+    const response = await fetch(`${BASE_URL}/questions/${id}/answers/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        questionId: id,
+        content: content,
+        isRejected: isRejected,
+        team: '8',
+      }),
+    });
+
+    if (response.ok) {
+      return response.json();
+    }
+    return new Error('');
+  } catch (e) {
+    if (e instanceof Error) {
+      return e;
+    }
+  }
+}

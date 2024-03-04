@@ -32,7 +32,13 @@ const TextContents = styled.div`
     type === 'rejected answer' ? 'var(--red)' : 'var(--gray60)'};
 `;
 
-const QuestionContent = ({ subInformation, time, textContents, type }) => {
+const QuestionContent = ({
+  subInformation,
+  time,
+  textContents,
+  type,
+  questionId,
+}) => {
   return (
     <Container>
       <SubInformation>
@@ -40,9 +46,14 @@ const QuestionContent = ({ subInformation, time, textContents, type }) => {
         <TimeText>{time}</TimeText>
       </SubInformation>
       {type === 'create answer' ? (
-        <AnswerInputForm placeholder="답변을 입력해주세요" />
+        <AnswerInputForm
+          questionId={questionId}
+          placeholder="답변을 입력해주세요"
+        />
       ) : type === 'edit answer' ? (
-        <AnswerInputForm>{textContents}</AnswerInputForm>
+        <AnswerInputForm questionId={questionId}>
+          {textContents}
+        </AnswerInputForm>
       ) : (
         <TextContents type={type}>{textContents}</TextContents>
       )}

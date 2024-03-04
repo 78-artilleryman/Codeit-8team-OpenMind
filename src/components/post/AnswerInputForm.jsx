@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import Button from 'components/common/Button';
 import { useState } from 'react';
+import { createAnswer } from 'api';
 
 const Container = styled.div`
   display: flex;
@@ -20,17 +21,21 @@ const StyledTextArea = styled.textarea`
   &::-webkit-scrollbar {
     display: none;
   }
-
   font-size: 16px;
   font-weight: 400;
   line-height: 22px;
 `;
 
-const AnswerInputForm = ({ placeholder, children }) => {
+const AnswerInputForm = ({ placeholder, children, questionId }) => {
   const [answer, setAnswer] = useState('');
+
   const handleChange = e => {
     setAnswer(e.target.value);
-    console.log(answer);
+  };
+
+  const handleSubmitAnswer = () => {
+    createAnswer(questionId, answer);
+    window.location.reload();
   };
 
   return (
@@ -38,7 +43,9 @@ const AnswerInputForm = ({ placeholder, children }) => {
       <StyledTextArea placeholder={placeholder} onChange={handleChange}>
         {children}
       </StyledTextArea>
-      <Button inactive={answer === ''}>답변완료</Button>
+      <Button inactive={answer === ''} onClick={handleSubmitAnswer}>
+        답변완료
+      </Button>
     </Container>
   );
 };
