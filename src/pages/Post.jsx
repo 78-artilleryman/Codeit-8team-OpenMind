@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import PostBanner from 'components/post/PostBanner';
-import { useLocation, useParams } from 'react-router-dom';
-import { getSubjectById } from '../api';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { deleteSubject, getSubjectById } from '../api';
 import Share from 'components/post/Share';
 import Button from 'components/common/Button';
 import styled from 'styled-components';
@@ -14,7 +14,6 @@ const PostContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 46px;
-
   padding: 2% 10%;
 `;
 
@@ -33,7 +32,6 @@ const DeleteQuestionButton = styled(Button)`
   @media (max-width: 767px) {
     width: 70px;
     height: 25px;
-
     font-size: 10px;
   }
 `;
@@ -43,15 +41,13 @@ const Feed = styled.div`
   border-radius: 16px;
   background-color: var(--brown10);
   padding: 16px;
-
   display: flex;
   flex-direction: column;
   gap: 16px;
-
   width: 100%;
 
-  @media (max-width: 768px) {
-    width: 100%;
+  @media (max-width: 1023px) {
+    width: 90%;
   }
 `;
 
@@ -66,6 +62,8 @@ const Post = () => {
   const isAnswerPage = paths[paths.length - 1] === 'answer';
 
   const { windowWidth } = useBrowserSize();
+
+  const navigate = useNavigate();
 
   // 창 크기가 바뀔 때 질문 작성 버튼 문구 변경
   window.onresize = function () {
@@ -85,6 +83,10 @@ const Post = () => {
       setShortButton(false);
     }
   }, [windowWidth]);
+
+  const handleDelete = () => {
+    deleteSubject(postId).then(() => navigate('/list'));
+  };
 
   useEffect(() => {
     getSubjectById(postId).then(setUserData);
@@ -114,7 +116,12 @@ const Post = () => {
         <Share />
         {isAnswerPage && (
           <StyledButtonDiv>
-            <DeleteQuestionButton varient="floating" width={100} height={35}>
+            <DeleteQuestionButton
+              varient="floating"
+              width={100}
+              height={35}
+              onClick={handleDelete}
+            >
               삭제하기
             </DeleteQuestionButton>
           </StyledButtonDiv>

@@ -16,14 +16,14 @@ const UserBoxContainer = styled.div`
   padding: 24px;
   border-radius: 16px;
 
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     width: 305px;
   }
 `;
 
 const SubmitButton = styled(Button)`
   margin: auto;
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     width: 257px;
   }
 `;
@@ -45,7 +45,7 @@ const UserBox = () => {
     const isFilled = checkEmptyNickName();
     if (isFilled) {
       createInterviewer(nickName).then(result =>
-        navigate(`/post/${result.id}`),
+        navigate(`/post/${result.id}/answer`),
       );
     } else {
       alert('닉네임을 입력해주세요.');

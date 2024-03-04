@@ -4,6 +4,13 @@ import Reactions from './Reactions';
 import QnAItem from './QnAItem';
 import Kebab from 'components/post/Kebab';
 import { useLocation } from 'react-router-dom';
+import { useState } from 'react';
+import {
+  createAnswer,
+  deleteAnswer,
+  deleteQuestion,
+  editAnswer,
+} from '../../api';
 
 const PostContainer = styled.div`
   display: flex;
@@ -26,13 +33,43 @@ const PostItem = ({ qnaData, userData }) => {
   const paths = pathname.split('/');
   const isAnswerPage = paths[paths.length - 1] === 'answer';
 
+  const [isEdit, setIsEdit] = useState(false);
+
+  const handleDeleteQuestion = () => {
+    deleteQuestion(qnaData.id).then(() => window.location.reload());
+  };
+
+  const handleDeleteAnswer = () => {
+    if (!qnaData.answer) return;
+    deleteAnswer(qnaData.answer.id).then(() => window.location.reload());
+  };
+
+  const handleRejectAnswer = () => {
+    if (!qnaData.answer) {
+      createAnswer(qnaData.id, '답변 거절', true).then(() =>
+        window.location.reload(),
+      );
+    } else {
+      editAnswer(qnaData.answer.id, qnaData.answer.content, true).then(() =>
+        window.location.reload(),
+      );
+    }
+  };
+
   if (!qnaData) return <></>;
 
   return (
     <PostContainer>
       <HeadContainer>
         <AnswerBadge isAnswered={qnaData.answer} />
-        {isAnswerPage && <Kebab />}
+        {isAnswerPage && (
+          <Kebab
+            onEditClick={() => setIsEdit(true)}
+            onDeleteQuestionClick={handleDeleteQuestion}
+            onDeleteAnswerClick={handleDeleteAnswer}
+            onRejectClick={handleRejectAnswer}
+          />
+        )}
       </HeadContainer>
       <div>
         {qnaData && (
@@ -40,6 +77,7 @@ const PostItem = ({ qnaData, userData }) => {
             qnaData={qnaData}
             userData={userData}
             isAnswerPage={isAnswerPage}
+            isEdit={isEdit}
           />
         )}
       </div>

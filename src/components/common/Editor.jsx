@@ -21,15 +21,20 @@ const TextArea = styled.textarea`
   font-weight: 400;
   line-height: 22px;
   resize: none;
-  height: 180px;
+  height: ${({ height }) => height}px;
   border: none;
 `;
 
-const Editor = ({ placeholder }) => {
+const Editor = ({ placeholder, width, height }) => {
   return (
     <EditorContainer>
-      <TextArea cols="30" rows="10" placeholder={placeholder}></TextArea>
-      <Button width={530}>질문 보내기</Button>
+      <TextArea
+        cols="30"
+        rows="10"
+        placeholder={placeholder}
+        height={height}
+      ></TextArea>
+      <Button width={width}>질문 보내기</Button>
     </EditorContainer>
   );
 };
