@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import Button from '../components/common/Button.jsx';
 import { Link } from 'react-router-dom';
 
+
 const StyledBody = styled.div`
   background-color: #f9f9f9;
 `;
@@ -29,7 +30,7 @@ const MainLogo = styled(LogoBox)`
 
   width: 456px;
 
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     width: 248px;
   }
 `;

@@ -22,7 +22,6 @@ const Container = styled.section`
   }
   @media (max-width: 661px) {
     grid-template: repeat(3, 1fr) / repeat(2, minmax(155.5px, 1fr));
-    place-items: center;
   }
 `;
 
@@ -59,7 +58,7 @@ const CardList = () => {
   // 페이지 당 보여질 아이템 수를 결정하는 함수
   const handleMaxCard = useCallback(() => {
     if (!windowWidth) return;
-    if (windowWidth <= 767) {
+    if (windowWidth <= 867) {
       setLimit(6);
     } else {
       setLimit(8);
