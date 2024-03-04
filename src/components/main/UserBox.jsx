@@ -45,7 +45,7 @@ const UserBox = () => {
     const isFilled = checkEmptyNickName();
     if (isFilled) {
       createInterviewer(nickName).then(result =>
-        navigate(`/post/${result.id}`),
+        navigate(`/post/${result.id}/answer`),
       );
     } else {
       alert('닉네임을 입력해주세요.');

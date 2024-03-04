@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import PostBanner from 'components/post/PostBanner';
-import { useLocation, useParams } from 'react-router-dom';
-import { getSubjectById } from '../api';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { deleteSubject, getSubjectById } from '../api';
 import Share from 'components/post/Share';
 import Button from 'components/common/Button';
 import styled from 'styled-components';
@@ -67,6 +67,8 @@ const Post = () => {
 
   const { windowWidth } = useBrowserSize();
 
+  const navigate = useNavigate();
+
   // 창 크기가 바뀔 때 질문 작성 버튼 문구 변경
   window.onresize = function () {
     const screenWidth = window.innerWidth;
@@ -85,6 +87,10 @@ const Post = () => {
       setShortButton(false);
     }
   }, [windowWidth]);
+
+  const handleDelete = () => {
+    deleteSubject(postId).then(() => navigate('/list'));
+  };
 
   useEffect(() => {
     getSubjectById(postId).then(setUserData);
@@ -114,7 +120,12 @@ const Post = () => {
         <Share />
         {isAnswerPage && (
           <StyledButtonDiv>
-            <DeleteQuestionButton varient="floating" width={100} height={35}>
+            <DeleteQuestionButton
+              varient="floating"
+              width={100}
+              height={35}
+              onClick={handleDelete}
+            >
               삭제하기
             </DeleteQuestionButton>
           </StyledButtonDiv>

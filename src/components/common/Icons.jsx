@@ -54,10 +54,16 @@ export const Edit = styled.div`
   height: 14px;
 `;
 
-export const Delete = styled.div`
+export const DeleteQuestion = styled.div`
   background: url('/icons/Delete.svg') no-repeat center;
   width: 10px;
   height: 10px;
+`;
+
+export const DeleteAnswer = styled.div`
+  background: url('/icons/AnswerDelete.svg') no-repeat center;
+  width: 14px;
+  height: 14px;
 `;
 
 export const Rejection = styled.div`
