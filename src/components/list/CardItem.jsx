@@ -1,9 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Card = styled.div`
   display: flex;
-  max-width: 220px;
+  width: 100%;
   min-width: 186px;
   height: 187px;
   padding: 20px;
@@ -80,21 +81,23 @@ const Text = styled.p`
   }
 `;
 
-const CardItem = ({ name, imageSource, questionCount }) => {
+const CardItem = ({ id, name, imageSource, questionCount }) => {
   return (
-    <Card>
-      <CardHeader>
-        <Profile src={imageSource} alt="profile" />
-        <Title>{name}</Title>
-      </CardHeader>
-      <CardFooter>
-        <CommentBox>
-          <MessageIcon src="/icons/commentIcon.png" alt="comment" />
-          <Text>받은 질문</Text>
-        </CommentBox>
-        <Text>{questionCount}</Text>
-      </CardFooter>
-    </Card>
+    <Link to={`/post/${id}`}>
+      <Card>
+        <CardHeader>
+          <Profile src={imageSource} alt="profile" />
+          <Title>{name}</Title>
+        </CardHeader>
+        <CardFooter>
+          <CommentBox>
+            <MessageIcon src="/icons/commentIcon.png" alt="comment" />
+            <Text>받은 질문</Text>
+          </CommentBox>
+          <Text>{questionCount}</Text>
+        </CardFooter>
+      </Card>
+    </Link>
   );
 };
 

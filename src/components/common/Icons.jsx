@@ -9,6 +9,7 @@ const thumbsIconSize = css`
   width: 16px;
   height: 16px;
 `;
+
 export const LinkCopy = styled.div`
   background: url('/icons/Link.svg');
   ${socialIconSize}
@@ -39,4 +40,28 @@ export const ThumbsDown = styled.div`
     clicked
       ? 'invert(33%) sepia(96%) saturate(1804%) hue-rotate(201deg) brightness(95%) contrast(99%)'
       : 'var(--gray40)'};
+`;
+
+export const Kebab = styled.div`
+  background: url('/icons/More.svg') no-repeat center;
+  width: 26px;
+  height: 26px;
+`;
+
+export const Edit = styled.div`
+  background: url('/icons/Edit.svg') no-repeat center;
+  width: 14px;
+  height: 14px;
+`;
+
+export const Delete = styled.div`
+  background: url('/icons/Delete.svg') no-repeat center;
+  width: 10px;
+  height: 10px;
+`;
+
+export const Rejection = styled.div`
+  background: url('/icons/Rejection.svg') no-repeat center;
+  width: 12px;
+  height: 12px;
 `;

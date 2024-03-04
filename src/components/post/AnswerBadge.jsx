@@ -13,6 +13,7 @@ const StyledBadge = styled.div`
   border: 1px solid
     ${({ isAnswered }) => (isAnswered ? 'var(--brown40)' : 'var(--gray40)')};
   padding: 4px 12px;
+  height: 26px;
 `;
 
 const AnswerBadge = ({ isAnswered }) => {

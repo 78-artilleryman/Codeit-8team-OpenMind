@@ -5,6 +5,7 @@ import PagiNation from './PagiNation';
 import { getAllSubject } from 'api';
 import { useSearchParams } from 'react-router-dom';
 import useBrowserSize from 'hooks/useBrowserSize';
+import Loding from 'components/common/Loding';
 
 const Container = styled.section`
   max-width: 940px;
@@ -21,14 +22,17 @@ const Container = styled.section`
   }
   @media (max-width: 661px) {
     grid-template: repeat(3, 1fr) / repeat(2, minmax(155.5px, 1fr));
+    place-items: center;
   }
 `;
 
 const CardList = () => {
   const [cards, setCards] = useState(null);
+  const [limit, setLimit] = useState(8);
+  const [isLoading, setIsLoading] = useState(false);
+
   const [searchPage] = useSearchParams();
   const [searchSort] = useSearchParams();
-  const [limit, setLimit] = useState(8);
 
   const page = searchPage.get('page');
   const sort = searchSort.get('sort');
@@ -36,12 +40,15 @@ const CardList = () => {
   const { windowWidth } = useBrowserSize();
 
   const fetchData = async (newPage, sort) => {
+    setIsLoading(true);
     const offset = (newPage - 1) * limit; // 페이지당 limit개씩
     try {
       const data = await getAllSubject(limit, offset, sort);
       setCards(data);
     } catch (error) {
       console.error('Error fetching data:', error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -52,10 +59,10 @@ const CardList = () => {
   // 페이지 당 보여질 아이템 수를 결정하는 함수
   const handleMaxCard = useCallback(() => {
     if (!windowWidth) return;
-    if (windowWidth >= 868) {
-      setLimit(8);
-    } else {
+    if (windowWidth <= 767) {
       setLimit(6);
+    } else {
+      setLimit(8);
     }
   }, [windowWidth]);
 
@@ -67,28 +74,31 @@ const CardList = () => {
     handleMaxCard();
   }, [handleMaxCard]);
 
+  if (!cards)
+    return (
+      <>
+        <Loding />
+      </>
+    );
+
   return (
     <>
-      {cards ? (
-        <>
-          <Container>
-            {cards.results.map(card => (
-              <CardItem key={card.id} {...card} />
-            ))}
-          </Container>
-          <PagiNation
-            totalItems={cards.count} // 데이터의 총 개수
-            itemCountPerPage={limit} // 페이지 당 보여줄 데이터 개수
-            pageCount={5} // 보여줄 페이지 개수
-            currentPage={page && parseInt(page) > 0 ? parseInt(page) : 1} // 현재 페이지 반환
-            onPageChange={handlePageChange} // 페이지 변경 핸들러
-            selectPageNumber={page}
-            sort={sort}
-          />
-        </>
-      ) : (
-        <div>질문 대상이 없습니다</div>
-      )}
+      <Container>
+        {isLoading ? (
+          <Loding />
+        ) : (
+          cards.results.map(card => <CardItem key={card.id} {...card} />)
+        )}
+      </Container>
+      <PagiNation
+        totalItems={cards.count} // 데이터의 총 개수
+        itemCountPerPage={limit} // 페이지 당 보여줄 데이터 개수
+        pageCount={5} // 보여줄 페이지 개수
+        currentPage={page && parseInt(page) > 0 ? parseInt(page) : 1} // 현재 페이지 반환
+        onPageChange={handlePageChange} // 페이지 변경 핸들러
+        selectPageNumber={page}
+        sort={sort}
+      />
     </>
   );
 };
