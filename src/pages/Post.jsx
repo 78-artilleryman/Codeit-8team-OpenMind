@@ -14,7 +14,6 @@ const PostContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 46px;
-
   padding: 2% 10%;
 `;
 
@@ -33,7 +32,6 @@ const DeleteQuestionButton = styled(Button)`
   @media (max-width: 767px) {
     width: 70px;
     height: 25px;
-
     font-size: 10px;
   }
 `;
@@ -43,15 +41,13 @@ const Feed = styled.div`
   border-radius: 16px;
   background-color: var(--brown10);
   padding: 16px;
-
   display: flex;
   flex-direction: column;
   gap: 16px;
-
   width: 100%;
 
-  @media (max-width: 768px) {
-    width: 100%;
+  @media (max-width: 1023px) {
+    width: 90%;
   }
 `;
 
