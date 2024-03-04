@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Button from './Button';
 
@@ -26,6 +26,12 @@ const TextArea = styled.textarea`
 `;
 
 const Editor = ({ placeholder, width, height }) => {
+  const [question, setQuestion] = useState('');
+
+  const questionValueHandler = e => {
+    setQuestion(e.target.value);
+  };
+
   return (
     <EditorContainer>
       <TextArea
@@ -33,8 +39,11 @@ const Editor = ({ placeholder, width, height }) => {
         rows="10"
         placeholder={placeholder}
         height={height}
+        onChange={questionValueHandler}
       ></TextArea>
-      <Button width={width}>질문 보내기</Button>
+      <Button inactive={question.length === 0} width={width}>
+        질문 보내기
+      </Button>
     </EditorContainer>
   );
 };
