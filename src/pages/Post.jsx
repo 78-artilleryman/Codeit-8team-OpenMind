@@ -9,6 +9,7 @@ import PostCount from 'components/post/PostCount';
 import PostList from 'components/post/PostList';
 import useBrowserSize from 'hooks/useBrowserSize';
 import Modal from 'components/common/Modal';
+import { useModal } from 'hooks/useModal';
 
 const PostContainer = styled.div`
   display: flex;
@@ -55,7 +56,8 @@ const Post = () => {
   const { postId } = useParams();
   const [userData, setUserData] = useState();
   const [shortButton, setShortButton] = useState(false);
-  const [isModalOpen, setModalOpen] = useState(false);
+  // 모달 오픈 여부 변수
+  const { openModal, handleModalOpen, handleModalClose } = useModal();
 
   const { pathname } = useLocation();
   const paths = pathname.split('/');
@@ -99,13 +101,11 @@ const Post = () => {
   if (!userData) return <></>;
   return (
     <>
-      {isModalOpen && (
+      {openModal && (
         <Modal
           userName={userData.name}
           imageSource={userData.imageSource}
-          onClick={() => {
-            setModalOpen(false);
-          }}
+          onClick={handleModalClose}
         />
       )}
       <PostBanner
@@ -136,7 +136,7 @@ const Post = () => {
               varient="floating"
               width={208}
               onClick={() => {
-                setModalOpen(true);
+                handleModalOpen();
               }}
             >
               {shortButton ? '질문작성' : '질문 작성하기'}

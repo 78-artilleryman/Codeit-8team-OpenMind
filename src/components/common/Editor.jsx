@@ -27,7 +27,7 @@ const TextArea = styled.textarea`
   border: none;
 `;
 
-const Editor = ({ placeholder, width, height }) => {
+const Editor = ({ placeholder, width, height, ModalClose }) => {
   const [question, setQuestion] = useState('');
   const { postId } = useParams();
 
@@ -38,6 +38,7 @@ const Editor = ({ placeholder, width, height }) => {
   const handlePostQuestion = () => {
     createquestion(postId, question);
     setQuestion('');
+    ModalClose();
   };
 
   return (
