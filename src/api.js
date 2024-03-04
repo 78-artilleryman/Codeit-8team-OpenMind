@@ -137,3 +137,27 @@ export async function deletePost(id) {
     }
   }
 }
+
+export async function editAnswer(id, content, isRejected = false) {
+  try {
+    const response = await fetch(`${BASE_URL}/answers/${id}/`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        content: content,
+        isRejected: isRejected,
+      }),
+    });
+
+    if (response.ok) {
+      return response.json();
+    }
+    return new Error('');
+  } catch (e) {
+    if (e instanceof Error) {
+      return e;
+    }
+  }
+}

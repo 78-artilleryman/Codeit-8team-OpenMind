@@ -4,6 +4,7 @@ import Reactions from './Reactions';
 import QnAItem from './QnAItem';
 import Kebab from 'components/post/Kebab';
 import { useLocation } from 'react-router-dom';
+import { useState } from 'react';
 
 const PostContainer = styled.div`
   display: flex;
@@ -26,13 +27,15 @@ const PostItem = ({ qnaData, userData }) => {
   const paths = pathname.split('/');
   const isAnswerPage = paths[paths.length - 1] === 'answer';
 
+  const [isEdit, setIsEdit] = useState(false);
+
   if (!qnaData) return <></>;
 
   return (
     <PostContainer>
       <HeadContainer>
         <AnswerBadge isAnswered={qnaData.answer} />
-        {isAnswerPage && <Kebab />}
+        {isAnswerPage && <Kebab onEditClick={() => setIsEdit(true)} />}
       </HeadContainer>
       <div>
         {qnaData && (
@@ -40,6 +43,7 @@ const PostItem = ({ qnaData, userData }) => {
             qnaData={qnaData}
             userData={userData}
             isAnswerPage={isAnswerPage}
+            isEdit={isEdit}
           />
         )}
       </div>

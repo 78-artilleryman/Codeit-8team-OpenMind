@@ -38,6 +38,7 @@ const QuestionContent = ({
   textContents,
   type,
   questionId,
+  answerId,
 }) => {
   return (
     <Container>
@@ -49,9 +50,16 @@ const QuestionContent = ({
         <AnswerInputForm
           questionId={questionId}
           placeholder="답변을 입력해주세요"
+          buttonText="답변 완료"
+          type={type}
         />
       ) : type === 'edit answer' ? (
-        <AnswerInputForm questionId={questionId}>
+        <AnswerInputForm
+          questionId={questionId}
+          buttonText="수정 완료"
+          type={type}
+          answerId={answerId}
+        >
           {textContents}
         </AnswerInputForm>
       ) : (

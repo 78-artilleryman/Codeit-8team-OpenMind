@@ -20,7 +20,7 @@ const ProfileImage = styled(Avatar)`
   height: 48px;
 `;
 
-const QnAItem = ({ qnaData, userData, isAnswerPage }) => {
+const QnAItem = ({ qnaData, userData, isAnswerPage, isEdit }) => {
   if (!qnaData) {
     return <></>;
   }
@@ -33,7 +33,7 @@ const QnAItem = ({ qnaData, userData, isAnswerPage }) => {
           textContents={qnaData.content}
           type="question"
         />
-        {qnaData.answer && (
+        {qnaData.answer && !isEdit && (
           <Answer>
             <ProfileImage imageSrc={userData.imageSource} />
             <QuestionContent
@@ -52,16 +52,17 @@ const QnAItem = ({ qnaData, userData, isAnswerPage }) => {
             />
           </Answer>
         )}
-        {/* {isAnswerPage && qnaData.answer && (
+        {isAnswerPage && qnaData.answer && isEdit && (
           <Answer>
             <ProfileImage imageSrc={userData.imageSource} />
             <QuestionContent
               subInformation={userData.name}
               type="edit answer"
               textContents={qnaData.answer.content}
+              answerId={qnaData.answer.id}
             />
           </Answer>
-        )} */}
+        )}
         {isAnswerPage && !qnaData.answer && (
           <Answer>
             <ProfileImage imageSrc={userData.imageSource} />

@@ -58,10 +58,10 @@ const OptionButton = styled(Button)`
   }
 `;
 
-const KebabOptions = ({ isClicked }) => {
+const KebabOptions = ({ isClicked, onEditClick }) => {
   return (
     <ToggleList isClicked={isClicked}>
-      <OptionButton varient="icon">
+      <OptionButton varient="icon" onClick={onEditClick}>
         <Icons.Edit />
         수정하기
       </OptionButton>
