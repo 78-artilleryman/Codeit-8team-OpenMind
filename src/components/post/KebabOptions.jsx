@@ -5,9 +5,12 @@ import * as Icons from 'components/common/Icons';
 const ToggleList = styled.div`
   display: flex ${({ isClick }) => (isClick ? 'block' : 'none')};
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
   position: absolute;
   right: 0;
+  top: 100%;
 
   text-align: center;
 
@@ -23,6 +26,7 @@ const OptionButton = styled(Button)`
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
 
   gap: 8px;
 
