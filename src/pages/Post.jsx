@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import PostBanner from 'components/post/PostBanner';
 import { useParams } from 'react-router-dom';
 import { getSubjectById } from '../api';
@@ -7,6 +7,8 @@ import Button from 'components/common/Button';
 import styled from 'styled-components';
 import PostCount from 'components/post/PostCount';
 import PostList from 'components/post/PostList';
+import useBrowserSize from 'hooks/useBrowserSize';
+import Modal from 'components/common/Modal';
 
 const PostContainer = styled.div`
   display: flex;
@@ -34,7 +36,7 @@ const Feed = styled.div`
   width: 70%;
   margin: auto;
 
-  @media (max-width: 768px) {
+  @media (max-width: 1023px) {
     width: 90%;
   }
 `;
@@ -42,7 +44,11 @@ const Feed = styled.div`
 const Post = () => {
   const { postId } = useParams();
   const [userData, setUserData] = useState();
+  console.log(userData);
   const [shortButton, setShortButton] = useState(false);
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const { windowWidth } = useBrowserSize();
 
   // 창 크기가 바뀔 때 질문 작성 버튼 문구 변경
   window.onresize = function () {
@@ -54,13 +60,35 @@ const Post = () => {
     setShortButton(false);
   };
 
+  const handleButtonsize = useCallback(() => {
+    if (windowWidth <= 767) {
+      setShortButton(true);
+      return;
+    } else {
+      setShortButton(false);
+    }
+  }, [windowWidth]);
+
   useEffect(() => {
     getSubjectById(postId).then(setUserData);
   }, [postId]);
 
+  useEffect(() => {
+    handleButtonsize();
+  }, [handleButtonsize]);
+
   if (!userData) return <></>;
   return (
     <>
+      {isModalOpen && (
+        <Modal
+          userName={userData.name}
+          imageSource={userData.imageSource}
+          onClick={() => {
+            setModalOpen(false);
+          }}
+        />
+      )}
       <PostBanner
         userProfileImage={userData.imageSource}
         userName={userData.name}
@@ -72,7 +100,13 @@ const Post = () => {
           <PostList userData={userData} />
         </Feed>
         <AddQuestionButton>
-          <Button varient="floating" width={208}>
+          <Button
+            varient="floating"
+            width={208}
+            onClick={() => {
+              setModalOpen(true);
+            }}
+          >
             {shortButton ? '질문작성' : '질문 작성하기'}
           </Button>
         </AddQuestionButton>
