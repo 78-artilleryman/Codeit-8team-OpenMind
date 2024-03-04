@@ -105,7 +105,7 @@ const Modal = ({ userName, imageSource, onClick }) => {
   const { windowWidth } = useBrowserSize();
 
   const handleEditorsize = useCallback(() => {
-    if (windowWidth <= 767) {
+    if (windowWidth <= 768) {
       setShortEditor(true);
       return;
     } else {
