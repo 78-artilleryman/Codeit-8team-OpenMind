@@ -5,6 +5,7 @@ import QnAItem from './QnAItem';
 import Kebab from 'components/post/Kebab';
 import { useLocation } from 'react-router-dom';
 import { useState } from 'react';
+import { deleteQuestion } from '../../api';
 
 const PostContainer = styled.div`
   display: flex;
@@ -29,13 +30,22 @@ const PostItem = ({ qnaData, userData }) => {
 
   const [isEdit, setIsEdit] = useState(false);
 
+  const handleDeleteQuestion = () => {
+    deleteQuestion(qnaData.id).then(() => window.location.reload());
+  };
+
   if (!qnaData) return <></>;
 
   return (
     <PostContainer>
       <HeadContainer>
         <AnswerBadge isAnswered={qnaData.answer} />
-        {isAnswerPage && <Kebab onEditClick={() => setIsEdit(true)} />}
+        {isAnswerPage && (
+          <Kebab
+            onEditClick={() => setIsEdit(true)}
+            onDeleteClick={handleDeleteQuestion}
+          />
+        )}
       </HeadContainer>
       <div>
         {qnaData && (

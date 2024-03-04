@@ -161,3 +161,20 @@ export async function editAnswer(id, content, isRejected = false) {
     }
   }
 }
+
+export async function deleteQuestion(id) {
+  try {
+    const response = await fetch(`${BASE_URL}/questions/${id}/`, {
+      method: 'DELETE',
+    });
+
+    if (response.ok) {
+      return;
+    }
+    return new Error('');
+  } catch (e) {
+    if (e instanceof Error) {
+      return e;
+    }
+  }
+}

@@ -89,8 +89,7 @@ const Post = () => {
   }, [windowWidth]);
 
   const handleDelete = () => {
-    deletePost(postId);
-    navigate('/list');
+    deletePost(postId).then(() => navigate('/list'));
   };
 
   useEffect(() => {

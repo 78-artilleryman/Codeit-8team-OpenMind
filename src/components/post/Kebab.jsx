@@ -22,7 +22,7 @@ const KebabButton = styled(Button)`
   }
 `;
 
-const Kebab = ({ onEditClick }) => {
+const Kebab = ({ onEditClick, onDeleteClick }) => {
   const [isClicked, setIsClicked] = useState(false);
 
   const handleToggle = () => {
@@ -36,7 +36,11 @@ const Kebab = ({ onEditClick }) => {
       </KebabButton>
       <>
         {isClicked && (
-          <KebabOptions isClick={isClicked} onEditClick={onEditClick} />
+          <KebabOptions
+            isClick={isClicked}
+            onEditClick={onEditClick}
+            onDeleteClick={onDeleteClick}
+          />
         )}
       </>
     </Container>
