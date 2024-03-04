@@ -67,16 +67,6 @@ const Post = () => {
 
   const navigate = useNavigate();
 
-  // 창 크기가 바뀔 때 질문 작성 버튼 문구 변경
-  window.onresize = function () {
-    const screenWidth = window.innerWidth;
-    if (screenWidth <= 767) {
-      setShortButton(true);
-      return;
-    }
-    setShortButton(false);
-  };
-
   const handleButtonsize = useCallback(() => {
     if (windowWidth <= 767) {
       setShortButton(true);
