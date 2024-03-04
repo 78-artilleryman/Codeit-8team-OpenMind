@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import PostBanner from 'components/post/PostBanner';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { deletePost, getSubjectById } from '../api';
+import { deleteSubject, getSubjectById } from '../api';
 import Share from 'components/post/Share';
 import Button from 'components/common/Button';
 import styled from 'styled-components';
@@ -89,7 +89,7 @@ const Post = () => {
   }, [windowWidth]);
 
   const handleDelete = () => {
-    deletePost(postId).then(() => navigate('/list'));
+    deleteSubject(postId).then(() => navigate('/list'));
   };
 
   useEffect(() => {

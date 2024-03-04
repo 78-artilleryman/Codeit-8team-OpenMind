@@ -121,7 +121,7 @@ export async function createAnswer(id, content, isRejected = false) {
   }
 }
 
-export async function deletePost(id) {
+export async function deleteSubject(id) {
   try {
     const response = await fetch(`${BASE_URL}/subjects/${id}/`, {
       method: 'DELETE',
