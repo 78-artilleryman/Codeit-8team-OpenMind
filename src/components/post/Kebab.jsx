@@ -40,6 +40,7 @@ const Kebab = ({
         <Icons.Kebab />
       </KebabButton>
       <>
+        {/*기존에는 케밥 아이콘만 표시되다가, 케밥 아이콘이 클릭되면 케밥의 옵션들이 나타납니다.*/}
         {isClicked && (
           <KebabOptions
             isClick={isClicked}
