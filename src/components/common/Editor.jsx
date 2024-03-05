@@ -53,7 +53,7 @@ const Editor = ({ placeholder, width, height, ModalClose }) => {
       ></TextArea>
       <Button
         onClick={handlePostQuestion}
-        inactive={question.length === 0}
+        inactive={question.trim().length === 0}
         width={width}
       >
         질문 보내기

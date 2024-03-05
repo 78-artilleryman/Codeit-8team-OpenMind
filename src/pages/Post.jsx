@@ -12,12 +12,17 @@ import ModalContainer from 'components/common/Modal';
 import * as Modal from 'components/common/Modal';
 import Editor from 'components/common/Editor';
 import { useModal } from 'hooks/useModal';
+import { useSubject } from 'context/subjectContext';
 
 const PostContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 46px;
-  padding: 2% 10%;
+  padding: 0 32px 24px;
+
+  @media (max-width: 767px) {
+    padding: 0 24px 24px;
+  }
 `;
 
 const StyledButtonDiv = styled.div`
@@ -48,16 +53,14 @@ const Feed = styled.div`
   flex-direction: column;
   gap: 16px;
   width: 100%;
-
-  @media (max-width: 1023px) {
-    width: 90%;
-  }
 `;
 
 const Post = () => {
   const { postId } = useParams();
+
   const [userData, setUserData] = useState();
   const [shortUI, setShortUI] = useState(false);
+
   // 모달 오픈 여부 변수
   const { openModal, handleModalOpen, handleModalClose } = useModal();
 
@@ -83,17 +86,18 @@ const Post = () => {
   };
 
   useEffect(() => {
-    getSubjectById(postId).then(setUserData);
+    getSubjectById(postId).then(setCurrentSubject);
   }, [postId]);
 
   useEffect(() => {
     handleUIsize();
   }, [handleUIsize]);
 
-  if (!userData) return <></>;
+  if (!currentSubject) return <></>;
   return (
     <>
       {openModal && (
+
         <ModalContainer
           width={612}
           height={454}
@@ -114,8 +118,8 @@ const Post = () => {
         </ModalContainer>
       )}
       <PostBanner
-        userProfileImage={userData.imageSource}
-        userName={userData.name}
+        userProfileImage={currentSubject.imageSource}
+        userName={currentSubject.name}
       ></PostBanner>
       <PostContainer>
         <Share />
@@ -132,8 +136,8 @@ const Post = () => {
           </StyledButtonDiv>
         )}
         <Feed>
-          <PostCount questionCount={userData.questionCount} />
-          <PostList userData={userData} />
+          <PostCount questionCount={currentSubject.questionCount} />
+          <PostList />
         </Feed>
         {!isAnswerPage && (
           <StyledButtonDiv>

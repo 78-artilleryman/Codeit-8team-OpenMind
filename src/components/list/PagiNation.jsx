@@ -34,7 +34,9 @@ const SelectNumber = styled(Arrow)`
   color: var(--brown40, #542f1a);
   text-align: center;
   font-size: 30px;
-  font-family: Actor;
+  font-family: 'Actor', sans-serif;
+  font-weight: 400;
+  font-style: normal;
 `;
 
 const PagiNation = ({

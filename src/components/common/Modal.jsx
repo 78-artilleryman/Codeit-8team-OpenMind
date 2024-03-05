@@ -28,10 +28,13 @@ const ModalContainer = styled.div`
   top: 50%;
   transform: translate(-50%, -50%);
 
-  @media (max-width: 768px) {
-    width: 327px;
+  @media (max-width: 767px) {
+    min-width: 327px;
+    width: calc(100% - 48px);
     height: 568px;
+    left: calc(50% - 24px);
     padding: 24px;
+    margin: 0 24px;
   }
 `;
 
@@ -52,12 +55,13 @@ const ModalHeader = styled.div`
 
 const ModalTitle = styled.h1`
   color: var(--gray60);
-  font-family: Actor;
-  font-size: 24px;
+  font-family: 'Actor', sans-serif;
   font-weight: 400;
+  font-style: normal;
+  font-size: 24px;
   line-height: 30px;
 
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     font-size: 20px;
     line-height: 25px;
   }
@@ -68,7 +72,7 @@ const CloseButton = styled.img`
   height: 28px;
   cursor: pointer;
 
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     width: 22px;
     height: 22px;
   }
@@ -96,8 +100,10 @@ export const TextStyle = styled.h2`
   line-height: 22px;
 `;
 
+
 const Modal = ({ width, height, title, onClick, children }) => {
   const ref = useRef(null);
+
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -122,8 +128,8 @@ const Modal = ({ width, height, title, onClick, children }) => {
             <img
               src="/icons/Messages.svg"
               alt="Message Icon"
-              width="28"
-              height="28"
+              width={MessagesIconSize}
+              height={MessagesIconSize}
             />
             <ModalTitle>{title}</ModalTitle>
           </ModalHeader>

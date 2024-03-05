@@ -3,6 +3,7 @@ import { getTimeDifference } from 'utils/dateUtils';
 import Avatar from 'components/common/Avatar';
 import QuestionContent from 'components/post/QuestionContent';
 import React from 'react';
+import { useSubject } from 'context/subjectContext';
 
 const Container = styled.div`
   display: flex;
@@ -15,12 +16,13 @@ const Answer = styled.div`
   gap: 12px;
 `;
 
-const ProfileImage = styled(Avatar)`
-  width: 48px;
-  height: 48px;
-`;
+const ProfileImage = styled(Avatar)``;
 
-const QnAItem = ({ qnaData, userData, isAnswerPage, isEdit }) => {
+const QnAImageSize = 48;
+
+const QnAItem = ({ qnaData, isAnswerPage, isEdit }) => {
+  const { currentSubject } = useSubject();
+
   if (!qnaData) {
     return <></>;
   }
@@ -35,9 +37,15 @@ const QnAItem = ({ qnaData, userData, isAnswerPage, isEdit }) => {
         />
         {qnaData.answer && !isEdit && (
           <Answer>
-            <ProfileImage imageSrc={userData.imageSource} />
+
+            <ProfileImage
+              imageSrc={userData.imageSource}
+              width={QnAImageSize}
+              height={QnAImageSize}
+            />
+
             <QuestionContent
-              subInformation={userData.name}
+              subInformation={currentSubject.name}
               time={getTimeDifference(qnaData.answer.createdAt)}
               textContents={
                 qnaData.answer.isRejected === true
@@ -54,9 +62,14 @@ const QnAItem = ({ qnaData, userData, isAnswerPage, isEdit }) => {
         )}
         {isAnswerPage && qnaData.answer && isEdit && (
           <Answer>
-            <ProfileImage imageSrc={userData.imageSource} />
+            <ProfileImage
+              imageSrc={userData.imageSource}
+              width={QnAImageSize}
+              height={QnAImageSize}
+            />
+
             <QuestionContent
-              subInformation={userData.name}
+              subInformation={currentSubject.name}
               type="edit answer"
               textContents={qnaData.answer.content}
               answerId={qnaData.answer.id}
@@ -65,9 +78,14 @@ const QnAItem = ({ qnaData, userData, isAnswerPage, isEdit }) => {
         )}
         {isAnswerPage && !qnaData.answer && (
           <Answer>
-            <ProfileImage imageSrc={userData.imageSource} />
+            <ProfileImage
+              imageSrc={userData.imageSource}
+              width={QnAImageSize}
+              height={QnAImageSize}
+            />
+
             <QuestionContent
-              subInformation={userData.name}
+              subInformation={currentSubject.name}
               questionId={qnaData.id}
               type="create answer"
             />
