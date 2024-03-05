@@ -1,21 +1,24 @@
 import Main from 'pages/Main';
 import GlobalStyle from 'GlobalStyle';
 import List from 'pages/List';
-import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Post from 'pages/Post';
+import { SubjectProvider } from 'context/subjectContext';
 
 function App() {
   return (
     <>
-      <GlobalStyle/>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Main/>}/>
-          <Route path="/list" element={<List/>}/>
-          <Route path="/post/:postId" element={<Post/>}/>
-          <Route path="/post/:postId/answer" element={<Post/>}/>
-        </Routes>
-      </BrowserRouter>
+      <GlobalStyle />
+      <SubjectProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Main />} />
+            <Route path="/list" element={<List />} />
+            <Route path="/post/:postId" element={<Post />} />
+            <Route path="/post/:postId/answer" element={<Post />} />
+          </Routes>
+        </BrowserRouter>
+      </SubjectProvider>
     </>
   );
 }

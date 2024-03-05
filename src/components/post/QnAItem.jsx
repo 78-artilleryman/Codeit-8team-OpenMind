@@ -3,6 +3,7 @@ import { getTimeDifference } from 'utils/dateUtils';
 import Avatar from 'components/common/Avatar';
 import QuestionContent from 'components/post/QuestionContent';
 import React from 'react';
+import { useSubject } from 'context/subjectContext';
 
 const Container = styled.div`
   display: flex;
@@ -20,7 +21,9 @@ const ProfileImage = styled(Avatar)`
   height: 48px;
 `;
 
-const QnAItem = ({ qnaData, userData, isAnswerPage, isEdit }) => {
+const QnAItem = ({ qnaData, isAnswerPage, isEdit }) => {
+  const { currentSubject } = useSubject();
+
   if (!qnaData) {
     return <></>;
   }
@@ -35,9 +38,9 @@ const QnAItem = ({ qnaData, userData, isAnswerPage, isEdit }) => {
         />
         {qnaData.answer && !isEdit && (
           <Answer>
-            <ProfileImage imageSrc={userData.imageSource} />
+            <ProfileImage imageSrc={currentSubject.imageSource} />
             <QuestionContent
-              subInformation={userData.name}
+              subInformation={currentSubject.name}
               time={getTimeDifference(qnaData.answer.createdAt)}
               textContents={
                 qnaData.answer.isRejected === true
@@ -54,9 +57,9 @@ const QnAItem = ({ qnaData, userData, isAnswerPage, isEdit }) => {
         )}
         {isAnswerPage && qnaData.answer && isEdit && (
           <Answer>
-            <ProfileImage imageSrc={userData.imageSource} />
+            <ProfileImage imageSrc={currentSubject.imageSource} />
             <QuestionContent
-              subInformation={userData.name}
+              subInformation={currentSubject.name}
               type="edit answer"
               textContents={qnaData.answer.content}
               answerId={qnaData.answer.id}
@@ -65,9 +68,9 @@ const QnAItem = ({ qnaData, userData, isAnswerPage, isEdit }) => {
         )}
         {isAnswerPage && !qnaData.answer && (
           <Answer>
-            <ProfileImage imageSrc={userData.imageSource} />
+            <ProfileImage imageSrc={currentSubject.imageSource} />
             <QuestionContent
-              subInformation={userData.name}
+              subInformation={currentSubject.name}
               questionId={qnaData.id}
               type="create answer"
             />

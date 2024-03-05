@@ -28,7 +28,7 @@ const HeadContainer = styled.div`
   justify-content: space-between;
 `;
 
-const PostItem = ({ qnaData, userData }) => {
+const PostItem = ({ qnaData }) => {
   const { pathname } = useLocation();
   const paths = pathname.split('/');
   const isAnswerPage = paths[paths.length - 1] === 'answer';
@@ -75,7 +75,6 @@ const PostItem = ({ qnaData, userData }) => {
         {qnaData && (
           <QnAItem
             qnaData={qnaData}
-            userData={userData}
             isAnswerPage={isAnswerPage}
             isEdit={isEdit}
           />
