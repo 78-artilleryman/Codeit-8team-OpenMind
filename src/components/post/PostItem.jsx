@@ -40,8 +40,8 @@ const PostItem = ({ qnaData }) => {
   };
 
   const handleDeleteAnswer = () => {
-    if (!qnaData.answer) return;
-    deleteAnswer(qnaData.answer.id).then(() => window.location.reload());
+    if (!qnaData.answer) alert('삭제할 답변이 없어요.😭');
+    else deleteAnswer(qnaData.answer.id).then(() => window.location.reload());
   };
 
   const handleRejectAnswer = () => {
@@ -64,7 +64,10 @@ const PostItem = ({ qnaData }) => {
         <AnswerBadge isAnswered={qnaData.answer} />
         {isAnswerPage && (
           <Kebab
-            onEditClick={() => setIsEdit(true)}
+            onEditClick={() => {
+              if (!qnaData.answer) alert('수정할 답변이 없어요.😭');
+              else setIsEdit(true);
+            }}
             onDeleteQuestionClick={handleDeleteQuestion}
             onDeleteAnswerClick={handleDeleteAnswer}
             onRejectClick={handleRejectAnswer}
