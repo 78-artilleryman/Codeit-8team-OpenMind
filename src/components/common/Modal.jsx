@@ -31,10 +31,13 @@ const ModalContainer = styled.div`
   top: 50%;
   transform: translate(-50%, -50%);
 
-  @media (max-width: 768px) {
-    width: 327px;
+  @media (max-width: 767px) {
+    min-width: 327px;
+    width: calc(100% - 48px);
     height: 568px;
+    left: calc(50% - 24px);
     padding: 24px;
+    margin: 0 24px;
   }
 `;
 
@@ -55,12 +58,13 @@ const ModalHeader = styled.div`
 
 const ModalTitle = styled.h1`
   color: var(--gray60);
-  font-family: Actor;
-  font-size: 24px;
+  font-family: 'Actor', sans-serif;
   font-weight: 400;
+  font-style: normal;
+  font-size: 24px;
   line-height: 30px;
 
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     font-size: 20px;
     line-height: 25px;
   }
@@ -71,7 +75,7 @@ const CloseButton = styled.img`
   height: 28px;
   cursor: pointer;
 
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     width: 22px;
     height: 22px;
   }
@@ -99,6 +103,8 @@ const TextStyle = styled.h2`
   line-height: 22px;
 `;
 
+const MessagesIconSize = 28;
+
 const Modal = ({ userName, imageSource, onClick }) => {
   const ref = useRef(null);
   const [shortEditor, setShortEditor] = useState(false);
@@ -106,7 +112,7 @@ const Modal = ({ userName, imageSource, onClick }) => {
   const { windowWidth } = useBrowserSize();
 
   const handleEditorsize = useCallback(() => {
-    if (windowWidth <= 768) {
+    if (windowWidth <= 767) {
       setShortEditor(true);
       return;
     } else {
@@ -141,8 +147,8 @@ const Modal = ({ userName, imageSource, onClick }) => {
             <img
               src="/icons/Messages.svg"
               alt="Message Icon"
-              width="28"
-              height="28"
+              width={MessagesIconSize}
+              height={MessagesIconSize}
             />
             <ModalTitle>질문을 작성하세요</ModalTitle>
           </ModalHeader>

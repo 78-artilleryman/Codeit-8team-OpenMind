@@ -16,7 +16,11 @@ const PostContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 46px;
-  padding: 2% 10%;
+  padding: 0 32px 24px;
+
+  @media (max-width: 767px) {
+    padding: 0 24px 24px;
+  }
 `;
 
 const StyledButtonDiv = styled.div`
@@ -47,10 +51,6 @@ const Feed = styled.div`
   flex-direction: column;
   gap: 16px;
   width: 100%;
-
-  @media (max-width: 1023px) {
-    width: 90%;
-  }
 `;
 
 const Post = () => {

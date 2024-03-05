@@ -16,10 +16,9 @@ const Answer = styled.div`
   gap: 12px;
 `;
 
-const ProfileImage = styled(Avatar)`
-  width: 48px;
-  height: 48px;
-`;
+const ProfileImage = styled(Avatar)``;
+
+const QnAImageSize = 48;
 
 const QnAItem = ({ qnaData, isAnswerPage, isEdit }) => {
   const { currentSubject } = useSubject();
@@ -38,7 +37,13 @@ const QnAItem = ({ qnaData, isAnswerPage, isEdit }) => {
         />
         {qnaData.answer && !isEdit && (
           <Answer>
-            <ProfileImage imageSrc={currentSubject.imageSource} />
+
+            <ProfileImage
+              imageSrc={userData.imageSource}
+              width={QnAImageSize}
+              height={QnAImageSize}
+            />
+
             <QuestionContent
               subInformation={currentSubject.name}
               time={getTimeDifference(qnaData.answer.createdAt)}
@@ -57,7 +62,12 @@ const QnAItem = ({ qnaData, isAnswerPage, isEdit }) => {
         )}
         {isAnswerPage && qnaData.answer && isEdit && (
           <Answer>
-            <ProfileImage imageSrc={currentSubject.imageSource} />
+            <ProfileImage
+              imageSrc={userData.imageSource}
+              width={QnAImageSize}
+              height={QnAImageSize}
+            />
+
             <QuestionContent
               subInformation={currentSubject.name}
               type="edit answer"
@@ -68,7 +78,12 @@ const QnAItem = ({ qnaData, isAnswerPage, isEdit }) => {
         )}
         {isAnswerPage && !qnaData.answer && (
           <Answer>
-            <ProfileImage imageSrc={currentSubject.imageSource} />
+            <ProfileImage
+              imageSrc={userData.imageSource}
+              width={QnAImageSize}
+              height={QnAImageSize}
+            />
+
             <QuestionContent
               subInformation={currentSubject.name}
               questionId={qnaData.id}
