@@ -39,16 +39,16 @@ const Reactions = ({ qnaData }) => {
   if (!qnaData) return <></>;
   return (
     <ButtonsContainer>
-      <LikeButton varient="icon" onClick={handleLike} clicked={likeClicked}>
-        <Icons.ThumbsUp clicked={likeClicked} />
+      <LikeButton varient="icon" onClick={handleLike} $clicked={likeClicked}>
+        <Icons.ThumbsUp $clicked={likeClicked} />
         좋아요 {likeClicked && qnaData.like + 1}
       </LikeButton>
       <LikeButton
         varient="icon"
         onClick={handleDislike}
-        clicked={dislikeClicked}
+        $clicked={dislikeClicked}
       >
-        <Icons.ThumbsDown clicked={dislikeClicked} />
+        <Icons.ThumbsDown $clicked={dislikeClicked} />
         싫어요 {dislikeClicked && qnaData.dislike + 1}
       </LikeButton>
     </ButtonsContainer>

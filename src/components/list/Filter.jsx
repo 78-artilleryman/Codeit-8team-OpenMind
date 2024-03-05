@@ -111,6 +111,7 @@ function Filter() {
         setIsShow(false);
       }
     }
+
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
@@ -178,11 +179,11 @@ function Filter() {
   return (
     <StyledSelectBox
       tabIndex="0"
-      isShow={isShow}
+      $isShow={isShow}
       onClick={toggleSelectOptions}
       ref={ref}
     >
-      <Label isShow={isShow}>
+      <Label $isShow={isShow}>
         {filter === 'createdAt' ? '최신순' : '이름순'}
       </Label>
       {isShow && (
@@ -191,8 +192,8 @@ function Filter() {
             <Option
               key={option}
               onClick={() => handleSelect(option)}
-              isSelected={filter === option}
-              isFocused={index === focusedOptionIndex}
+              $isSelected={filter === option}
+              $isFocused={index === focusedOptionIndex}
             >
               {option === 'createdAt' ? '최신순' : '이름순'}
             </Option>

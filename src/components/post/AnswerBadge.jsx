@@ -18,7 +18,7 @@ const StyledBadge = styled.div`
 
 const AnswerBadge = ({ isAnswered }) => {
   return (
-    <StyledBadge isAnswered={isAnswered}>
+    <StyledBadge $isAnswered={isAnswered}>
       {isAnswered ? '답변 완료' : '미답변'}
     </StyledBadge>
   );

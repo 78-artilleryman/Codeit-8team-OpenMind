@@ -62,10 +62,10 @@ const Button = ({
         <FloatingButton
           onClick={onClick}
           className={className}
-          width={width}
-          height={height}
-          bright={bright}
-          inactive={inactive}
+          $width={width}
+          $height={height}
+          $bright={bright}
+          $inactive={inactive}
           disabled={inactive}
         >
           {children}
@@ -74,10 +74,10 @@ const Button = ({
         <BasicButton
           onClick={onClick}
           className={className}
-          width={width}
-          height={height}
-          bright={bright}
-          inactive={inactive}
+          $width={width}
+          $height={height}
+          $bright={bright}
+          $inactive={inactive}
           disabled={inactive}
         >
           {children}
