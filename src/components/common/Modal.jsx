@@ -103,6 +103,8 @@ const TextStyle = styled.h2`
   line-height: 22px;
 `;
 
+const MessagesIconSize = 28;
+
 const Modal = ({ userName, imageSource, onClick }) => {
   const ref = useRef(null);
   const [shortEditor, setShortEditor] = useState(false);
@@ -145,8 +147,8 @@ const Modal = ({ userName, imageSource, onClick }) => {
             <img
               src="/icons/Messages.svg"
               alt="Message Icon"
-              width="28"
-              height="28"
+              width={MessagesIconSize}
+              height={MessagesIconSize}
             />
             <ModalTitle>질문을 작성하세요</ModalTitle>
           </ModalHeader>
