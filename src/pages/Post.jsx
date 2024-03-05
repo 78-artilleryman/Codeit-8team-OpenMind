@@ -94,7 +94,12 @@ const Post = () => {
   return (
     <>
       {openModal && (
-        <ModalContainer title="질문을 작성하세요" onClick={handleModalClose}>
+        <ModalContainer
+          width={612}
+          height={454}
+          title="질문을 작성하세요"
+          onClick={handleModalClose}
+        >
           <Modal.ToQuestionBox>
             To.
             <img src={userData.imageSource} alt="" width="28" height="28" />

@@ -16,8 +16,8 @@ const ModalContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 612px;
-  height: 454px;
+  width: ${({ width }) => width}px;
+  height: ${({ height }) => height}px;
   padding: 40px 40px 70px 40px;
   border-radius: 24px;
   background-color: var(--gray10);
@@ -96,7 +96,7 @@ export const TextStyle = styled.h2`
   line-height: 22px;
 `;
 
-const Modal = ({ title, onClick, children }) => {
+const Modal = ({ width, height, title, onClick, children }) => {
   const ref = useRef(null);
 
   useEffect(() => {
@@ -116,7 +116,7 @@ const Modal = ({ title, onClick, children }) => {
 
   return (
     <BackgroundModal>
-      <ModalContainer ref={ref}>
+      <ModalContainer ref={ref} width={width} height={height}>
         <ModalTop>
           <ModalHeader>
             <img

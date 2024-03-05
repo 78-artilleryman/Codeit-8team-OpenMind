@@ -6,6 +6,9 @@ import Button from 'components/common/Button';
 import Title from 'components/list/Title';
 import Filter from 'components/list/Filter';
 import { Link } from 'react-router-dom';
+import { useModal } from 'hooks/useModal';
+import ModalContainer from 'components/common/Modal';
+import ModalProfileList from 'components/common/ModalProfileList';
 
 const Header = styled.header`
   display: flex;
@@ -67,13 +70,31 @@ const TitleFilterArea = styled.div`
 `;
 
 const List = () => {
+  const { openModal, handleModalOpen, handleModalClose } = useModal();
+
   return (
     <>
+      {openModal && (
+        <ModalContainer
+          width={540}
+          height={400}
+          title="어떤 프로필로 이동할까요?"
+          onClick={handleModalClose}
+        >
+          <ModalProfileList></ModalProfileList>
+        </ModalContainer>
+      )}
       <Header>
         <Link to="/">
           <MainLogo />
         </Link>
-        <HeadButton width={160} bright={true}>
+        <HeadButton
+          width={160}
+          bright={true}
+          onClick={() => {
+            handleModalOpen();
+          }}
+        >
           답변하러 가기
         </HeadButton>
       </Header>
