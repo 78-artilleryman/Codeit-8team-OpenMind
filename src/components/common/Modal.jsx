@@ -55,9 +55,10 @@ const ModalHeader = styled.div`
 
 const ModalTitle = styled.h1`
   color: var(--gray60);
-  font-family: Actor;
-  font-size: 24px;
+  font-family: 'Actor', sans-serif;
   font-weight: 400;
+  font-style: normal;
+  font-size: 24px;
   line-height: 30px;
 
   @media (max-width: 768px) {
