@@ -100,10 +100,9 @@ export const TextStyle = styled.h2`
   line-height: 22px;
 `;
 
-
 const Modal = ({ width, height, title, onClick, children }) => {
   const ref = useRef(null);
-
+  const MessagesIconSize = 28;
 
   useEffect(() => {
     function handleClickOutside(event) {
