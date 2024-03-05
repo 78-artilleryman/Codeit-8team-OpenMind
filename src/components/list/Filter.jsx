@@ -17,10 +17,10 @@ const StyledSelectBox = styled.div`
   border-radius: 8px;
   border: 1px solid
     ${props =>
-      props.isShow ? 'var(--gray60, #000)' : 'var(--gray40, #818181)'};
+      props.$isShow ? 'var(--gray60, #000)' : 'var(--gray40, #818181)'};
   background: var(--Grayscale-10, #fff);
   color: ${props =>
-    props.isShow ? 'var(--gray60, #000)' : 'var(--gray40, #818181)'};
+    props.$isShow ? 'var(--gray60, #000)' : 'var(--gray40, #818181)'};
 
   font-size: 14px;
   font-weight: 500;
@@ -32,7 +32,7 @@ const StyledSelectBox = styled.div`
     content: '';
     width: 14px;
     height: 14px;
-    background-image: url(${props => (props.isShow ? ArrowUp : ArrowDown)});
+    background-image: url(${props => (props.$isShow ? ArrowUp : ArrowDown)});
     background-size: 14px 14px;
     position: absolute;
     right: 12px;
@@ -47,7 +47,7 @@ const StyledSelectBox = styled.div`
 const Label = styled.label`
   margin-right: auto;
   cursor: pointer;
-  color: ${props => (props.isShow ? 'var(--gray60, #000)' : 'inherit')};
+  color: ${props => (props.$isShow ? 'var(--gray60, #000)' : 'inherit')};
 `;
 
 const SelectOptions = styled.ul`
@@ -80,9 +80,9 @@ const Option = styled.li`
   align-self: stretch;
 
   background-color: ${props =>
-    props.isFocused ? 'var(--gray20, #f9f9f9)' : 'transparent'};
+    props.$isFocused ? 'var(--gray20, #f9f9f9)' : 'transparent'};
   color: ${props =>
-    props.isSelected ? 'var(--blue, #1877F2)' : 'var(--gray50, #515151)'};
+    props.$isSelected ? 'var(--blue, #1877F2)' : 'var(--gray50, #515151)'};
   font-size: 14px;
   font-weight: 500;
   line-height: 18px;

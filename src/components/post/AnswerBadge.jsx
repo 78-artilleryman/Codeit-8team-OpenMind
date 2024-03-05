@@ -7,11 +7,11 @@ const StyledBadge = styled.div`
   text-align: center;
   font-size: 14px;
   font-weight: 500;
-  color: ${({ isAnswered }) =>
-    isAnswered ? 'var(--brown40)' : 'var(--gray40)'};
+  color: ${({ $isAnswered }) =>
+    $isAnswered ? 'var(--brown40)' : 'var(--gray40)'};
   border-radius: 8px;
   border: 1px solid
-    ${({ isAnswered }) => (isAnswered ? 'var(--brown40)' : 'var(--gray40)')};
+    ${({ $isAnswered }) => ($isAnswered ? 'var(--brown40)' : 'var(--gray40)')};
   padding: 4px 12px;
   height: 26px;
 `;

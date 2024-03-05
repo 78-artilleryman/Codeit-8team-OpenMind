@@ -15,7 +15,7 @@ const LikeButton = styled(Button)`
   display: flex;
   gap: 6px;
   align-items: center;
-  color: ${({ clicked }) => (clicked ? 'var(--blue)' : 'var(--gray40)')};
+  color: ${({ $clicked }) => ($clicked ? 'var(--blue)' : 'var(--gray40)')};
 `;
 
 const Reactions = ({ qnaData }) => {
