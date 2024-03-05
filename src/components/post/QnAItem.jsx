@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { getTimeDifference } from 'utils/dateUtils';
 import Avatar from 'components/common/Avatar';
 import QuestionContent from 'components/post/QuestionContent';
-import React, { useState } from 'react';
+import React from 'react';
 
 const Container = styled.div`
   display: flex;
@@ -15,25 +15,11 @@ const Answer = styled.div`
   gap: 12px;
 `;
 
-const ProfileImage = styled(Avatar)`
-  width: 48px;
-  height: 48px;
-`;
+const ProfileImage = styled(Avatar)``;
 
-const QnAItem = ({ qnaData, userData, isAnswerPage }) => {
-  const [writingAnswer, setWritingAnswer] = useState('');
+const QnAImageSize = 48;
 
-  // const onAnswer = (questionId, Answer) => {
-  //   console.log("onAnswer");
-  //   //data에서 id.question에 answer 추가;
-  // };
-
-  const handleAnswer = () => {
-    //createAnswer(e.target.id, answer)
-    // onAnswer(id.question, writingAnswer)
-    console.log('handleAnswer');
-  };
-
+const QnAItem = ({ qnaData, userData, isAnswerPage, isEdit }) => {
   if (!qnaData) {
     return <></>;
   }
@@ -46,9 +32,13 @@ const QnAItem = ({ qnaData, userData, isAnswerPage }) => {
           textContents={qnaData.content}
           type="question"
         />
-        {!isAnswerPage && qnaData.answer && (
+        {qnaData.answer && !isEdit && (
           <Answer>
-            <ProfileImage imageSrc={userData.imageSource} />
+            <ProfileImage
+              imageSrc={userData.imageSource}
+              width={QnAImageSize}
+              height={QnAImageSize}
+            />
             <QuestionContent
               subInformation={userData.name}
               time={getTimeDifference(qnaData.answer.createdAt)}
@@ -65,21 +55,31 @@ const QnAItem = ({ qnaData, userData, isAnswerPage }) => {
             />
           </Answer>
         )}
-        {isAnswerPage && qnaData.answer && (
+        {isAnswerPage && qnaData.answer && isEdit && (
           <Answer>
-            <ProfileImage imageSrc={userData.imageSource} />
+            <ProfileImage
+              imageSrc={userData.imageSource}
+              width={QnAImageSize}
+              height={QnAImageSize}
+            />
             <QuestionContent
               subInformation={userData.name}
               type="edit answer"
               textContents={qnaData.answer.content}
+              answerId={qnaData.answer.id}
             />
           </Answer>
         )}
         {isAnswerPage && !qnaData.answer && (
           <Answer>
-            <ProfileImage imageSrc={userData.imageSource} />
+            <ProfileImage
+              imageSrc={userData.imageSource}
+              width={QnAImageSize}
+              height={QnAImageSize}
+            />
             <QuestionContent
               subInformation={userData.name}
+              questionId={qnaData.id}
               type="create answer"
             />
           </Answer>

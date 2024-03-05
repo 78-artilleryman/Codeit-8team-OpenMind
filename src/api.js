@@ -94,3 +94,135 @@ export async function postQuestionsReaction(id, type) {
     }
   }
 }
+
+export async function createquestion(id, content) {
+  try {
+    const response = await fetch(`${BASE_URL}/subjects/${id}/questions/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        subjectId: id,
+        content: content,
+        like: 0,
+        dislikeL: 0,
+        team: '4-8',
+        answer: {
+          content: null,
+          isRejected: true,
+        },
+      }),
+    });
+
+    if (response.ok) {
+      return response.json();
+    }
+    return new Error('');
+  } catch (e) {
+    if (e instanceof Error) {
+      return e;
+    }
+  }
+}
+
+export async function createAnswer(id, content, isRejected = false) {
+  try {
+    const response = await fetch(`${BASE_URL}/questions/${id}/answers/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        questionId: id,
+        content: content,
+        isRejected: isRejected,
+        team: '8',
+      }),
+    });
+
+    if (response.ok) {
+      return response.json();
+    }
+    return new Error('');
+  } catch (e) {
+    if (e instanceof Error) {
+      return e;
+    }
+  }
+}
+
+export async function deleteSubject(id) {
+  try {
+    const response = await fetch(`${BASE_URL}/subjects/${id}/`, {
+      method: 'DELETE',
+    });
+
+    if (response.ok) {
+      return;
+    }
+    return new Error('');
+  } catch (e) {
+    if (e instanceof Error) {
+      return e;
+    }
+  }
+}
+
+export async function editAnswer(id, content, isRejected = false) {
+  try {
+    const response = await fetch(`${BASE_URL}/answers/${id}/`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        content: content,
+        isRejected: isRejected,
+      }),
+    });
+
+    if (response.ok) {
+      return response.json();
+    }
+    return new Error('');
+  } catch (e) {
+    if (e instanceof Error) {
+      return e;
+    }
+  }
+}
+
+export async function deleteQuestion(id) {
+  try {
+    const response = await fetch(`${BASE_URL}/questions/${id}/`, {
+      method: 'DELETE',
+    });
+
+    if (response.ok) {
+      return;
+    }
+    return new Error('');
+  } catch (e) {
+    if (e instanceof Error) {
+      return e;
+    }
+  }
+}
+
+export async function deleteAnswer(id) {
+  try {
+    const response = await fetch(`${BASE_URL}/answers/${id}/`, {
+      method: 'DELETE',
+    });
+
+    if (response.ok) {
+      return;
+    }
+    return new Error('');
+  } catch (e) {
+    if (e instanceof Error) {
+      return e;
+    }
+  }
+}

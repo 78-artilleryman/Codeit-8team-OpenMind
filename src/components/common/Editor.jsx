@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Button from './Button';
+import { createquestion } from 'api';
+import { useParams } from 'react-router-dom';
 
 const EditorContainer = styled.div`
   display: flex;
@@ -21,15 +23,41 @@ const TextArea = styled.textarea`
   font-weight: 400;
   line-height: 22px;
   resize: none;
-  height: 180px;
+  height: ${({ height }) => height}px;
   border: none;
 `;
 
-const Editor = ({ placeholder }) => {
+const Editor = ({ placeholder, width, height, ModalClose }) => {
+  const [question, setQuestion] = useState('');
+  const { postId } = useParams();
+
+  const questionValueHandler = e => {
+    setQuestion(e.target.value);
+  };
+
+  const handlePostQuestion = () => {
+    createquestion(postId, question);
+    setQuestion('');
+    ModalClose();
+  };
+
   return (
     <EditorContainer>
-      <TextArea cols="30" rows="10" placeholder={placeholder}></TextArea>
-      <Button width={530}>질문 보내기</Button>
+      <TextArea
+        cols="30"
+        rows="10"
+        placeholder={placeholder}
+        height={height}
+        onChange={questionValueHandler}
+        value={question}
+      ></TextArea>
+      <Button
+        onClick={handlePostQuestion}
+        inactive={question.trim().length === 0}
+        width={width}
+      >
+        질문 보내기
+      </Button>
     </EditorContainer>
   );
 };

@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import Button from 'components/common/Button';
 import { useState } from 'react';
+import { createAnswer, editAnswer } from 'api';
 
 const Container = styled.div`
   display: flex;
@@ -26,11 +27,26 @@ const StyledTextArea = styled.textarea`
   line-height: 22px;
 `;
 
-const AnswerInputForm = ({ placeholder, children }) => {
+const AnswerInputForm = ({
+  placeholder,
+  children,
+  questionId,
+  buttonText,
+  type,
+  answerId,
+}) => {
   const [answer, setAnswer] = useState('');
+
   const handleChange = e => {
     setAnswer(e.target.value);
-    console.log(answer);
+  };
+
+  const handleSubmitAnswer = () => {
+    createAnswer(questionId, answer).then(() => window.location.reload());
+  };
+
+  const handleEditAnswer = () => {
+    editAnswer(answerId, answer).then(() => window.location.reload());
   };
 
   return (
@@ -38,7 +54,14 @@ const AnswerInputForm = ({ placeholder, children }) => {
       <StyledTextArea placeholder={placeholder} onChange={handleChange}>
         {children}
       </StyledTextArea>
-      <Button inactive={answer === ''}>답변완료</Button>
+      <Button
+        inactive={answer === ''}
+        onClick={
+          type === 'create answer' ? handleSubmitAnswer : handleEditAnswer
+        }
+      >
+        {buttonText}
+      </Button>
     </Container>
   );
 };
