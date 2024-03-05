@@ -10,6 +10,7 @@ import PostList from 'components/post/PostList';
 import useBrowserSize from 'hooks/useBrowserSize';
 import Modal from 'components/common/Modal';
 import { useModal } from 'hooks/useModal';
+import { useSubject } from 'context/subjectContext';
 
 const PostContainer = styled.div`
   display: flex;
@@ -54,7 +55,7 @@ const Feed = styled.div`
 
 const Post = () => {
   const { postId } = useParams();
-  const [userData, setUserData] = useState();
+  const { currentSubject, setCurrentSubject } = useSubject();
   const [shortButton, setShortButton] = useState(false);
   // 모달 오픈 여부 변수
   const { openModal, handleModalOpen, handleModalClose } = useModal();
@@ -81,26 +82,26 @@ const Post = () => {
   };
 
   useEffect(() => {
-    getSubjectById(postId).then(setUserData);
+    getSubjectById(postId).then(setCurrentSubject);
   }, [postId]);
 
   useEffect(() => {
     handleButtonsize();
   }, [handleButtonsize]);
 
-  if (!userData) return <></>;
+  if (!currentSubject) return <></>;
   return (
     <>
       {openModal && (
         <Modal
-          userName={userData.name}
-          imageSource={userData.imageSource}
+          userName={currentSubject.name}
+          imageSource={currentSubject.imageSource}
           onClick={handleModalClose}
         />
       )}
       <PostBanner
-        userProfileImage={userData.imageSource}
-        userName={userData.name}
+        userProfileImage={currentSubject.imageSource}
+        userName={currentSubject.name}
       ></PostBanner>
       <PostContainer>
         <Share />
@@ -117,8 +118,8 @@ const Post = () => {
           </StyledButtonDiv>
         )}
         <Feed>
-          <PostCount questionCount={userData.questionCount} />
-          <PostList userData={userData} />
+          <PostCount questionCount={currentSubject.questionCount} />
+          <PostList />
         </Feed>
         {!isAnswerPage && (
           <StyledButtonDiv>
