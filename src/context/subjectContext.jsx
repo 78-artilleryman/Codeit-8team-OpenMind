@@ -1,16 +1,16 @@
-// 현재 선택된 폴더의 상태를 관리
+// 현재 접속한 Subject(유저)의 상태를 관리
 import React, { createContext, useContext, useState } from 'react';
 
 const SubjectContext = createContext(undefined);
 
-export const SubjectProvider = ({children}) => {
+export const SubjectProvider = ({ children }) => {
   const [currentSubject, setCurrentSubject] = useState({
     id: null,
     name: '',
   });
 
   return (
-    <SubjectContext.Provider value={{currentSubject, setCurrentSubject}}>
+    <SubjectContext.Provider value={{ currentSubject, setCurrentSubject }}>
       {children}
     </SubjectContext.Provider>
   );
