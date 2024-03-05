@@ -8,7 +8,9 @@ import styled from 'styled-components';
 import PostCount from 'components/post/PostCount';
 import PostList from 'components/post/PostList';
 import useBrowserSize from 'hooks/useBrowserSize';
-import Modal from 'components/common/Modal';
+import ModalContainer from 'components/common/Modal';
+import * as Modal from 'components/common/Modal';
+import Editor from 'components/common/Editor';
 import { useModal } from 'hooks/useModal';
 import { useSubject } from 'context/subjectContext';
 
@@ -55,8 +57,10 @@ const Feed = styled.div`
 
 const Post = () => {
   const { postId } = useParams();
-  const { currentSubject, setCurrentSubject } = useSubject();
-  const [shortButton, setShortButton] = useState(false);
+
+  const [userData, setUserData] = useState();
+  const [shortUI, setShortUI] = useState(false);
+
   // 모달 오픈 여부 변수
   const { openModal, handleModalOpen, handleModalClose } = useModal();
 
@@ -68,12 +72,12 @@ const Post = () => {
 
   const navigate = useNavigate();
 
-  const handleButtonsize = useCallback(() => {
+  const handleUIsize = useCallback(() => {
     if (windowWidth <= 767) {
-      setShortButton(true);
+      setShortUI(true);
       return;
     } else {
-      setShortButton(false);
+      setShortUI(false);
     }
   }, [windowWidth]);
 
@@ -86,18 +90,32 @@ const Post = () => {
   }, [postId]);
 
   useEffect(() => {
-    handleButtonsize();
-  }, [handleButtonsize]);
+    handleUIsize();
+  }, [handleUIsize]);
 
   if (!currentSubject) return <></>;
   return (
     <>
       {openModal && (
-        <Modal
-          userName={currentSubject.name}
-          imageSource={currentSubject.imageSource}
+
+        <ModalContainer
+          width={612}
+          height={454}
+          title="질문을 작성하세요"
           onClick={handleModalClose}
-        />
+        >
+          <Modal.ToQuestionBox>
+            To.
+            <img src={userData.imageSource} alt="" width="28" height="28" />
+            <Modal.TextStyle>{userData.name}</Modal.TextStyle>
+          </Modal.ToQuestionBox>
+          <Editor
+            placeholder="질문을 입력해주세요"
+            width={shortUI ? 279 : 530}
+            height={shortUI ? 358 : 180}
+            ModalClose={handleModalClose}
+          />
+        </ModalContainer>
       )}
       <PostBanner
         userProfileImage={currentSubject.imageSource}
@@ -130,7 +148,7 @@ const Post = () => {
                 handleModalOpen();
               }}
             >
-              {shortButton ? '질문작성' : '질문 작성하기'}
+              {shortUI ? '질문작성' : '질문 작성하기'}
             </AddQuestionButton>
           </StyledButtonDiv>
         )}
