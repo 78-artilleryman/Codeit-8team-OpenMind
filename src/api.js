@@ -95,6 +95,37 @@ export async function postQuestionsReaction(id, type) {
   }
 }
 
+export async function createquestion(id, content) {
+  try {
+    const response = await fetch(`${BASE_URL}/subjects/${id}/questions/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        subjectId: id,
+        content: content,
+        like: 0,
+        dislikeL: 0,
+        team: '4-8',
+        answer: {
+          content: null,
+          isRejected: true,
+        },
+      }),
+    });
+
+    if (response.ok) {
+      return response.json();
+    }
+    return new Error('');
+  } catch (e) {
+    if (e instanceof Error) {
+      return e;
+    }
+  }
+}
+
 export async function createAnswer(id, content, isRejected = false) {
   try {
     const response = await fetch(`${BASE_URL}/questions/${id}/answers/`, {

@@ -9,12 +9,18 @@ import PostCount from 'components/post/PostCount';
 import PostList from 'components/post/PostList';
 import useBrowserSize from 'hooks/useBrowserSize';
 import Modal from 'components/common/Modal';
+import { useModal } from 'hooks/useModal';
+import { useSubject } from 'context/subjectContext';
 
 const PostContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 46px;
-  padding: 2% 10%;
+  padding: 0 32px 24px;
+
+  @media (max-width: 767px) {
+    padding: 0 24px 24px;
+  }
 `;
 
 const StyledButtonDiv = styled.div`
@@ -45,17 +51,14 @@ const Feed = styled.div`
   flex-direction: column;
   gap: 16px;
   width: 100%;
-
-  @media (max-width: 1023px) {
-    width: 90%;
-  }
 `;
 
 const Post = () => {
   const { postId } = useParams();
-  const [userData, setUserData] = useState();
+  const { currentSubject, setCurrentSubject } = useSubject();
   const [shortButton, setShortButton] = useState(false);
-  const [isModalOpen, setModalOpen] = useState(false);
+  // 모달 오픈 여부 변수
+  const { openModal, handleModalOpen, handleModalClose } = useModal();
 
   const { pathname } = useLocation();
   const paths = pathname.split('/');
@@ -64,16 +67,6 @@ const Post = () => {
   const { windowWidth } = useBrowserSize();
 
   const navigate = useNavigate();
-
-  // 창 크기가 바뀔 때 질문 작성 버튼 문구 변경
-  window.onresize = function () {
-    const screenWidth = window.innerWidth;
-    if (screenWidth <= 767) {
-      setShortButton(true);
-      return;
-    }
-    setShortButton(false);
-  };
 
   const handleButtonsize = useCallback(() => {
     if (windowWidth <= 767) {
@@ -89,28 +82,26 @@ const Post = () => {
   };
 
   useEffect(() => {
-    getSubjectById(postId).then(setUserData);
+    getSubjectById(postId).then(setCurrentSubject);
   }, [postId]);
 
   useEffect(() => {
     handleButtonsize();
   }, [handleButtonsize]);
 
-  if (!userData) return <></>;
+  if (!currentSubject) return <></>;
   return (
     <>
-      {isModalOpen && (
+      {openModal && (
         <Modal
-          userName={userData.name}
-          imageSource={userData.imageSource}
-          onClick={() => {
-            setModalOpen(false);
-          }}
+          userName={currentSubject.name}
+          imageSource={currentSubject.imageSource}
+          onClick={handleModalClose}
         />
       )}
       <PostBanner
-        userProfileImage={userData.imageSource}
-        userName={userData.name}
+        userProfileImage={currentSubject.imageSource}
+        userName={currentSubject.name}
       ></PostBanner>
       <PostContainer>
         <Share />
@@ -127,8 +118,8 @@ const Post = () => {
           </StyledButtonDiv>
         )}
         <Feed>
-          <PostCount questionCount={userData.questionCount} />
-          <PostList userData={userData} />
+          <PostCount questionCount={currentSubject.questionCount} />
+          <PostList />
         </Feed>
         {!isAnswerPage && (
           <StyledButtonDiv>
@@ -136,7 +127,7 @@ const Post = () => {
               varient="floating"
               width={208}
               onClick={() => {
-                setModalOpen(true);
+                handleModalOpen();
               }}
             >
               {shortButton ? '질문작성' : '질문 작성하기'}
