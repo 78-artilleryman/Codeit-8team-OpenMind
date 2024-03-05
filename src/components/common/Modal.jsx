@@ -31,10 +31,13 @@ const ModalContainer = styled.div`
   top: 50%;
   transform: translate(-50%, -50%);
 
-  @media (max-width: 768px) {
-    width: 327px;
+  @media (max-width: 767px) {
+    min-width: 327px;
+    width: calc(100% - 48px);
     height: 568px;
+    left: calc(50% - 24px);
     padding: 24px;
+    margin: 0 24px;
   }
 `;
 
@@ -61,7 +64,7 @@ const ModalTitle = styled.h1`
   font-size: 24px;
   line-height: 30px;
 
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     font-size: 20px;
     line-height: 25px;
   }
@@ -72,7 +75,7 @@ const CloseButton = styled.img`
   height: 28px;
   cursor: pointer;
 
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     width: 22px;
     height: 22px;
   }
@@ -107,7 +110,7 @@ const Modal = ({ userName, imageSource, onClick }) => {
   const { windowWidth } = useBrowserSize();
 
   const handleEditorsize = useCallback(() => {
-    if (windowWidth <= 768) {
+    if (windowWidth <= 767) {
       setShortEditor(true);
       return;
     } else {
