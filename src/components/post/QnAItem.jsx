@@ -68,14 +68,13 @@ const QnAItem = ({ qnaData, isAnswerPage, isEdit, onEditCancel }) => {
               width={QnAImageSize}
               height={QnAImageSize}
             />
-
             <QuestionContent
               subInformation={currentSubject.name}
               type="edit answer"
               textContents={qnaData.answer.content}
               answerId={qnaData.answer.id}
               isEdit={isEdit}
-              onEditCancle={onEditCancel}
+              onEditCancel={onEditCancel}
             />
           </Answer>
         )}
