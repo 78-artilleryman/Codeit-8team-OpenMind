@@ -1,24 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import Main from 'pages/Main';
+import GlobalStyle from 'GlobalStyle';
+import List from 'pages/List';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Post from 'pages/Post';
+import { SubjectProvider } from 'context/subjectContext';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <GlobalStyle />
+      <SubjectProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Main />} />
+            <Route path="/list" element={<List />} />
+            <Route path="/post/:postId" element={<Post />} />
+            <Route path="/post/:postId/answer" element={<Post />} />
+          </Routes>
+        </BrowserRouter>
+      </SubjectProvider>
+    </>
   );
 }
 
