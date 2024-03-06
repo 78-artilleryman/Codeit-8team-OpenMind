@@ -94,8 +94,6 @@ const Post = () => {
     handleUIsize();
   }, [handleUIsize]);
 
-  console.log(currentSubject);
-
   if (!currentSubject) return <></>;
   return (
     <>
