@@ -58,7 +58,7 @@ const Feed = styled.div`
 const Post = () => {
   const { postId } = useParams();
 
-  const [userData, setUserData] = useState();
+  // const [userData, setUserData] = useState();
   const [shortUI, setShortUI] = useState(false);
   const { currentSubject, setCurrentSubject } = useSubject();
 
@@ -106,8 +106,13 @@ const Post = () => {
         >
           <Modal.ToQuestionBox>
             To.
-            <img src={userData.imageSource} alt="" width="28" height="28" />
-            <Modal.TextStyle>{userData.name}</Modal.TextStyle>
+            <img
+              src={currentSubject.imageSource}
+              alt=""
+              width="28"
+              height="28"
+            />
+            <Modal.TextStyle>{currentSubject.name}</Modal.TextStyle>
           </Modal.ToQuestionBox>
           <Editor
             placeholder="질문을 입력해주세요"

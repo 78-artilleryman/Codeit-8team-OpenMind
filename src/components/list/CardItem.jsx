@@ -85,7 +85,8 @@ const CardItem = ({ id, name, imageSource, questionCount }) => {
   const userInfo = localStorage.getItem('user');
   const parsedInfo = JSON.parse(userInfo);
 
-  const toAnswer = Object.keys(parsedInfo).indexOf(String(id)) + 1;
+  const toAnswer =
+    parsedInfo && Object.keys(parsedInfo).indexOf(String(id)) + 1;
 
   return (
     <Link to={toAnswer ? `/post/${id}/answer` : `/post/${id}`}>
