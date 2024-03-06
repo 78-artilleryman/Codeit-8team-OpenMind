@@ -32,6 +32,7 @@ const HeadContainer = styled.div`
 `;
 
 const PostItem = ({ qnaData, setPostData, postId }) => {
+  console.log(qnaData);
   // 현재 내가 있는 페이지가 답변하기(/answer)페이지인지 구별합니다.
   const { pathname } = useLocation();
   const paths = pathname.split('/');
@@ -63,7 +64,17 @@ const PostItem = ({ qnaData, setPostData, postId }) => {
   const handleDeleteAnswer = () => {
     if (!qnaData.answer) alert('삭제할 답변이 없어요.😭');
     else {
-      deleteAnswer(qnaData.answer.id);
+      deleteAnswer(qnaData.answer.id)
+        .then(() => getQuestionsById(postId))
+        .then(res => {
+          // 답변을 삭제하고 새로운 데이터로 업데이트
+          const { results } = res;
+          setPostData(() => results);
+        })
+        .catch(error => {
+          // 오류 처리
+          console.error('An error occurred:', error);
+        });
     }
   };
 
