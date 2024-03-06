@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const PaigeNation = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 40px;
+  margin: 40px 0 100px;
 
   @media (max-width: 661px) {
     margin: 30px 0 40px;
@@ -34,7 +34,9 @@ const SelectNumber = styled(Arrow)`
   color: var(--brown40, #542f1a);
   text-align: center;
   font-size: 30px;
-  font-family: Actor;
+  font-family: 'Actor', sans-serif;
+  font-weight: 400;
+  font-style: normal;
 `;
 
 const PagiNation = ({

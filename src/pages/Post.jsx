@@ -1,26 +1,47 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import PostBanner from 'components/post/PostBanner';
-import { useParams } from 'react-router-dom';
-import { getSubjectById } from '../api';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { deleteSubject, getSubjectById } from '../api';
 import Share from 'components/post/Share';
 import Button from 'components/common/Button';
 import styled from 'styled-components';
 import PostCount from 'components/post/PostCount';
 import PostList from 'components/post/PostList';
 import useBrowserSize from 'hooks/useBrowserSize';
-import Modal from 'components/common/Modal';
+import ModalContainer from 'components/common/Modal';
+import * as Modal from 'components/common/Modal';
+import Editor from 'components/common/Editor';
+import { useModal } from 'hooks/useModal';
+import { useSubject } from 'context/subjectContext';
 
 const PostContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 46px;
+  padding: 0 32px 24px;
 
-  padding: 2%;
+  @media (max-width: 767px) {
+    padding: 0 24px 24px;
+  }
 `;
 
-const AddQuestionButton = styled.div`
+const StyledButtonDiv = styled.div`
   display: flex;
   justify-content: flex-end;
+`;
+
+const AddQuestionButton = styled(Button)`
+  @media (max-width: 767px) {
+    width: 123px;
+  }
+`;
+
+const DeleteQuestionButton = styled(Button)`
+  @media (max-width: 767px) {
+    width: 70px;
+    height: 25px;
+    font-size: 10px;
+  }
 `;
 
 const Feed = styled.div`
@@ -28,88 +49,109 @@ const Feed = styled.div`
   border-radius: 16px;
   background-color: var(--brown10);
   padding: 16px;
-
   display: flex;
   flex-direction: column;
   gap: 16px;
-
-  width: 70%;
-  margin: auto;
-
-  @media (max-width: 768px) {
-    width: 90%;
-  }
+  width: 100%;
 `;
 
 const Post = () => {
   const { postId } = useParams();
+
   const [userData, setUserData] = useState();
-  console.log(userData);
-  const [shortButton, setShortButton] = useState(false);
-  const [isModalOpen, setModalOpen] = useState(false);
+  const [shortUI, setShortUI] = useState(false);
+  const { currentSubject, setCurrentSubject } = useSubject();
+
+  // 모달 오픈 여부 변수
+  const { openModal, handleModalOpen, handleModalClose } = useModal();
+
+  const { pathname } = useLocation();
+  const paths = pathname.split('/');
+  const isAnswerPage = paths[paths.length - 1] === 'answer';
 
   const { windowWidth } = useBrowserSize();
 
-  // 창 크기가 바뀔 때 질문 작성 버튼 문구 변경
-  window.onresize = function () {
-    const screenWidth = window.innerWidth;
-    if (screenWidth <= 767) {
-      setShortButton(true);
-      return;
-    }
-    setShortButton(false);
-  };
+  const navigate = useNavigate();
 
-  const handleButtonsize = useCallback(() => {
+  const handleUIsize = useCallback(() => {
     if (windowWidth <= 767) {
-      setShortButton(true);
+      setShortUI(true);
       return;
     } else {
-      setShortButton(false);
+      setShortUI(false);
     }
   }, [windowWidth]);
 
+  const handleDelete = () => {
+    deleteSubject(postId).then(() => navigate('/list'));
+  };
+
   useEffect(() => {
-    getSubjectById(postId).then(setUserData);
+    getSubjectById(postId).then(setCurrentSubject);
   }, [postId]);
 
   useEffect(() => {
-    handleButtonsize();
-  }, [handleButtonsize]);
+    handleUIsize();
+  }, [handleUIsize]);
 
-  if (!userData) return <></>;
+  if (!currentSubject) return <></>;
   return (
     <>
-      {isModalOpen && (
-        <Modal
-          userName={userData.name}
-          imageSource={userData.imageSource}
-          onClick={() => {
-            setModalOpen(false);
-          }}
-        />
+      {openModal && (
+        <ModalContainer
+          width={612}
+          height={454}
+          title="질문을 작성하세요"
+          onClick={handleModalClose}
+        >
+          <Modal.ToQuestionBox>
+            To.
+            <img src={userData.imageSource} alt="" width="28" height="28" />
+            <Modal.TextStyle>{userData.name}</Modal.TextStyle>
+          </Modal.ToQuestionBox>
+          <Editor
+            placeholder="질문을 입력해주세요"
+            width={shortUI ? 279 : 530}
+            height={shortUI ? 358 : 180}
+            ModalClose={handleModalClose}
+          />
+        </ModalContainer>
       )}
       <PostBanner
-        userProfileImage={userData.imageSource}
-        userName={userData.name}
+        userProfileImage={currentSubject.imageSource}
+        userName={currentSubject.name}
       ></PostBanner>
       <PostContainer>
         <Share />
+        {isAnswerPage && (
+          <StyledButtonDiv>
+            <DeleteQuestionButton
+              varient="floating"
+              width={100}
+              height={35}
+              onClick={handleDelete}
+            >
+              삭제하기
+            </DeleteQuestionButton>
+          </StyledButtonDiv>
+        )}
         <Feed>
-          <PostCount questionCount={userData.questionCount} />
-          <PostList userData={userData} />
+          <PostCount questionCount={currentSubject.questionCount} />
+          <PostList />
         </Feed>
-        <AddQuestionButton>
-          <Button
-            varient="floating"
-            width={208}
-            onClick={() => {
-              setModalOpen(true);
-            }}
-          >
-            {shortButton ? '질문작성' : '질문 작성하기'}
-          </Button>
-        </AddQuestionButton>
+        {!isAnswerPage && (
+          <StyledButtonDiv>
+            <AddQuestionButton
+              varient="floating"
+              width={208}
+              onClick={() => {
+                handleModalOpen();
+              }}
+            >
+              {shortUI ? '질문작성' : '질문 작성하기'}
+            </AddQuestionButton>
+          </StyledButtonDiv>
+        )}
       </PostContainer>
     </>
   );

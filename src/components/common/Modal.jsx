@@ -1,8 +1,6 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import Avatar from './Avatar';
-import Editor from './Editor';
-import useBrowserSize from 'hooks/useBrowserSize';
 
 const BackgroundModal = styled.div`
   background-color: rgba(0, 0, 0, 0.56);
@@ -18,8 +16,8 @@ const ModalContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 612px;
-  height: 454px;
+  width: ${({ width }) => width}px;
+  height: ${({ height }) => height}px;
   padding: 40px 40px 70px 40px;
   border-radius: 24px;
   background-color: var(--gray10);
@@ -30,10 +28,13 @@ const ModalContainer = styled.div`
   top: 50%;
   transform: translate(-50%, -50%);
 
-  @media (max-width: 768px) {
-    width: 327px;
+  @media (max-width: 767px) {
+    min-width: 327px;
+    width: calc(100% - 48px);
     height: 568px;
+    left: calc(50% - 24px);
     padding: 24px;
+    margin: 0 24px;
   }
 `;
 
@@ -54,12 +55,13 @@ const ModalHeader = styled.div`
 
 const ModalTitle = styled.h1`
   color: var(--gray60);
-  font-family: Actor;
-  font-size: 24px;
+  font-family: 'Actor', sans-serif;
   font-weight: 400;
+  font-style: normal;
+  font-size: 24px;
   line-height: 30px;
 
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     font-size: 20px;
     line-height: 25px;
   }
@@ -70,13 +72,13 @@ const CloseButton = styled.img`
   height: 28px;
   cursor: pointer;
 
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     width: 22px;
     height: 22px;
   }
 `;
 
-const ToQuestionBox = styled.div`
+export const ToQuestionBox = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
@@ -90,7 +92,7 @@ const ToQuestionBox = styled.div`
   margin-bottom: 12px;
 `;
 
-const TextStyle = styled.h2`
+export const TextStyle = styled.h2`
   color: var(--gray60);
   font-weight: 400;
   font-family: Pretendard;
@@ -98,24 +100,9 @@ const TextStyle = styled.h2`
   line-height: 22px;
 `;
 
-const Modal = ({ userName, imageSource, onClick }) => {
+const Modal = ({ width, height, title, onClick, children }) => {
   const ref = useRef(null);
-  const [shortEditor, setShortEditor] = useState(false);
-
-  const { windowWidth } = useBrowserSize();
-
-  const handleEditorsize = useCallback(() => {
-    if (windowWidth <= 768) {
-      setShortEditor(true);
-      return;
-    } else {
-      setShortEditor(false);
-    }
-  }, [windowWidth]);
-
-  useEffect(() => {
-    handleEditorsize();
-  }, [handleEditorsize]);
+  const MessagesIconSize = 28;
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -123,7 +110,7 @@ const Modal = ({ userName, imageSource, onClick }) => {
       // ref.current가 event.target을 포함하는지 판단하여 !연산
       // 즉, event.target이 외부에서 발생했다면 모달을 false하여 닫음
       if (ref.current && !ref.current.contains(event.target)) {
-        onClick(false);
+        onClick();
       }
     }
     document.addEventListener('mousedown', handleClickOutside);
@@ -134,16 +121,16 @@ const Modal = ({ userName, imageSource, onClick }) => {
 
   return (
     <BackgroundModal>
-      <ModalContainer ref={ref}>
+      <ModalContainer ref={ref} width={width} height={height}>
         <ModalTop>
           <ModalHeader>
             <img
               src="/icons/Messages.svg"
               alt="Message Icon"
-              width="28"
-              height="28"
+              width={MessagesIconSize}
+              height={MessagesIconSize}
             />
-            <ModalTitle>질문을 작성하세요</ModalTitle>
+            <ModalTitle>{title}</ModalTitle>
           </ModalHeader>
           <CloseButton
             src="/icons/Close.svg"
@@ -151,16 +138,7 @@ const Modal = ({ userName, imageSource, onClick }) => {
             onClick={onClick}
           />
         </ModalTop>
-        <ToQuestionBox>
-          To.
-          <img src={imageSource} alt="" width="28" height="28" />
-          <TextStyle>{userName}</TextStyle>
-        </ToQuestionBox>
-        <Editor
-          placeholder="질문을 입력해주세요"
-          width={shortEditor ? 279 : 530}
-          height={shortEditor ? 358 : 180}
-        />
+        {children}
       </ModalContainer>
     </BackgroundModal>
   );

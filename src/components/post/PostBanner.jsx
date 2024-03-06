@@ -2,6 +2,7 @@ import React from 'react';
 import LogoBox from 'components/common/LogoBox';
 import Avatar from 'components/common/Avatar';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const BannerContainer = styled.div`
   height: 234px;
@@ -15,19 +16,18 @@ const BannerContainer = styled.div`
   gap: 10px;
 
   background: url('/images/Banner.svg') no-repeat center;
-  background-size: cover;
+  /* background-size: cover; */
 
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     height: 177px;
   }
 `;
 
 const PostLogo = styled(LogoBox)`
-  position: absolute;
-  top: 50px;
+  margin-top: 30px;
   width: 170px;
 
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     width: 124px;
   }
 `;
@@ -39,7 +39,7 @@ const PostAvatar = styled(Avatar)`
   right: 0;
   margin: auto;
 
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     width: 104px;
     height: 104px;
   }
@@ -56,7 +56,9 @@ const PostUserName = styled.div`
 const PostBanner = ({ userProfileImage, userName }) => {
   return (
     <BannerContainer>
-      <PostLogo />
+      <Link to="/list">
+        <PostLogo />
+      </Link>
       <PostAvatar imageSrc={userProfileImage} />
       <PostUserName>{userName}</PostUserName>
     </BannerContainer>

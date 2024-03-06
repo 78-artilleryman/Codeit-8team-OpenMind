@@ -82,8 +82,13 @@ const Text = styled.p`
 `;
 
 const CardItem = ({ id, name, imageSource, questionCount }) => {
+  const userInfo = localStorage.getItem('user');
+  const parsedInfo = JSON.parse(userInfo);
+
+  const toAnswer = Object.keys(parsedInfo).indexOf(String(id)) + 1;
+
   return (
-    <Link to={`/post/${id}`}>
+    <Link to={toAnswer ? `/post/${id}/answer` : `/post/${id}`}>
       <Card>
         <CardHeader>
           <Profile src={imageSource} alt="profile" />
