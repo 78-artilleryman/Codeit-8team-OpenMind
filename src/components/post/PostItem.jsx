@@ -32,7 +32,6 @@ const HeadContainer = styled.div`
 `;
 
 const PostItem = ({ qnaData, setPostData, postId }) => {
-  console.log(qnaData);
   // 현재 내가 있는 페이지가 답변하기(/answer)페이지인지 구별합니다.
   const { pathname } = useLocation();
   const paths = pathname.split('/');
