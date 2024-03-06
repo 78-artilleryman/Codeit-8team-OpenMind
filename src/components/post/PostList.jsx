@@ -12,6 +12,7 @@ const PostList = () => {
     getQuestionsById(postId).then(setPostData);
   }, [postId]);
 
+  // postData.results는 해당 Post 페이지 내에 존재하는 질문들을 담은 배열입니다.
   if (!postData) return <></>;
   return postData.results.length === 0 ? (
     <NoQuestion />

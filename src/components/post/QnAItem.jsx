@@ -20,7 +20,7 @@ const ProfileImage = styled(Avatar)``;
 
 const QnAImageSize = 48;
 
-const QnAItem = ({ qnaData, isAnswerPage, isEdit }) => {
+const QnAItem = ({ qnaData, isAnswerPage, isEdit, onEditCancel }) => {
   const { currentSubject } = useSubject();
 
   if (!qnaData) {
@@ -35,11 +35,11 @@ const QnAItem = ({ qnaData, isAnswerPage, isEdit }) => {
           textContents={qnaData.content}
           type="question"
         />
+        {/*답변이 존재하고, 수정 모드가 아닐때, 일반적인 답변이 표시됩니다.*/}
         {qnaData.answer && !isEdit && (
           <Answer>
-
             <ProfileImage
-              imageSrc={userData.imageSource}
+              imageSrc={currentSubject.imageSource}
               width={QnAImageSize}
               height={QnAImageSize}
             />
@@ -60,30 +60,28 @@ const QnAItem = ({ qnaData, isAnswerPage, isEdit }) => {
             />
           </Answer>
         )}
+        {/*답변 페이지에서, 답변이 존재하고, 수정모드일때 답변을 수정할 수 있는 Input이 표시됩니다.*/}
         {isAnswerPage && qnaData.answer && isEdit && (
           <Answer>
             <ProfileImage
-              imageSrc={userData.imageSource}
+              imageSrc={currentSubject.imageSource}
               width={QnAImageSize}
               height={QnAImageSize}
             />
-
             <QuestionContent
               subInformation={currentSubject.name}
               type="edit answer"
               textContents={qnaData.answer.content}
               answerId={qnaData.answer.id}
+              isEdit={isEdit}
+              onEditCancel={onEditCancel}
             />
           </Answer>
         )}
+        {/*답변 페이지에서, 답변이 존재하지 않을 때, 답변을 생성할 수 있는 Input이 표시됩니다.*/}
         {isAnswerPage && !qnaData.answer && (
           <Answer>
-            <ProfileImage
-              imageSrc={userData.imageSource}
-              width={QnAImageSize}
-              height={QnAImageSize}
-            />
-
+            <ProfileImage imageSrc={currentSubject.imageSource} />
             <QuestionContent
               subInformation={currentSubject.name}
               questionId={qnaData.id}

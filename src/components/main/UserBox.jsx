@@ -44,6 +44,7 @@ const UserBox = () => {
 
   const handleQuestionClick = () => {
     const isFilled = checkEmptyNickName();
+
     if (isFilled) {
       createInterviewer(nickName).then(result => {
         setLocalStorage(result.id, result.name);

@@ -1,9 +1,6 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import Avatar from './Avatar';
-import Editor from './Editor';
-import useBrowserSize from 'hooks/useBrowserSize';
-import { useModal } from 'hooks/useModal';
 
 const BackgroundModal = styled.div`
   background-color: rgba(0, 0, 0, 0.56);
@@ -19,8 +16,8 @@ const ModalContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 612px;
-  height: 454px;
+  width: ${({ width }) => width}px;
+  height: ${({ height }) => height}px;
   padding: 40px 40px 70px 40px;
   border-radius: 24px;
   background-color: var(--gray10);
@@ -81,7 +78,7 @@ const CloseButton = styled.img`
   }
 `;
 
-const ToQuestionBox = styled.div`
+export const ToQuestionBox = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
@@ -95,7 +92,7 @@ const ToQuestionBox = styled.div`
   margin-bottom: 12px;
 `;
 
-const TextStyle = styled.h2`
+export const TextStyle = styled.h2`
   color: var(--gray60);
   font-weight: 400;
   font-family: Pretendard;
@@ -103,26 +100,9 @@ const TextStyle = styled.h2`
   line-height: 22px;
 `;
 
-const MessagesIconSize = 28;
-
-const Modal = ({ userName, imageSource, onClick }) => {
+const Modal = ({ width, height, title, onClick, children }) => {
   const ref = useRef(null);
-  const [shortEditor, setShortEditor] = useState(false);
-
-  const { windowWidth } = useBrowserSize();
-
-  const handleEditorsize = useCallback(() => {
-    if (windowWidth <= 767) {
-      setShortEditor(true);
-      return;
-    } else {
-      setShortEditor(false);
-    }
-  }, [windowWidth]);
-
-  useEffect(() => {
-    handleEditorsize();
-  }, [handleEditorsize]);
+  const MessagesIconSize = 28;
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -141,7 +121,7 @@ const Modal = ({ userName, imageSource, onClick }) => {
 
   return (
     <BackgroundModal>
-      <ModalContainer ref={ref}>
+      <ModalContainer ref={ref} width={width} height={height}>
         <ModalTop>
           <ModalHeader>
             <img
@@ -150,7 +130,7 @@ const Modal = ({ userName, imageSource, onClick }) => {
               width={MessagesIconSize}
               height={MessagesIconSize}
             />
-            <ModalTitle>질문을 작성하세요</ModalTitle>
+            <ModalTitle>{title}</ModalTitle>
           </ModalHeader>
           <CloseButton
             src="/icons/Close.svg"
@@ -158,17 +138,7 @@ const Modal = ({ userName, imageSource, onClick }) => {
             onClick={onClick}
           />
         </ModalTop>
-        <ToQuestionBox>
-          To.
-          <img src={imageSource} alt="" width="28" height="28" />
-          <TextStyle>{userName}</TextStyle>
-        </ToQuestionBox>
-        <Editor
-          placeholder="질문을 입력해주세요"
-          width={shortEditor ? 279 : 530}
-          height={shortEditor ? 358 : 180}
-          ModalClose={onClick}
-        />
+        {children}
       </ModalContainer>
     </BackgroundModal>
   );
