@@ -11,7 +11,9 @@ import {
   deleteAnswer,
   deleteQuestion,
   editAnswer,
+  getQuestionsById,
 } from '../../api';
+import { useSubject } from 'context/subjectContext';
 
 const PostContainer = styled.div`
   display: flex;
@@ -29,22 +31,40 @@ const HeadContainer = styled.div`
   justify-content: space-between;
 `;
 
-const PostItem = ({ qnaData }) => {
+const PostItem = ({ qnaData, setPostData, postId }) => {
   // 현재 내가 있는 페이지가 답변하기(/answer)페이지인지 구별합니다.
   const { pathname } = useLocation();
   const paths = pathname.split('/');
   const isAnswerPage = paths[paths.length - 1] === 'answer';
+  const { currentSubject, setCurrentSubject } = useSubject();
 
   // 수정 모드를 정하는 상태입니다.
   const [isEdit, setIsEdit] = useState(false);
 
   const handleDeleteQuestion = () => {
-    deleteQuestion(qnaData.id).then(() => window.location.reload());
+    deleteQuestion(qnaData.id)
+      .then(() => getQuestionsById(postId))
+      .then(res => {
+        // 질문을 삭제하고 새로운 데이터로 업데이트
+        const { results, count } = res;
+        const updatedSubject = { ...currentSubject };
+
+        updatedSubject.questionCount = count;
+
+        setPostData(() => results);
+        setCurrentSubject(updatedSubject);
+      })
+      .catch(error => {
+        // 오류 처리
+        console.error('An error occurred:', error);
+      });
   };
 
   const handleDeleteAnswer = () => {
     if (!qnaData.answer) alert('삭제할 답변이 없어요.😭');
-    else deleteAnswer(qnaData.answer.id).then(() => window.location.reload());
+    else {
+      deleteAnswer(qnaData.answer.id);
+    }
   };
 
   const handleRejectAnswer = () => {

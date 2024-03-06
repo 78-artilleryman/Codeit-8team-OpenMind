@@ -95,6 +95,7 @@ const Post = () => {
   }, [handleUIsize]);
 
   if (!currentSubject) return <></>;
+
   return (
     <>
       {openModal && (
