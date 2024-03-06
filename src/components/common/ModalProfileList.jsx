@@ -33,6 +33,11 @@ const ModalProfileList = () => {
   const userInfo = localStorage.getItem('user');
   const parsedInfo = JSON.parse(userInfo);
 
+  const userArray = Object.entries(parsedInfo).map(([id, name]) => ({
+    id: id,
+    name: name,
+  }));
+
   if (!parsedInfo) {
     return (
       <>
@@ -43,9 +48,9 @@ const ModalProfileList = () => {
 
   return (
     <StyledContainer>
-      {Object.keys(parsedInfo).map(key => (
-        <Link to={`/post/${key}/answer`}>
-          <Profile key={key}>{`${parsedInfo[key]}`}</Profile>
+      {userArray.map(user => (
+        <Link key={user.id} to={`/post/${user.id}/answer`}>
+          <Profile key={user.id}>{`${user.name}`}</Profile>
         </Link>
       ))}
     </StyledContainer>
