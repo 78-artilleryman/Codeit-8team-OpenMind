@@ -60,6 +60,7 @@ const Post = () => {
 
   const [userData, setUserData] = useState();
   const [shortUI, setShortUI] = useState(false);
+  const { currentSubject, setCurrentSubject } = useSubject();
 
   // 모달 오픈 여부 변수
   const { openModal, handleModalOpen, handleModalClose } = useModal();
@@ -97,7 +98,6 @@ const Post = () => {
   return (
     <>
       {openModal && (
-
         <ModalContainer
           width={612}
           height={454}
