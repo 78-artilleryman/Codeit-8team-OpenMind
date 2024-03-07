@@ -11,6 +11,8 @@ const Container = styled.div`
 `;
 
 const KebabButton = styled(Button)`
+  width: 28px;
+  height: 28px;
   display: flex;
   justify-content: center;
   align-items: center;
