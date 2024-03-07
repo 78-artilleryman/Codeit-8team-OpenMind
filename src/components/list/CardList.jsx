@@ -83,8 +83,10 @@ const CardList = () => {
     );
 
   if (
-    location.search.split('&').at(-1) !== 'sort=createdAt' &&
-    location.search.split('&').at(-1) !== 'sort=name'
+    location.search !== '' &&
+    location.search.split('=').at(-1) !== 'createdAt' &&
+    location.search.split('=').at(-1) !== 'name' &&
+    location.search.split('=').at(-1) !== 'null'
   )
     return <Navigate to="/src/pages/NotFound" />;
 
