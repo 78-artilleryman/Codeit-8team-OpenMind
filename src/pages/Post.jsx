@@ -13,6 +13,8 @@ import * as Modal from 'components/common/Modal';
 import Editor from 'components/common/Editor';
 import { useModal } from 'hooks/useModal';
 import { useSubject } from 'context/subjectContext';
+import { deleteLocalStorage } from 'utils/useLocalStorage';
+import Avatar from 'components/common/Avatar';
 
 const PostContainer = styled.div`
   display: flex;
@@ -43,6 +45,8 @@ const DeleteQuestionButton = styled(Button)`
     font-size: 10px;
   }
 `;
+
+const PostModalAvatar = styled(Avatar)``;
 
 const Feed = styled.div`
   border: 1px solid var(--brown30);
@@ -83,6 +87,8 @@ const Post = () => {
   }, [windowWidth]);
 
   const handleDelete = () => {
+    // 질문 삭제시 로컬스토리지에 있는 질문 id도 없어지게 추가해놈
+    deleteLocalStorage(postId);
     deleteSubject(postId).then(() => navigate('/list'));
   };
 
@@ -95,6 +101,7 @@ const Post = () => {
   }, [handleUIsize]);
 
   if (!currentSubject) return <></>;
+
   return (
     <>
       {openModal && (
@@ -106,9 +113,8 @@ const Post = () => {
         >
           <Modal.ToQuestionBox>
             To.
-            <img
-              src={currentSubject.imageSource}
-              alt=""
+            <PostModalAvatar
+              imageSrc={currentSubject.imageSource}
               width="28"
               height="28"
             />
