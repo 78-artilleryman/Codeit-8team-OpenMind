@@ -33,10 +33,12 @@ const ModalProfileList = () => {
   const userInfo = localStorage.getItem('user');
   const parsedInfo = JSON.parse(userInfo);
 
-  const userArray = Object.entries(parsedInfo).map(([id, name]) => ({
-    id: id,
-    name: name,
-  }));
+  const userArray =
+    parsedInfo &&
+    Object.entries(parsedInfo).map(([id, name]) => ({
+      id: id,
+      name: name,
+    }));
 
   if (!parsedInfo) {
     return (
