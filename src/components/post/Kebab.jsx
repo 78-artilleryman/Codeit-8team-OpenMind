@@ -62,10 +62,22 @@ const Kebab = ({
         {isClicked && (
           <KebabOptions
             isClick={isClicked}
-            onEditClick={onEditClick}
-            onDeleteQuestionClick={onDeleteQuestionClick}
-            onDeleteAnswerClick={onDeleteAnswerClick}
-            onRejectClick={onRejectClick}
+            onEditClick={() => {
+              onEditClick();
+              setIsClicked(false);
+            }}
+            onDeleteQuestionClick={() => {
+              onDeleteQuestionClick();
+              setIsClicked(false);
+            }}
+            onDeleteAnswerClick={() => {
+              onDeleteAnswerClick();
+              setIsClicked(false);
+            }}
+            onRejectClick={() => {
+              onRejectClick();
+              setIsClicked(false);
+            }}
           />
         )}
       </>
