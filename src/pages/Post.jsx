@@ -120,7 +120,7 @@ const Post = () => {
   const handleDelete = () => {
     // 질문 삭제시 로컬스토리지에 있는 질문 id도 없어지게 추가해놈
     deleteLocalStorage(postId);
-    deleteSubject(postId).then(() => navigate('/list'));
+    deleteSubject(postId).then(() => navigate('/list?page=1&sort=createdAt'));
   };
 
   useEffect(() => {
