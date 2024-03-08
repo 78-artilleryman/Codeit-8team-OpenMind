@@ -22,7 +22,7 @@ const PostContainer = styled.div`
   gap: 32px;
 
   border-radius: 16px;
-  background-color: #ffffff;
+  background-color: var(--gray10);
   box-shadow: 0 4px 4px 0 #8c8c8c40;
 `;
 
