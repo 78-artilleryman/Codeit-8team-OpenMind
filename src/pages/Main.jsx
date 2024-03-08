@@ -3,6 +3,8 @@ import LogoBox from '../components/common/LogoBox.jsx';
 import styled from 'styled-components';
 import Button from '../components/common/Button.jsx';
 import { Link } from 'react-router-dom';
+import ThemeToggleButton from 'components/common/ThemeToggleButton.jsx';
+import { useTheme } from 'context/ThemeContext.jsx';
 
 const StyledBody = styled.div`
   background-color: #f9f9f9;
@@ -51,9 +53,11 @@ const HeadButton = styled(Button)`
 `;
 
 const Main = () => {
+  const { themeMode, toggleTheme } = useTheme();
   return (
     <StyledBody>
       <MainContainer>
+        <ThemeToggleButton toggle={toggleTheme} mode={themeMode} />
         <MainLogo />
         <Link to="/list?page=1&sort=createdAt">
           <HeadButton bright={true}>질문하러 가기 →</HeadButton>
