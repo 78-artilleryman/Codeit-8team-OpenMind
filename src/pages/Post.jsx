@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import PostBanner from 'components/post/PostBanner';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { deleteSubject, getQuestionsById, getSubjectById } from '../api';
@@ -62,6 +62,7 @@ const Feed = styled.div`
 const Post = () => {
   const [shortUI, setShortUI] = useState(false);
   const [postData, setPostData] = useState([]);
+  const [limit, setLimit] = useState(0);
 
   const { currentSubject, setCurrentSubject } = useSubject();
   // 모달 오픈 여부 변수
@@ -72,6 +73,40 @@ const Post = () => {
   const isAnswerPage = paths[paths.length - 1] === 'answer';
   const { windowWidth } = useBrowserSize();
   const navigate = useNavigate();
+
+  // 타겟 요소 지정
+  const target = useRef(null);
+
+  /*
+  callback: 교차점이 발생했을 때(관측된 경우) 실행되는 콜백 함수.
+  entries: 교차점 정보를 담는 배열
+  isIntersecting: 교차점(intersection)이 발생한 요소의 상태
+  교차점이 발생하면 limit 8 증가
+  */
+  const callback = entries => {
+    if (entries[0].isIntersecting) {
+      console.log('관측 완료');
+      setLimit(prev => prev + 8);
+    }
+  };
+
+  // 관측에 적용하는 옵션
+  const options = {
+    root: null, // null일 경우 viewport가 root로 지정
+    rootMargin: '0px',
+    threshold: 0.5, // 0.5라면 타겟 요소의 절반이 교차 영역에 들어왔을 때 콜백 함수 실행
+  };
+
+  // 관찰자 생성
+  // 첫 번째 인자 - 관측된 경우 실행할 콜백 함수 / 두 번째 인자 - 관측에 대한 옵션 지정
+  const observer = new IntersectionObserver(callback, options);
+
+  const fetchData = async (postId, limit) => {
+    getQuestionsById(postId, limit).then(res => {
+      const { results } = res;
+      setPostData(() => results);
+    });
+  };
 
   const handleUIsize = useCallback(() => {
     if (windowWidth <= 767) {
@@ -89,19 +124,21 @@ const Post = () => {
   };
 
   useEffect(() => {
+    if (target) observer.observe(target.current); // 관찰대상이 존재하면 타겟 요소 관측 시작
+    return () => observer.disconnect(); // 모든 요소 관측 중단
+  }, []);
+
+  useEffect(() => {
+    fetchData(postId, limit);
+  }, [postId, limit]);
+
+  useEffect(() => {
     getSubjectById(postId).then(setCurrentSubject);
   }, [postId]);
 
   useEffect(() => {
     handleUIsize();
   }, [handleUIsize]);
-
-  useEffect(() => {
-    getQuestionsById(postId).then(res => {
-      const { results } = res;
-      setPostData(() => results);
-    });
-  }, [postId]);
 
   if (!currentSubject) return <></>;
 
@@ -150,10 +187,12 @@ const Post = () => {
             </DeleteQuestionButton>
           </StyledButtonDiv>
         )}
+
         <Feed>
           <PostCount questionCount={currentSubject.questionCount} />
           <PostList postData={postData} setPostData={setPostData} />
         </Feed>
+
         {!isAnswerPage && (
           <StyledButtonDiv>
             <AddQuestionButton
@@ -168,6 +207,7 @@ const Post = () => {
           </StyledButtonDiv>
         )}
       </PostContainer>
+      <div ref={target}></div>
     </>
   );
 };
