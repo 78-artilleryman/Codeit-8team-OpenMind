@@ -56,7 +56,7 @@ const PostUserName = styled.div`
 const PostBanner = ({ userProfileImage, userName }) => {
   return (
     <BannerContainer>
-      <Link to="/list">
+      <Link to="/list?page=1&sort=createdAt">
         <PostLogo />
       </Link>
       <PostAvatar imageSrc={userProfileImage} />

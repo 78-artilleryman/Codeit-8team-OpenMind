@@ -59,7 +59,6 @@ const Feed = styled.div`
 const Post = () => {
   const [shortUI, setShortUI] = useState(false);
   const [postData, setPostData] = useState([]);
-  console.log(postData);
 
   const { currentSubject, setCurrentSubject } = useSubject();
   // 모달 오픈 여부 변수
