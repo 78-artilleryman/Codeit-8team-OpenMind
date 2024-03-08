@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import Avatar from './Avatar';
 
 const BackgroundModal = styled.div`
   background-color: rgba(0, 0, 0, 0.56);

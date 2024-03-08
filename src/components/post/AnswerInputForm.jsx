@@ -67,7 +67,7 @@ const AnswerInputForm = ({
       {/*답변을 생성하는 input인 경우 handleCreateAnswer, 답변을 수정하는 input인 경우 handleEditAnswer 함수를 실행합니다.*/}
       <ButtonContainer>
         <Button
-          inactive={answer === ''}
+          inactive={answer.trim() === ''}
           onClick={
             type === 'create answer' ? handleCreateAnswer : handleEditAnswer
           }
