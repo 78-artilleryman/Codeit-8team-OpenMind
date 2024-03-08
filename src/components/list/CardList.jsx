@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import CardItem from './CardItem';
 import PagiNation from './PagiNation';
 import { getAllSubject } from 'api';
-import { useSearchParams } from 'react-router-dom';
+import { Navigate, useLocation, useSearchParams } from 'react-router-dom';
 import useBrowserSize from 'hooks/useBrowserSize';
 import Loding from 'components/common/Loding';
 
@@ -29,6 +29,8 @@ const CardList = () => {
   const [cards, setCards] = useState(null);
   const [limit, setLimit] = useState(8);
   const [isLoading, setIsLoading] = useState(false);
+
+  const location = useLocation();
 
   const [searchPage] = useSearchParams();
   const [searchSort] = useSearchParams();
@@ -79,6 +81,14 @@ const CardList = () => {
         <Loding />
       </>
     );
+
+  if (
+    location.search !== '' &&
+    location.search.split('=').at(-1) !== 'createdAt' &&
+    location.search.split('=').at(-1) !== 'name' &&
+    location.search.split('=').at(-1) !== 'null'
+  )
+    return <Navigate to="/src/pages/NotFound" />;
 
   return (
     <>
