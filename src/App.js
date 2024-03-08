@@ -6,15 +6,16 @@ import Post from 'pages/Post';
 import NotFound from 'pages/NotFound';
 import { SubjectProvider } from 'context/subjectContext';
 import AnswerProtectedRoute from 'components/post/AnswerProtectedRoute';
-import { ThemeContextProvider } from 'context/ThemeContext';
+import { ThemeContextProvider, useTheme } from 'context/ThemeContext';
 
 function App() {
+
   return (
     <>
       <BrowserRouter>
         <ThemeContextProvider>
           <GlobalStyle />
-          <SubjectProvider>
+            <SubjectProvider>
             <Routes>
               <Route path="/" element={<Main />} />
               <Route path="/list" element={<List />} />
