@@ -54,6 +54,7 @@ const PagiNation = ({
   const noNext = start + pageCount - 1 >= totalPages; // 다음 페이지가 없는 경우
 
   useEffect(() => {
+    if (currentPage >= start + pageCount) setStart(prev => prev + pageCount);
     if (currentPage === start + pageCount) setStart(prev => prev + pageCount);
     if (currentPage < start) setStart(prev => prev - pageCount);
   }, [currentPage, pageCount, start]);
