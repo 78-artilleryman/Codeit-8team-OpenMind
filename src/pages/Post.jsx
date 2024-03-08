@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import PostBanner from 'components/post/PostBanner';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { deleteSubject, getSubjectById } from '../api';
+import { deleteSubject, getQuestionsById, getSubjectById } from '../api';
 import Share from 'components/post/Share';
 import Button from 'components/common/Button';
 import styled from 'styled-components';
@@ -60,21 +60,17 @@ const Feed = styled.div`
 `;
 
 const Post = () => {
-  const { postId } = useParams();
-
-  // const [userData, setUserData] = useState();
   const [shortUI, setShortUI] = useState(false);
-  const { currentSubject, setCurrentSubject } = useSubject();
+  const [postData, setPostData] = useState([]);
 
+  const { currentSubject, setCurrentSubject } = useSubject();
   // 모달 오픈 여부 변수
   const { openModal, handleModalOpen, handleModalClose } = useModal();
-
+  const { postId } = useParams();
   const { pathname } = useLocation();
   const paths = pathname.split('/');
   const isAnswerPage = paths[paths.length - 1] === 'answer';
-
   const { windowWidth } = useBrowserSize();
-
   const navigate = useNavigate();
 
   const handleUIsize = useCallback(() => {
@@ -99,6 +95,13 @@ const Post = () => {
   useEffect(() => {
     handleUIsize();
   }, [handleUIsize]);
+
+  useEffect(() => {
+    getQuestionsById(postId).then(res => {
+      const { results } = res;
+      setPostData(() => results);
+    });
+  }, [postId]);
 
   if (!currentSubject) return <></>;
 
@@ -125,6 +128,7 @@ const Post = () => {
             width={shortUI ? 279 : 530}
             height={shortUI ? 358 : 180}
             ModalClose={handleModalClose}
+            setPostData={setPostData}
           />
         </ModalContainer>
       )}
@@ -148,7 +152,7 @@ const Post = () => {
         )}
         <Feed>
           <PostCount questionCount={currentSubject.questionCount} />
-          <PostList />
+          <PostList postData={postData} setPostData={setPostData} />
         </Feed>
         {!isAnswerPage && (
           <StyledButtonDiv>
