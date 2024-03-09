@@ -11,7 +11,9 @@ import {
   deleteAnswer,
   deleteQuestion,
   editAnswer,
+  getQuestionsById,
 } from '../../api';
+import { useSubject } from 'context/subjectContext';
 
 const PostContainer = styled.div`
   display: flex;
@@ -29,36 +31,80 @@ const HeadContainer = styled.div`
   justify-content: space-between;
 `;
 
-const PostItem = ({ qnaData }) => {
+const PostItem = ({ qnaData, setPostData, postId }) => {
   // 현재 내가 있는 페이지가 답변하기(/answer)페이지인지 구별합니다.
   const { pathname } = useLocation();
   const paths = pathname.split('/');
   const isAnswerPage = paths[paths.length - 1] === 'answer';
+  const { currentSubject, setCurrentSubject } = useSubject();
 
   // 수정 모드를 정하는 상태입니다.
   const [isEdit, setIsEdit] = useState(false);
 
   const handleDeleteQuestion = () => {
-    deleteQuestion(qnaData.id).then(() => window.location.reload());
+    deleteQuestion(qnaData.id)
+      .then(() => getQuestionsById(postId))
+      .then(res => {
+        // 질문을 삭제하고 새로운 데이터로 업데이트
+        const { results, count } = res;
+        const updatedSubject = { ...currentSubject };
+
+        updatedSubject.questionCount = count;
+
+        setPostData(() => results);
+        setCurrentSubject(updatedSubject);
+      })
+      .catch(error => {
+        // 오류 처리
+        console.error('질문을 삭제하는데 문제가 생겼습니다.', error);
+      });
   };
 
   const handleDeleteAnswer = () => {
     if (!qnaData.answer) alert('삭제할 답변이 없어요.😭');
-    else deleteAnswer(qnaData.answer.id).then(() => window.location.reload());
+    else {
+      deleteAnswer(qnaData.answer.id)
+        .then(() => getQuestionsById(postId))
+        .then(res => {
+          // 답변을 삭제하고 새로운 데이터로 업데이트
+          const { results } = res;
+          setPostData(() => results);
+        })
+        .catch(error => {
+          // 오류 처리
+          console.error('답변을 삭제하는데 문제가 생겼습니다.', error);
+        });
+    }
   };
 
   const handleRejectAnswer = () => {
     // 기존에 답변이 존재하지 않는 경우에는 '답변 거절' 이라는 본문을 넣은 새로운 답변을 생성하며,
     if (!qnaData.answer) {
-      createAnswer(qnaData.id, '답변 거절', true).then(() =>
-        window.location.reload(),
-      );
+      createAnswer(qnaData.id, '답변 거절', true)
+        .then(() => getQuestionsById(postId))
+        .then(res => {
+          // 질문을 삭제하고 새로운 데이터로 업데이트
+          const { results } = res;
+          setPostData(() => results);
+        })
+        .catch(error => {
+          // 오류 처리
+          console.error('답변을 거절하는데 문제가 생겼습니다', error);
+        });
     }
     // 기존에 답변이 존재하는 경우에는 기존 답변의 내용을 담아 isRejected 상태만 수정하여 서버에 보냅니다.
     else {
-      editAnswer(qnaData.answer.id, qnaData.answer.content, true).then(() =>
-        window.location.reload(),
-      );
+      editAnswer(qnaData.answer.id, qnaData.answer.content, true)
+        .then(() => getQuestionsById(postId))
+        .then(res => {
+          // 질문을 삭제하고 새로운 데이터로 업데이트
+          const { results } = res;
+          setPostData(() => results);
+        })
+        .catch(error => {
+          // 오류 처리
+          console.error('답변을 거절하는데 문제가 생겼습니다', error);
+        });
     }
   };
 

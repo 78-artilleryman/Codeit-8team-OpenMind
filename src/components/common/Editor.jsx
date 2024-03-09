@@ -27,7 +27,7 @@ const TextArea = styled.textarea`
   border: none;
 `;
 
-const Editor = ({ placeholder, width, height, ModalClose }) => {
+const Editor = ({ placeholder, width, height, ModalClose, setPostData }) => {
   const [question, setQuestion] = useState('');
   const { postId } = useParams();
 
@@ -36,7 +36,15 @@ const Editor = ({ placeholder, width, height, ModalClose }) => {
   };
 
   const handlePostQuestion = () => {
-    createquestion(postId, question);
+    createquestion(postId, question)
+      .then(res => {
+        // 질문을 생성하고 새로운 데이터로 업데이트
+        setPostData(prev => [res, ...prev]);
+      })
+      .catch(error => {
+        // 오류 처리
+        console.error('질문을 생성하는데 문제가 생겼습니다.', error);
+      });
     setQuestion('');
     ModalClose();
   };
