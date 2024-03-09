@@ -62,7 +62,7 @@ const Feed = styled.div`
 const Post = () => {
   const [shortUI, setShortUI] = useState(false);
   const [postData, setPostData] = useState([]);
-  const [limit, setLimit] = useState(0);
+  const [limit, setLimit] = useState(4);
 
   const { currentSubject, setCurrentSubject } = useSubject();
   // 모달 오픈 여부 변수
@@ -86,7 +86,7 @@ const Post = () => {
   const callback = entries => {
     if (entries[0].isIntersecting) {
       console.log('관측 완료');
-      setLimit(prev => prev + 8);
+      setLimit(prev => prev + 4);
     }
   };
 
