@@ -88,7 +88,6 @@ const AnswerInputForm = ({
       />
       <ButtonContainer>
         <StyledCompleteButton
-
           inactive={answer.trim() === '' || isAnswerUnchanged}
           onClick={
             type === 'create answer' ? handleCreateAnswer : handleEditAnswer
