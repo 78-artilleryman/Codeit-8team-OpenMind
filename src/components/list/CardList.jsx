@@ -3,7 +3,12 @@ import styled from 'styled-components';
 import CardItem from './CardItem';
 import PagiNation from './PagiNation';
 import { getAllSubject } from 'api';
-import { Navigate, useLocation, useSearchParams } from 'react-router-dom';
+import {
+  Navigate,
+  useLocation,
+  useNavigate,
+  useSearchParams,
+} from 'react-router-dom';
 import useBrowserSize from 'hooks/useBrowserSize';
 import Loding from 'components/common/Loding';
 
@@ -31,12 +36,15 @@ const CardList = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const location = useLocation();
+  const navigate = useNavigate();
 
   const [searchPage] = useSearchParams();
   const [searchSort] = useSearchParams();
 
   const page = searchPage.get('page');
   const sort = searchSort.get('sort');
+
+  const totalPages = cards ? Math.ceil(cards.count / limit) : 0;
 
   const { windowWidth } = useBrowserSize();
 
@@ -64,16 +72,19 @@ const CardList = () => {
       setLimit(6);
     } else {
       setLimit(8);
+      if (page > totalPages) {
+        navigate(`/list?page=${totalPages}&sort=${sort}`);
+      }
     }
   }, [windowWidth]);
 
   useEffect(() => {
-    fetchData(page, sort);
-  }, [limit, sort]);
-
-  useEffect(() => {
     handleMaxCard();
   }, [handleMaxCard]);
+
+  useEffect(() => {
+    fetchData(page, sort);
+  }, [limit, sort, page]);
 
   if (!cards)
     return (
@@ -100,13 +111,12 @@ const CardList = () => {
         )}
       </Container>
       <PagiNation
-        totalItems={cards.count} // 데이터의 총 개수
-        itemCountPerPage={limit} // 페이지 당 보여줄 데이터 개수
         pageCount={5} // 보여줄 페이지 개수
         currentPage={page && parseInt(page) > 0 ? parseInt(page) : 1} // 현재 페이지 반환
         onPageChange={handlePageChange} // 페이지 변경 핸들러
         selectPageNumber={page}
         sort={sort}
+        totalPages={totalPages}
       />
     </>
   );
