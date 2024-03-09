@@ -55,7 +55,6 @@ const PagiNation = ({
 
   useEffect(() => {
     if (currentPage >= start + pageCount) setStart(prev => prev + pageCount);
-    if (currentPage === start + pageCount) setStart(prev => prev + pageCount);
     if (currentPage < start) setStart(prev => prev - pageCount);
   }, [currentPage, pageCount, start]);
 
