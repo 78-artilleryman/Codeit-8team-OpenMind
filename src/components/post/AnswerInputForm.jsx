@@ -36,12 +36,14 @@ const ButtonContainer = styled.div`
 `;
 
 const StyledCompleteButton = styled(Button)`
+
   width: ${({ type }) => (type === 'create answer' ? '100%' : '75%')};
 `;
 
 const StyledEditButton = styled(Button)`
   width: 25%;
 `;
+
 
 const AnswerInputForm = ({
   placeholder,
@@ -86,6 +88,7 @@ const AnswerInputForm = ({
       />
       <ButtonContainer>
         <StyledCompleteButton
+
           inactive={answer.trim() === '' || isAnswerUnchanged}
           onClick={
             type === 'create answer' ? handleCreateAnswer : handleEditAnswer

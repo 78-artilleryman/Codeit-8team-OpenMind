@@ -7,12 +7,11 @@ import ThemeToggleButton from 'components/common/ThemeToggleButton.jsx';
 import { useTheme } from 'context/ThemeContext.jsx';
 
 const StyledBody = styled.div`
-  background-color: #f9f9f9;
 `;
 
 const MainContainer = styled.div`
-  background: url('/images/background_image.svg') no-repeat bottom;
-  background-size: cover;
+  background: ${({theme}) => theme === 'dark' ? `url('/images/Background_Image_DarkMode.svg')` : `url('/images/Background_Image.svg')`} no-repeat bottom;
+  background-size: cover;  
 
   position: relative;
   width: 100%;
@@ -56,7 +55,7 @@ const Main = () => {
   const { themeMode, toggleTheme } = useTheme();
   return (
     <StyledBody>
-      <MainContainer>
+      <MainContainer theme={themeMode}>
         <ThemeToggleButton toggle={toggleTheme} mode={themeMode} />
         <MainLogo />
         <Link to="/list?page=1&sort=createdAt">

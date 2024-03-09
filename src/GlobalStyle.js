@@ -3,18 +3,18 @@ import { createGlobalStyle } from 'styled-components';
 const GlobalStyle = createGlobalStyle`
 
   :root {
-    --gray10: #ffffff;
-    --gray20: #f9f9f9;
-    --gray30: #cfcfcf;
-    --gray40: #818181;
-    --gray50: #515151;
-    --gray60: #000000;
+    --gray10: ${({ theme }) => theme.gray10};
+    --gray20: ${({ theme }) => theme.gray20};
+    --gray30: ${({ theme }) => theme.gray30};
+    --gray40: ${({ theme }) => theme.gray40};
+    --gray50: ${({ theme }) => theme.gray50};
+    --gray60: ${({ theme }) => theme.gray60};
 
-    --brown10: #f5f1ee;
-    --brown20: #e4d5c9;
-    --brown30: #c7bbb5;
-    --brown40: #542f1a;
-    --brown50: #341909;
+    --brown10: ${({ theme }) => theme.brown10};
+    --brown20: ${({ theme }) => theme.brown20};
+    --brown30: ${({ theme }) => theme.brown30};
+    --brown40: ${({ theme }) => theme.brown40};
+    --brown50: ${({ theme }) => theme.brown50};
 
     --blue: #1877f2;
     --yellow: #fee500;
@@ -49,6 +49,11 @@ const GlobalStyle = createGlobalStyle`
     background-color: unset;
     cursor: pointer;
   }
+
+  body {
+    background-color: ${({ theme }) => theme.bgColor};
+  }
+
 `;
 
 export default GlobalStyle;
