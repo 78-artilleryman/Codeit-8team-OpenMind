@@ -35,6 +35,14 @@ const ButtonContainer = styled.div`
   gap: 5px;
 `;
 
+const StyledCompleteButton = styled(Button)`
+  width: ${({ type }) => (type === 'create answer' ? '100%' : '75%')};
+`;
+
+const StyledEditButton = styled(Button)`
+  width: 25%;
+`;
+
 const AnswerInputForm = ({
   placeholder,
   children,
@@ -77,16 +85,16 @@ const AnswerInputForm = ({
         onChange={handleChange}
       />
       <ButtonContainer>
-        <Button
+        <StyledCompleteButton
           inactive={answer.trim() === '' || isAnswerUnchanged}
           onClick={
             type === 'create answer' ? handleCreateAnswer : handleEditAnswer
           }
         >
           {buttonText}
-        </Button>
+        </StyledCompleteButton>
         {type === 'edit answer' && (
-          <Button onClick={onEditCancel}>수정 취소</Button>
+          <StyledEditButton onClick={onEditCancel}>수정 취소</StyledEditButton>
         )}
       </ButtonContainer>
     </Container>
