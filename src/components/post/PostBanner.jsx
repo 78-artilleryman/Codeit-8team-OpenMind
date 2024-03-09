@@ -3,6 +3,7 @@ import LogoBox from 'components/common/LogoBox';
 import Avatar from 'components/common/Avatar';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { useTheme } from 'context/ThemeContext';
 
 const BannerContainer = styled.div`
   height: 234px;
@@ -15,7 +16,7 @@ const BannerContainer = styled.div`
   align-items: center;
   gap: 10px;
 
-  background: url('/images/Banner.svg') no-repeat center;
+  background: ${({theme}) => theme === 'dark' ? `url('/images/Banner_DarkMode.svg')` : `url('/images/Banner.svg')`} no-repeat center;
   /* background-size: cover; */
 
   @media (max-width: 767px) {
@@ -48,15 +49,16 @@ const PostAvatar = styled(Avatar)`
 const PostUserName = styled.div`
   position: absolute;
   bottom: -80px;
-
+  color: var(--gray60);
   font-size: 32px;
   font-weight: 400;
 `;
 
 const PostBanner = ({ userProfileImage, userName }) => {
+  const { themeMode } = useTheme()
   return (
-    <BannerContainer>
-      <Link to="/list">
+    <BannerContainer theme={themeMode}>
+      <Link to="/list?page=1&sort=createdAt">
         <PostLogo />
       </Link>
       <PostAvatar imageSrc={userProfileImage} />

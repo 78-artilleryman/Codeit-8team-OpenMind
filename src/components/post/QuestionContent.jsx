@@ -60,10 +60,12 @@ const QuestionContent = ({
         />
       ) : type === 'edit answer' ? (
         // 답변 수정일 경우에 input을 렌더링 하며, API 호출시 필요한 answerId, 수정모드인지 아닌지 상태, 수정 취소 시 실행할 함수를 추가적으로 보내줍니다.
+        // originalAnswer={textContents} -> 원본 답변 내용을 prop으로 전달
         <AnswerInputForm
           buttonText="수정 완료"
           type={type}
           answerId={answerId}
+          originalAnswer={textContents}
           isEdit={isEdit}
           onEditCancel={onEditCancel}
         >

@@ -90,15 +90,20 @@ const Option = styled.li`
 
 function Filter() {
   // 드롭다운(필터) 옵션, 기본 선택은 최신순(createdAt)
-  const [filter, setFilter] = useState('createdAt');
+  const [searchsort] = useSearchParams();
   const [searchPage] = useSearchParams();
+  const sort = searchsort.get('sort');
+  const page = searchPage.get('page');
+
+  const [filter, setFilter] = useState(sort);
   // 드롭다운 메뉴의 표시, 기본 false 상태로 숨겨져 있음
   const [isShow, setIsShow] = useState(false);
   // 드롭다운 메뉴에서 현재 포커스된 옵션의 인덱스
   const [focusedOptionIndex, setFocusedOptionIndex] = useState(1);
+
   const ref = useRef(null);
   const navigate = useNavigate();
-  const page = searchPage.get('page');
+
   const options = ['createdAt', 'name'];
 
   // 요구사항에는 없지만, 드롭다운 메뉴밖 영역을 선택했을때 드롭다운 메뉴 표시가 꺼지도록 설정
