@@ -15,6 +15,8 @@ import { useModal } from 'hooks/useModal';
 import { useSubject } from 'context/subjectContext';
 import { deleteLocalStorage } from 'utils/useLocalStorage';
 import Avatar from 'components/common/Avatar';
+import ThemeToggleButton from 'components/common/ThemeToggleButton';
+import { useTheme } from 'context/ThemeContext';
 
 const PostContainer = styled.div`
   display: flex;
@@ -64,14 +66,16 @@ const Post = () => {
   const [postData, setPostData] = useState([]);
   const [limit, setLimit] = useState(4);
 
+  const { themeMode, toggleTheme } = useTheme();
   const { currentSubject, setCurrentSubject } = useSubject();
-  // 모달 오픈 여부 변수
   const { openModal, handleModalOpen, handleModalClose } = useModal();
   const { postId } = useParams();
   const { pathname } = useLocation();
+  const { windowWidth } = useBrowserSize();
+
   const paths = pathname.split('/');
   const isAnswerPage = paths[paths.length - 1] === 'answer';
-  const { windowWidth } = useBrowserSize();
+
   const navigate = useNavigate();
 
   // 타겟 요소 지정
@@ -144,6 +148,7 @@ const Post = () => {
 
   return (
     <>
+      <ThemeToggleButton toggle={toggleTheme} mode={themeMode} />
       {openModal && (
         <ModalContainer
           width={612}

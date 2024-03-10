@@ -9,6 +9,8 @@ import { Link } from 'react-router-dom';
 import { useModal } from 'hooks/useModal';
 import ModalContainer from 'components/common/Modal';
 import ModalProfileList from 'components/common/ModalProfileList';
+import { useTheme } from 'context/ThemeContext';
+import ThemeToggleButton from 'components/common/ThemeToggleButton';
 
 const Header = styled.header`
   display: flex;
@@ -71,9 +73,11 @@ const TitleFilterArea = styled.div`
 
 const List = () => {
   const { openModal, handleModalOpen, handleModalClose } = useModal();
+  const { themeMode, toggleTheme } = useTheme();
 
   return (
     <>
+      <ThemeToggleButton toggle={toggleTheme} mode={themeMode} />
       {openModal && (
         <ModalContainer
           width={540}
