@@ -36,6 +36,7 @@ const OptionButton = styled(Button)`
 
   &:hover {
     background-color: var(--gray20);
+    border-radius: 8px;
   }
 
   &:active {

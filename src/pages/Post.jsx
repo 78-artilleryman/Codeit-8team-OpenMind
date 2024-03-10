@@ -51,9 +51,9 @@ const DeleteQuestionButton = styled(Button)`
 const PostModalAvatar = styled(Avatar)``;
 
 const Feed = styled.div`
-  border: 1px solid var(--brown30);
+  border: 1px solid ${({theme}) => theme === 'dark' ? '#7D6F5F' : '#c7bbb5'};
   border-radius: 16px;
-  background-color: var(--brown10);
+  background-color: var(--feedColor);
   padding: 16px;
   display: flex;
   flex-direction: column;
@@ -155,7 +155,7 @@ const Post = () => {
             </DeleteQuestionButton>
           </StyledButtonDiv>
         )}
-        <Feed>
+        <Feed theme={themeMode}>
           <PostCount questionCount={currentSubject.questionCount} />
           <PostList postData={postData} setPostData={setPostData} />
         </Feed>

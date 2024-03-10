@@ -36,7 +36,7 @@ const ButtonContainer = styled.div`
 `;
 
 const StyledCompleteButton = styled(Button)`
-width: ${({type}) => type ==='create answer' ? '100%' : '75%'};
+width: ${({type}) => type == 'create answer' ? '100%' : '75%'};
 `
 
 const StyledEditButton = styled(Button)`
@@ -89,7 +89,7 @@ const AnswerInputForm = ({
       {/*답변을 생성하는 input인 경우 '답변 완료' 버튼 하나, 답변을 수정하는 input인 경우 '수정완료' '수정취소' 두개의 버튼이 나타납니다.*/}
       {/*답변을 생성하는 input인 경우 handleCreateAnswer, 답변을 수정하는 input인 경우 handleEditAnswer 함수를 실행합니다.*/}
       <ButtonContainer>
-        <StyledCompleteButton
+        <StyledCompleteButton type={type}
           // 답변이 비어있거나 변경되지 않았을 때 '수정 완료'버튼 비활성화
           inactive={answer.trim() === '' || isAnswerUnchanged}
           onClick={
