@@ -15,6 +15,13 @@ const Card = styled.div`
   background: var(--gray10, #fff);
   font-family: Pretendard;
 
+  &:hover {
+    border: 2px solid var(--brown30);
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.08);
+    transition: all 0.1s linear;
+    transform: translateY(-3%);
+  }
+
   @media (max-width: 661px) {
     min-width: 155.5px;
     padding: 16px;
