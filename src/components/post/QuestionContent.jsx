@@ -19,18 +19,18 @@ const SubText = styled.p`
   font-size: 14px;
   font-weight: 500;
   color: ${({ type }) =>
-    type === 'question' ? 'var(--gray40)' : 'var(--gray60)'};
+    type === 'question' ? 'var(--gray40Togray20)' : 'var(--gray60)'};
 `;
 
 const TimeText = styled(SubText)`
-  color: var(--gray40);
+  color: var(--gray40ToGray20);
 `;
 
 const TextContents = styled.div`
   font-size: 18px;
   font-weight: 400;
   color: ${({ type }) =>
-    type === 'rejected answer' ? 'var(--red)' : 'var(--gray60)'};
+    type === 'rejected answer' ? 'var(--rejectionColor)' : 'var(--gray60)'};
 `;
 
 // 일반적인 답변을 보여줄지, 답변 거절 UI를 보여줄지, 답변 생성 input을 보여줄지, 답변 수정 Input을 보여줄지는 type props로 구분합니다.
