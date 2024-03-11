@@ -60,8 +60,6 @@ const AnswerInputForm = ({
   const [answer, setAnswer] = useState(children || '');
   const { postId } = useParams();
 
-  const { postId } = useParams();
-
   // children prop이 변경될 때마다 answer 상태를 업데이트(답변 수정 시 초기 값이 원본 답변으로 설정되도록 함)
   useEffect(() => {
     setAnswer(children || '');
