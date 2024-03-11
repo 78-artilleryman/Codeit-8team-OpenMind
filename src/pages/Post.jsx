@@ -51,7 +51,7 @@ const DeleteQuestionButton = styled(Button)`
 const PostModalAvatar = styled(Avatar)``;
 
 const Feed = styled.div`
-  border: 1px solid ${({theme}) => theme === 'dark' ? '#7D6F5F' : '#c7bbb5'};
+  border: 1px solid ${({ theme }) => (theme === 'dark' ? '#7D6F5F' : '#c7bbb5')};
   border-radius: 16px;
   background-color: var(--feedColor);
   padding: 16px;
@@ -89,7 +89,6 @@ const Post = () => {
   */
   const callback = entries => {
     if (entries[0].isIntersecting) {
-      console.log('관측 완료');
       setLimit(prev => prev + 4);
     }
   };
@@ -194,7 +193,6 @@ const Post = () => {
         )}
 
         <Feed theme={themeMode}>
-
           <PostCount questionCount={currentSubject.questionCount} />
           <PostList postData={postData} setPostData={setPostData} />
         </Feed>

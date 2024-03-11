@@ -58,6 +58,7 @@ const AnswerInputForm = ({
   // children prop이 전달되면 답변 수정상황으로 판단하여, children을 초기상태로 사용
   // 그렇지 않다면 답변 생성상황으로 판단하여, 빈 문자열을 초기 상태로 사용
   const [answer, setAnswer] = useState(children || '');
+  const { postId } = useParams();
 
   const { postId } = useParams();
 
@@ -74,6 +75,9 @@ const AnswerInputForm = ({
     createAnswer(questionId, answer)
       .then(() => getQuestionsById(postId))
       .then(res => {
+
+        // 답변을 생성하고 새로운 데이터로 업데이트
+
         const { results } = res;
         setPostData(() => results);
       })
@@ -88,14 +92,24 @@ const AnswerInputForm = ({
     editAnswer(answerId, answer)
       .then(() => getQuestionsById(postId))
       .then(res => {
+
         const { results } = res;
         setPostData(() => results);
+
+        // 답변을 수정하고 새로운 데이터로 업데이트
+        const { results } = res;
+        setPostData(() => results);
+    
+
       })
       .catch(error => {
         // 오류 처리
         console.error('답변을 수정하는데 문제가 생겼습니다', error);
       });
+
     onEditCancel();
+
+
   };
 
   // 원본 답변과 현재 답변이 동일한지 여부를 체크
@@ -112,7 +126,6 @@ const AnswerInputForm = ({
         <StyledCompleteButton
           type={type}
           // 답변이 비어있거나 변경되지 않았을 때 '수정 완료'버튼 비활성화
-
           inactive={answer.trim() === '' || isAnswerUnchanged}
           onClick={
             type === 'create answer' ? handleCreateAnswer : handleEditAnswer
