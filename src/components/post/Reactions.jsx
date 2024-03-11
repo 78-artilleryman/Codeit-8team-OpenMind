@@ -39,7 +39,7 @@ const Reactions = ({ qnaData, setPostData, postId }) => {
         })
         .catch(error => {
           // 오류 처리
-          console.error('답변을 수정하는데 문제가 생겼습니다', error);
+          console.error('좋아요 반응을 보내는 데 문제가 생겼습니다', error);
         });
     }
   };
@@ -56,7 +56,7 @@ const Reactions = ({ qnaData, setPostData, postId }) => {
         })
         .catch(error => {
           // 오류 처리
-          console.error('답변을 수정하는데 문제가 생겼습니다', error);
+          console.error('싫어요 반응을 보내는 데 문제가 생겼습니다', error);
         });
     }
   };
