@@ -37,8 +37,10 @@ const ButtonContainer = styled.div`
 
 const StyledCompleteButton = styled(Button)`
 
+
   width: ${({ type }) => (type === 'create answer' ? '100%' : '75%')};
 `;
+
 
 const StyledEditButton = styled(Button)`
   width: 25%;
@@ -87,7 +89,8 @@ const AnswerInputForm = ({
         onChange={handleChange}
       />
       <ButtonContainer>
-        <StyledCompleteButton
+        <StyledCompleteButton type={type}
+          // 답변이 비어있거나 변경되지 않았을 때 '수정 완료'버튼 비활성화
 
           inactive={answer.trim() === '' || isAnswerUnchanged}
           onClick={

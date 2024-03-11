@@ -7,7 +7,7 @@ import { postQuestionsReaction } from '../../api';
 const ButtonsContainer = styled.div`
   display: flex;
   gap: 32px;
-  border-top: 1px solid var(--gray30);
+  border-top: 1px solid var(--gray40ToGray20);
   padding-top: 32px;
 `;
 
@@ -15,7 +15,7 @@ const LikeButton = styled(Button)`
   display: flex;
   gap: 6px;
   align-items: center;
-  color: ${({ $clicked }) => ($clicked ? 'var(--blue)' : 'var(--gray40)')};
+  color: ${({ $clicked }) => ($clicked ? 'var(--blue)' : 'var(--gray40ToGray20)')};
 `;
 
 const Reactions = ({ qnaData }) => {

@@ -11,7 +11,18 @@ export const lightTheme = {
   brown20: '#e4d5c9',
   brown30: '#c7bbb5',
   brown40: '#542f1a',
-  brown50: '#341909'
+  brown50: '#341909',
+
+  btColor1: '#542f1a',
+  btColor2: '#f5f1ee',
+  btFontColor1: '#ffffff',
+  btFontColor2: '#542f1a',
+  btBorderColor: '#542F1A',
+  feedColor: '#f5f1ee',
+  brownToGray: '#542f1a',
+  gray40ToGray20: '#818181',
+  filterColor: '#f9f9f9',
+  rejectionColor: '#b93333',
 };
 
 export const darkTheme = {
@@ -27,7 +38,18 @@ export const darkTheme = {
   brown20: '#c7bbb5',
   brown30: '#998675',
   brown40: '#B38B6D',
-  brown50: '#f5f1ee'
+  brown50: '#f5f1ee',
+
+  btColor1: '#7a482f',
+  btColor2: '#5A4634',
+  btFontColor1: '#cfcfcf',
+  btFontColor2: '#cfcfcf',
+  btBorderColor: '#5A4634',
+  feedColor: '#7D6F5F',
+  brownToGray: '#cfcfcf',
+  gray40ToGray20: '#cfcfcf',
+  filterColor: '#555555',
+  rejectionColor: '#e75959',
 };
 
 export const theme = {

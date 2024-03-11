@@ -9,6 +9,7 @@ import { useTheme } from 'context/ThemeContext.jsx';
 const StyledBody = styled.div``;
 
 const MainContainer = styled.div`
+
   background: ${({ theme }) =>
       theme === 'dark'
         ? `url('/images/Background_Image_DarkMode.svg')`
@@ -16,13 +17,10 @@ const MainContainer = styled.div`
     no-repeat bottom;
   background-size: cover;
 
+
   position: relative;
   width: 100%;
   height: 100vh;
-
-  @media (max-width: 767px) {
-    background-size: contain;
-  }
 `;
 
 const MainLogo = styled(LogoBox)`

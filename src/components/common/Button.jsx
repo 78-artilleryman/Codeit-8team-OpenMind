@@ -5,13 +5,13 @@ const BasicButton = styled.button`
   height: ${({ $height }) => ($height ? $height : 46)}px;
   border-radius: 8px;
   background-color: ${({ $bright }) =>
-    $bright ? 'var(--brown10)' : 'var(--brown40)'};
+    $bright ? 'var(--btColor2)' : 'var(--btColor1)'};
   padding: 12px 24px;
 
   font-size: 16px;
   font-weight: 400;
-  color: ${({ $bright }) => ($bright ? 'var(--brown40)' : 'var(--gray10)')};
-  border: 1px solid var(--brown40);
+  color: ${({ $bright }) => ($bright ? 'var(--btFontColor2)' : 'var(--btFontColor1)')};
+  border: 1px solid ${({ $bright }) => ($bright ? 'var(--btBorderColor)' : 'var(--btColor1)')};
 
   opacity: ${({ $inactive }) => $inactive && 0.5};
 

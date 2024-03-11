@@ -16,6 +16,17 @@ const GlobalStyle = createGlobalStyle`
     --brown40: ${({ theme }) => theme.brown40};
     --brown50: ${({ theme }) => theme.brown50};
 
+    --btColor1: ${({ theme }) => theme.btColor1};
+    --btColor2: ${({ theme }) => theme.btColor2};
+    --btFontColor1: ${({ theme }) => theme.btFontColor1};
+    --btFontColor2: ${({ theme }) => theme.btFontColor2};
+    --btBorderColor: ${({ theme }) => theme.btBorderColor};
+    --feedColor: ${({ theme }) => theme.feedColor};
+    --brownToGray: ${({ theme }) => theme.brownToGray};
+    --gray40ToGray20: ${({ theme }) => theme.gray40ToGray20};
+    --filterColor: ${({ theme }) => theme.filterColor};
+    --rejectionColor: ${({ theme }) => theme.rejectionColor};
+
     --blue: #1877f2;
     --yellow: #fee500;
     --red: #b93333;
