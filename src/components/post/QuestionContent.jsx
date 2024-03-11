@@ -19,7 +19,7 @@ const SubText = styled.p`
   font-size: 14px;
   font-weight: 500;
   color: ${({ type }) =>
-    type === 'question' ? 'var(--gray40Togray20)' : 'var(--gray60)'};
+    type === 'question' ? 'var(--gray40ToGray20)' : 'var(--gray60)'};
 `;
 
 const TimeText = styled(SubText)`
