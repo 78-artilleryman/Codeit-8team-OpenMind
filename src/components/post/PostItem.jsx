@@ -134,6 +134,7 @@ const PostItem = ({ qnaData, setPostData, postId }) => {
             isAnswerPage={isAnswerPage}
             isEdit={isEdit}
             onEditCancel={() => setIsEdit(false)}
+            setPostData={setPostData}
           />
         )}
       </div>
