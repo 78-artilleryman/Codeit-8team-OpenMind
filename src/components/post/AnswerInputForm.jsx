@@ -73,9 +73,7 @@ const AnswerInputForm = ({
     createAnswer(questionId, answer)
       .then(() => getQuestionsById(postId))
       .then(res => {
-
         // 답변을 생성하고 새로운 데이터로 업데이트
-
         const { results } = res;
         setPostData(() => results);
       })
@@ -90,15 +88,9 @@ const AnswerInputForm = ({
     editAnswer(answerId, answer)
       .then(() => getQuestionsById(postId))
       .then(res => {
-
-        const { results } = res;
-        setPostData(() => results);
-
         // 답변을 수정하고 새로운 데이터로 업데이트
         const { results } = res;
         setPostData(() => results);
-    
-
       })
       .catch(error => {
         // 오류 처리
