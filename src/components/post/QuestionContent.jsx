@@ -43,6 +43,7 @@ const QuestionContent = ({
   answerId,
   isEdit,
   onEditCancel,
+  setPostData,
 }) => {
   return (
     <Container>
@@ -57,6 +58,7 @@ const QuestionContent = ({
           placeholder="답변을 입력해주세요"
           buttonText="답변 완료"
           type={type}
+          setPostData={setPostData}
         />
       ) : type === 'edit answer' ? (
         // 답변 수정일 경우에 input을 렌더링 하며, API 호출시 필요한 answerId, 수정모드인지 아닌지 상태, 수정 취소 시 실행할 함수를 추가적으로 보내줍니다.
@@ -68,6 +70,7 @@ const QuestionContent = ({
           originalAnswer={textContents}
           isEdit={isEdit}
           onEditCancel={onEditCancel}
+          setPostData={setPostData}
         >
           {textContents}
         </AnswerInputForm>
