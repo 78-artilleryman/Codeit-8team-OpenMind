@@ -134,10 +134,11 @@ const PostItem = ({ qnaData, setPostData, postId }) => {
             isAnswerPage={isAnswerPage}
             isEdit={isEdit}
             onEditCancel={() => setIsEdit(false)}
+            setPostData={setPostData}
           />
         )}
       </div>
-      <Reactions qnaData={qnaData} />
+      <Reactions qnaData={qnaData} setPostData={setPostData} postId={postId} />
     </PostContainer>
   );
 };
