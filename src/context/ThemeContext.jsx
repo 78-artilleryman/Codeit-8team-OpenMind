@@ -2,12 +2,14 @@ import { createContext, useCallback, useContext, useState } from 'react';
 import { ThemeProvider as StyledProvider } from 'styled-components';
 import { darkTheme, lightTheme } from 'theme/theme';
 
-const ThemeContext = createContext({themeMode: 'light', setThemeMode: () => {}});
+const ThemeContext = createContext({
+  themeMode: 'light',
+  setThemeMode: () => {},
+});
 
 const ThemeContextProvider = ({ children }) => {
   const LocalTheme = window.localStorage.getItem('theme') || 'light';
   const [themeMode, setThemeMode] = useState(LocalTheme);
-  console.log(themeMode);
   const themeObject = themeMode === 'light' ? lightTheme : darkTheme;
 
   return (
