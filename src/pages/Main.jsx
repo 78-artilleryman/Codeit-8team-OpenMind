@@ -10,16 +10,12 @@ const StyledBody = styled.div`
 `;
 
 const MainContainer = styled.div`
-  background: ${({theme}) => theme === 'dark' ? `url('/images/Background_Image_DarkMode.svg')` : `url('/images/Background_Image.svg')`} no-repeat bottom;
-  background-size: cover;  
+  background: ${({theme}) => theme === 'dark' ? `url('/images/Background_Image_DarkMode.svg')` : `url('/images/Background_Image.svg')`} no-repeat center;
+  background-size: contain;  
 
   position: relative;
   width: 100%;
   height: 100vh;
-
-  @media (max-width: 767px) {
-    background-size: contain;
-  }
 `;
 
 const MainLogo = styled(LogoBox)`
