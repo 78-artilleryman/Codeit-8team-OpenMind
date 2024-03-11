@@ -66,3 +66,31 @@ export const checkLocalStorageById = id => {
   }
   return userId;
 };
+
+// 좋아요 정보를 로컬스토리지에 저장하는 함수
+export const setLikeLocalStorage = id => {
+  // localStorage에 like property 값이 없을 때,
+  if (!localStorage.getItem('like')) {
+    localStorage.setItem('like', JSON.stringify([id]));
+  } else {
+    // localStorage에 like property 값이 있을 때,
+    localStorage.setItem(
+      'like',
+      JSON.stringify([...JSON.parse(localStorage.getItem('like')), id]),
+    );
+  }
+};
+
+// 싫어요 정보를 로컬스토리지에 저장하는 함수
+export const setDislikeLocalStorage = id => {
+  // localStorage에 dislike property 값이 없을 때,
+  if (!localStorage.getItem('dislike')) {
+    localStorage.setItem('dislike', JSON.stringify([id]));
+  } else {
+    // localStorage에 dislike property 값이 있을 때,
+    localStorage.setItem(
+      'dislike',
+      JSON.stringify([...JSON.parse(localStorage.getItem('dislike')), id]),
+    );
+  }
+};

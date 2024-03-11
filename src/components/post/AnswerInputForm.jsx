@@ -81,6 +81,7 @@ const AnswerInputForm = ({
         // 오류 처리
         console.error('답변을 생성하는데 문제가 생겼습니다', error);
       });
+    setAnswer('');
   };
 
   const handleEditAnswer = () => {
@@ -90,12 +91,15 @@ const AnswerInputForm = ({
         // 답변을 수정하고 새로운 데이터로 업데이트
         const { results } = res;
         setPostData(() => results);
-        onEditCancel();
       })
       .catch(error => {
         // 오류 처리
         console.error('답변을 수정하는데 문제가 생겼습니다', error);
       });
+
+    onEditCancel();
+
+
   };
 
   // 원본 답변과 현재 답변이 동일한지 여부를 체크
@@ -110,6 +114,8 @@ const AnswerInputForm = ({
       />
       <ButtonContainer>
         <StyledCompleteButton
+          type={type}
+          // 답변이 비어있거나 변경되지 않았을 때 '수정 완료'버튼 비활성화
           inactive={answer.trim() === '' || isAnswerUnchanged}
           onClick={
             type === 'create answer' ? handleCreateAnswer : handleEditAnswer

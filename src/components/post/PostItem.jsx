@@ -138,7 +138,7 @@ const PostItem = ({ qnaData, setPostData, postId }) => {
           />
         )}
       </div>
-      <Reactions qnaData={qnaData} />
+      <Reactions qnaData={qnaData} setPostData={setPostData} postId={postId} />
     </PostContainer>
   );
 };
