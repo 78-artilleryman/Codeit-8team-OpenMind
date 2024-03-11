@@ -9,14 +9,12 @@ import { useTheme } from 'context/ThemeContext.jsx';
 const StyledBody = styled.div``;
 
 const MainContainer = styled.div`
-
   background: ${({ theme }) =>
       theme === 'dark'
         ? `url('/images/Background_Image_DarkMode.svg')`
         : `url('/images/Background_Image.svg')`}
     no-repeat bottom;
   background-size: cover;
-
 
   position: relative;
   width: 100%;
@@ -60,7 +58,9 @@ const Main = () => {
         <ThemeToggleButton toggle={toggleTheme} mode={themeMode} />
         <MainLogo />
         <Link to="/list?page=1&sort=createdAt">
-          <HeadButton bright={true}>질문하러 가기 →</HeadButton>
+          <HeadButton width={160} bright={true}>
+            질문하러 가기 →
+          </HeadButton>
         </Link>
         <UserBox />
       </MainContainer>
