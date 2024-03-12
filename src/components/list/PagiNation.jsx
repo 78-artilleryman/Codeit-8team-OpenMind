@@ -40,21 +40,19 @@ const SelectNumber = styled(Arrow)`
 `;
 
 const PagiNation = ({
-  totalItems,
-  itemCountPerPage,
   pageCount,
   currentPage,
   onPageChange,
   selectPageNumber,
   sort,
+  totalPages,
 }) => {
-  const totalPages = Math.ceil(totalItems / itemCountPerPage); // 총 페이지 개수 //6
   const [start, setStart] = useState(1); // 시작 페이지 //1
   const noPrev = start === 1; // 이전 페이지가 없는 경우
   const noNext = start + pageCount - 1 >= totalPages; // 다음 페이지가 없는 경우
 
   useEffect(() => {
-    if (currentPage === start + pageCount) setStart(prev => prev + pageCount);
+    if (currentPage >= start + pageCount) setStart(prev => prev + pageCount);
     if (currentPage < start) setStart(prev => prev - pageCount);
   }, [currentPage, pageCount, start]);
 

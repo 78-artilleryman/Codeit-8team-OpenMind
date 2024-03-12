@@ -58,9 +58,14 @@ export async function getSubjectById(id) {
   }
 }
 
-export async function getQuestionsById(id) {
+export async function getQuestionsById(id, limit, offset) {
+  limit = limit || 8;
+  offset = offset || 0;
+
   try {
-    const response = await fetch(`${BASE_URL}/subjects/${id}/questions/`);
+    const response = await fetch(
+      `${BASE_URL}/subjects/${id}/questions/?limit=${limit}&offset=${offset}`,
+    );
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }

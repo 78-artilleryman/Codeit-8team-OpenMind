@@ -22,7 +22,7 @@ const PostContainer = styled.div`
   gap: 32px;
 
   border-radius: 16px;
-  background-color: #ffffff;
+  background-color: var(--gray10);
   box-shadow: 0 4px 4px 0 #8c8c8c40;
 `;
 
@@ -134,10 +134,11 @@ const PostItem = ({ qnaData, setPostData, postId }) => {
             isAnswerPage={isAnswerPage}
             isEdit={isEdit}
             onEditCancel={() => setIsEdit(false)}
+            setPostData={setPostData}
           />
         )}
       </div>
-      <Reactions qnaData={qnaData} />
+      <Reactions qnaData={qnaData} setPostData={setPostData} postId={postId} />
     </PostContainer>
   );
 };

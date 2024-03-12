@@ -3,12 +3,18 @@ import styled from 'styled-components';
 import CardItem from './CardItem';
 import PagiNation from './PagiNation';
 import { getAllSubject } from 'api';
-import { Navigate, useLocation, useSearchParams } from 'react-router-dom';
+import {
+  Navigate,
+  useLocation,
+  useNavigate,
+  useSearchParams,
+} from 'react-router-dom';
 import useBrowserSize from 'hooks/useBrowserSize';
 import Loding from 'components/common/Loding';
 
 const Container = styled.section`
   max-width: 940px;
+  min-height: 394px;
   display: grid;
   grid-template: repeat(2, 1fr) / repeat(auto-fit, minmax(186px, 1fr));
   gap: 20px;
@@ -21,6 +27,7 @@ const Container = styled.section`
     grid-template: repeat(2, 1fr) / repeat(3, minmax(186px, 1fr));
   }
   @media (max-width: 661px) {
+    min-height: 601px;
     grid-template: repeat(3, 1fr) / repeat(2, minmax(155.5px, 1fr));
   }
 `;
@@ -31,12 +38,15 @@ const CardList = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const location = useLocation();
+  const navigate = useNavigate();
 
   const [searchPage] = useSearchParams();
   const [searchSort] = useSearchParams();
 
   const page = searchPage.get('page');
   const sort = searchSort.get('sort');
+
+  const totalPages = cards ? Math.ceil(cards.count / limit) : 0;
 
   const { windowWidth } = useBrowserSize();
 
@@ -64,16 +74,19 @@ const CardList = () => {
       setLimit(6);
     } else {
       setLimit(8);
+      if (page > totalPages) {
+        navigate(`/list?page=${totalPages}&sort=${sort}`);
+      }
     }
   }, [windowWidth]);
 
   useEffect(() => {
-    fetchData(page, sort);
-  }, [limit, sort]);
-
-  useEffect(() => {
     handleMaxCard();
   }, [handleMaxCard]);
+
+  useEffect(() => {
+    fetchData(page, sort);
+  }, [limit, sort, page]);
 
   if (!cards)
     return (
@@ -83,10 +96,8 @@ const CardList = () => {
     );
 
   if (
-    location.search !== '' &&
     location.search.split('=').at(-1) !== 'createdAt' &&
-    location.search.split('=').at(-1) !== 'name' &&
-    location.search.split('=').at(-1) !== 'null'
+    location.search.split('=').at(-1) !== 'name'
   )
     return <Navigate to="/src/pages/NotFound" />;
 
@@ -100,13 +111,12 @@ const CardList = () => {
         )}
       </Container>
       <PagiNation
-        totalItems={cards.count} // 데이터의 총 개수
-        itemCountPerPage={limit} // 페이지 당 보여줄 데이터 개수
         pageCount={5} // 보여줄 페이지 개수
         currentPage={page && parseInt(page) > 0 ? parseInt(page) : 1} // 현재 페이지 반환
         onPageChange={handlePageChange} // 페이지 변경 핸들러
         selectPageNumber={page}
         sort={sort}
+        totalPages={totalPages}
       />
     </>
   );

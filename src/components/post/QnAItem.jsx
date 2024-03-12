@@ -20,7 +20,13 @@ const ProfileImage = styled(Avatar)``;
 
 const QnAImageSize = 48;
 
-const QnAItem = ({ qnaData, isAnswerPage, isEdit, onEditCancel }) => {
+const QnAItem = ({
+  qnaData,
+  isAnswerPage,
+  isEdit,
+  onEditCancel,
+  setPostData,
+}) => {
   const { currentSubject } = useSubject();
 
   if (!qnaData) {
@@ -75,6 +81,7 @@ const QnAItem = ({ qnaData, isAnswerPage, isEdit, onEditCancel }) => {
               answerId={qnaData.answer.id}
               isEdit={isEdit}
               onEditCancel={onEditCancel}
+              setPostData={setPostData}
             />
           </Answer>
         )}
@@ -86,6 +93,7 @@ const QnAItem = ({ qnaData, isAnswerPage, isEdit, onEditCancel }) => {
               subInformation={currentSubject.name}
               questionId={qnaData.id}
               type="create answer"
+              setPostData={setPostData}
             />
           </Answer>
         )}

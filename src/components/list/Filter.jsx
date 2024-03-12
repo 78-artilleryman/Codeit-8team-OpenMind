@@ -18,7 +18,7 @@ const StyledSelectBox = styled.div`
   border: 1px solid
     ${props =>
       props.$isShow ? 'var(--gray60, #000)' : 'var(--gray40, #818181)'};
-  background: var(--Grayscale-10, #fff);
+  background: var(--gray10);
   color: ${props =>
     props.$isShow ? 'var(--gray60, #000)' : 'var(--gray40, #818181)'};
 
@@ -78,9 +78,10 @@ const Option = styled.li`
   align-items: center;
   gap: 8px;
   align-self: stretch;
-
+  
+  border-radius: 8px;
   background-color: ${props =>
-    props.$isFocused ? 'var(--gray20, #f9f9f9)' : 'transparent'};
+    props.$isFocused ? 'var(--filterColor)' : 'transparent'};
   color: ${props =>
     props.$isSelected ? 'var(--blue, #1877F2)' : 'var(--gray50, #515151)'};
   font-size: 14px;

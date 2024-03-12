@@ -9,6 +9,8 @@ import { Link } from 'react-router-dom';
 import { useModal } from 'hooks/useModal';
 import ModalContainer from 'components/common/Modal';
 import ModalProfileList from 'components/common/ModalProfileList';
+import { useTheme } from 'context/ThemeContext';
+import ThemeToggleButton from 'components/common/ThemeToggleButton';
 
 const Header = styled.header`
   display: flex;
@@ -30,6 +32,7 @@ const Header = styled.header`
 const MainLogo = styled(LogoBox)`
   display: flex;
   width: 146px;
+  min-height: 57.625px;
   justify-content: center;
   align-items: center;
 `;
@@ -54,6 +57,7 @@ const Section = styled.section`
 
 const TitleFilterArea = styled.div`
   width: 341px;
+  min-height: 95.5px;
   margin: 0 auto 30px;
   display: flex;
   flex-direction: column;
@@ -62,6 +66,7 @@ const TitleFilterArea = styled.div`
 
   @media (max-width: 661px) {
     width: auto;
+    min-height: 36px;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
@@ -71,9 +76,11 @@ const TitleFilterArea = styled.div`
 
 const List = () => {
   const { openModal, handleModalOpen, handleModalClose } = useModal();
+  const { themeMode, toggleTheme } = useTheme();
 
   return (
     <>
+      <ThemeToggleButton toggle={toggleTheme} mode={themeMode} />
       {openModal && (
         <ModalContainer
           width={540}
