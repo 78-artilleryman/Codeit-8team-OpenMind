@@ -14,7 +14,7 @@ const MainContainer = styled.div`
         ? `url('/images/Background_Image_DarkMode.svg')`
         : `url('/images/background_image.svg')`}
     no-repeat bottom;
-  background-size: cover;
+  background-size: contain;
 
   position: relative;
   width: 100%;
