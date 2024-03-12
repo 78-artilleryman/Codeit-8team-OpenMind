@@ -83,6 +83,8 @@ const Post = () => {
   // 타겟 요소 지정
   const target = useRef(null);
 
+  let currentQuestionCount = currentSubject.questionCount;
+
   /*
   callback: 교차점이 발생했을 때(관측된 경우) 실행되는 콜백 함수.
   entries: 교차점 정보를 담는 배열
@@ -107,7 +109,10 @@ const Post = () => {
   const observer = new IntersectionObserver(callback, options);
 
   const fetchData = async (postId, limit) => {
-    setIsLoading(true);
+    if (limit < currentQuestionCount + 4) {
+      setIsLoading(true);
+    }
+
     getQuestionsById(postId, limit).then(res => {
       const { results } = res;
       setPostData(() => results);
