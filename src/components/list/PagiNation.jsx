@@ -21,6 +21,7 @@ const PageBox = styled(Link)`
   align-items: center;
   cursor: pointer;
 `;
+
 const Arrow = styled.p`
   color: var(--gray40, #818181);
   text-align: center;
