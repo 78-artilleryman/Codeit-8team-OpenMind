@@ -9,14 +9,12 @@ import { useTheme } from 'context/ThemeContext.jsx';
 const StyledBody = styled.div``;
 
 const MainContainer = styled.div`
-
   background: ${({ theme }) =>
       theme === 'dark'
         ? `url('/images/Background_Image_DarkMode.svg')`
-        : `url('/images/Background_Image.svg')`}
+        : `url('/images/Background_image.svg')`}
     no-repeat bottom;
   background-size: cover;
-
 
   position: relative;
   width: 100%;
