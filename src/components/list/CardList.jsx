@@ -72,7 +72,7 @@ const CardList = () => {
       setLimit(6);
     } else {
       setLimit(8);
-      if (page > totalPages) {
+      if (page > totalPages && totalPages !== 0) {
         navigate(`/list?page=${totalPages}&sort=${sort}`);
       }
     }
