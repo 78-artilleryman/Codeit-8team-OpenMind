@@ -17,6 +17,7 @@ import { deleteLocalStorage } from 'utils/useLocalStorage';
 import Avatar from 'components/common/Avatar';
 import ThemeToggleButton from 'components/common/ThemeToggleButton';
 import { useTheme } from 'context/ThemeContext';
+import Loding from 'components/common/Loding';
 
 const PostContainer = styled.div`
   display: flex;
@@ -65,6 +66,7 @@ const Post = () => {
   const [shortUI, setShortUI] = useState(false);
   const [postData, setPostData] = useState([]);
   const [limit, setLimit] = useState(4);
+  const [isLoading, setIsLoading] = useState(false);
 
   const { themeMode, toggleTheme } = useTheme();
   const { currentSubject, setCurrentSubject } = useSubject();
@@ -88,7 +90,7 @@ const Post = () => {
   교차점이 발생하면 limit 8 증가
   */
   const callback = entries => {
-    if (entries[0].isIntersecting) {
+    if (entries[0].isIntersecting && !isLoading) {
       setLimit(prev => prev + 4);
     }
   };
@@ -105,9 +107,11 @@ const Post = () => {
   const observer = new IntersectionObserver(callback, options);
 
   const fetchData = async (postId, limit) => {
+    setIsLoading(true);
     getQuestionsById(postId, limit).then(res => {
       const { results } = res;
       setPostData(() => results);
+      setIsLoading(false);
     });
   };
 
@@ -195,6 +199,7 @@ const Post = () => {
         <Feed theme={themeMode}>
           <PostCount questionCount={currentSubject.questionCount} />
           <PostList postData={postData} setPostData={setPostData} />
+          {isLoading && <Loding />}
         </Feed>
 
         {!isAnswerPage && (
