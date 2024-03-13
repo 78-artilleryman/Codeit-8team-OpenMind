@@ -81,7 +81,7 @@ const Reactions = ({ qnaData, setPostData, postId }) => {
     <ButtonsContainer>
       <LikeButton varient="icon" onClick={handleLike} $clicked={likeClicked}>
         <Icons.ThumbsUp $clicked={likeClicked} />
-        좋아요 {likeClicked && qnaData.like}
+        좋아요 {qnaData.like}
       </LikeButton>
       <LikeButton
         varient="icon"
@@ -89,7 +89,7 @@ const Reactions = ({ qnaData, setPostData, postId }) => {
         $clicked={dislikeClicked}
       >
         <Icons.ThumbsDown $clicked={dislikeClicked} />
-        싫어요 {dislikeClicked && qnaData.dislike}
+        싫어요 {qnaData.dislike}
       </LikeButton>
     </ButtonsContainer>
   );
