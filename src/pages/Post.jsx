@@ -35,6 +35,9 @@ const StyledButtonDiv = styled.div`
 `;
 
 const AddQuestionButton = styled(Button)`
+  position: fixed;
+  bottom: 10px;
+
   @media (max-width: 767px) {
     width: 123px;
   }
