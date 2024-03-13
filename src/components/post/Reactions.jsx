@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { useEffect, useState } from 'react';
 import Button from 'components/common/Button';
 import * as Icons from 'components/common/Icons';
-import { getQuestionsById, postQuestionsReaction } from '../../api';
+import { postQuestionsReaction } from '../../api';
 import {
   setDislikeLocalStorage,
   setLikeLocalStorage,
@@ -23,41 +23,28 @@ const LikeButton = styled(Button)`
     $clicked ? 'var(--blue)' : 'var(--gray40ToGray20)'};
 `;
 
-const Reactions = ({ qnaData, setPostData, postId }) => {
+const Reactions = ({ qnaData }) => {
   const [likeClicked, setLikeClicked] = useState(false);
   const [dislikeClicked, setDislikeClicked] = useState(false);
 
+  const [like, setLike] = useState(qnaData.like);
+  const [dislike, setDisLike] = useState(qnaData.dislike);
+
   const handleLike = () => {
     if (!likeClicked) {
-      postQuestionsReaction(qnaData.id, 'like')
-        .then(() => getQuestionsById(postId))
-        .then(res => {
-          const { results } = res;
-          setPostData(() => results);
-          setLikeLocalStorage(qnaData.id);
-          setLikeClicked(true);
-        })
-        .catch(error => {
-          // 오류 처리
-          console.error('좋아요 반응을 보내는 데 문제가 생겼습니다', error);
-        });
+      postQuestionsReaction(qnaData.id, 'like');
+      setLikeLocalStorage(qnaData.id);
+      setLikeClicked(true);
+      setLike(prev => prev + 1);
     }
   };
 
   const handleDislike = () => {
     if (!dislikeClicked) {
-      postQuestionsReaction(qnaData.id, 'dislike')
-        .then(() => getQuestionsById(postId))
-        .then(res => {
-          const { results } = res;
-          setPostData(() => results);
-          setDislikeLocalStorage(qnaData.id);
-          setDislikeClicked(true);
-        })
-        .catch(error => {
-          // 오류 처리
-          console.error('싫어요 반응을 보내는 데 문제가 생겼습니다', error);
-        });
+      postQuestionsReaction(qnaData.id, 'dislike');
+      setDislikeLocalStorage(qnaData.id);
+      setDislikeClicked(true);
+      setDisLike(prev => prev + 1);
     }
   };
 
@@ -81,7 +68,7 @@ const Reactions = ({ qnaData, setPostData, postId }) => {
     <ButtonsContainer>
       <LikeButton varient="icon" onClick={handleLike} $clicked={likeClicked}>
         <Icons.ThumbsUp $clicked={likeClicked} />
-        좋아요 {qnaData.like}
+        좋아요 {like}
       </LikeButton>
       <LikeButton
         varient="icon"
@@ -89,7 +76,7 @@ const Reactions = ({ qnaData, setPostData, postId }) => {
         $clicked={dislikeClicked}
       >
         <Icons.ThumbsDown $clicked={dislikeClicked} />
-        싫어요 {qnaData.dislike}
+        싫어요 {dislike}
       </LikeButton>
     </ButtonsContainer>
   );
