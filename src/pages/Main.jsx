@@ -6,20 +6,19 @@ import { Link } from 'react-router-dom';
 import ThemeToggleButton from 'components/common/ThemeToggleButton.jsx';
 import { useTheme } from 'context/ThemeContext.jsx';
 
-const StyledBody = styled.div`
-`;
+const StyledBody = styled.div``;
 
 const MainContainer = styled.div`
-  background: ${({theme}) => theme === 'dark' ? `url('/images/Background_Image_DarkMode.svg')` : `url('/images/Background_Image.svg')`} no-repeat bottom;
-  background-size: cover;  
+  background: ${({ theme }) =>
+      theme === 'dark'
+        ? `url('/images/Background_Image_DarkMode.svg')`
+        : `url('/images/background_image.svg')`}
+    no-repeat bottom;
+  background-size: contain;
 
   position: relative;
   width: 100%;
   height: 100vh;
-
-  @media (max-width: 767px) {
-    background-size: contain;
-  }
 `;
 
 const MainLogo = styled(LogoBox)`
@@ -59,7 +58,9 @@ const Main = () => {
         <ThemeToggleButton toggle={toggleTheme} mode={themeMode} />
         <MainLogo />
         <Link to="/list?page=1&sort=createdAt">
-          <HeadButton bright={true}>질문하러 가기 →</HeadButton>
+          <HeadButton width={160} bright={true}>
+            질문하러 가기 →
+          </HeadButton>
         </Link>
         <UserBox />
       </MainContainer>

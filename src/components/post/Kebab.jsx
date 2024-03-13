@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import * as Icons from 'components/common/Icons';
 import Button from 'components/common/Button';
 import KebabOptions from 'components/post/KebabOptions';
+import { useTheme } from 'context/ThemeContext';
 
 const Container = styled.div`
   display: flex;
@@ -17,6 +18,7 @@ const KebabButton = styled(Button)`
   justify-content: center;
   align-items: center;
   border-radius: 50%;
+  filter: ${({theme}) => theme === 'dark' ? 'invert(100%) sepia(0%) saturate(1881%) hue-rotate(322deg) brightness(111%) contrast(62%)' : 'none'};
 
   &:hover {
     border: 1px solid var(--gray30);
@@ -30,6 +32,8 @@ const Kebab = ({
   onDeleteAnswerClick,
   onRejectClick,
 }) => {
+  const { themeMode } = useTheme();
+
   const [isClicked, setIsClicked] = useState(false);
   const ref = useRef(null); // 컨테이너에 대한 참조를 생성
 
@@ -54,7 +58,7 @@ const Kebab = ({
 
   return (
     <Container ref={ref}>
-      <KebabButton varient="icon" onClick={handleToggle}>
+      <KebabButton varient="icon" onClick={handleToggle} theme={themeMode}>
         <Icons.Kebab />
       </KebabButton>
       <>

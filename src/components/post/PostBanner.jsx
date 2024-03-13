@@ -17,7 +17,7 @@ const BannerContainer = styled.div`
   gap: 10px;
 
   background: ${({theme}) => theme === 'dark' ? `url('/images/Banner_DarkMode.svg')` : `url('/images/Banner.svg')`} no-repeat center;
-  /* background-size: cover; */
+  background-size: contain;
 
   @media (max-width: 767px) {
     height: 177px;

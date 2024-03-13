@@ -1,3 +1,4 @@
+import { useTheme } from 'context/ThemeContext';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -71,6 +72,7 @@ const CommentBox = styled.div`
 const MessageIcon = styled.img`
   width: 18px;
   height: 18px;
+  filter: ${({theme}) => theme === 'dark' ? 'invert(100%) sepia(0%) saturate(1881%) hue-rotate(322deg) brightness(111%) contrast(62%)' : 'none'};
   @media (max-width: 661px) {
     width: 16px;
     height: 16px;
@@ -78,7 +80,7 @@ const MessageIcon = styled.img`
 `;
 
 const Text = styled.p`
-  color: var(--gray40, #818181);
+  color: var(--gray40ToGray20);
   font-size: 16px;
   font-weight: 400;
 
@@ -91,6 +93,7 @@ const Text = styled.p`
 const CardItem = ({ id, name, imageSource, questionCount }) => {
   const userInfo = localStorage.getItem('user');
   const parsedInfo = JSON.parse(userInfo);
+  const { themeMode } = useTheme();
 
   const toAnswer =
     parsedInfo && Object.keys(parsedInfo).indexOf(String(id)) + 1;
@@ -104,7 +107,7 @@ const CardItem = ({ id, name, imageSource, questionCount }) => {
         </CardHeader>
         <CardFooter>
           <CommentBox>
-            <MessageIcon src="/icons/commentIcon.png" alt="comment" />
+            <MessageIcon theme={themeMode} src="/icons/commentIcon.png" alt="comment" />
             <Text>받은 질문</Text>
           </CommentBox>
           <Text>{questionCount}</Text>

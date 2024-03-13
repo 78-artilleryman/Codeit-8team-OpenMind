@@ -17,6 +17,7 @@ import { deleteLocalStorage } from 'utils/useLocalStorage';
 import Avatar from 'components/common/Avatar';
 import ThemeToggleButton from 'components/common/ThemeToggleButton';
 import { useTheme } from 'context/ThemeContext';
+import Loding from 'components/common/Loding';
 
 const PostContainer = styled.div`
   display: flex;
@@ -51,9 +52,9 @@ const DeleteQuestionButton = styled(Button)`
 const PostModalAvatar = styled(Avatar)``;
 
 const Feed = styled.div`
-  border: 1px solid var(--brown30);
+  border: 1px solid ${({ theme }) => (theme === 'dark' ? '#7D6F5F' : '#c7bbb5')};
   border-radius: 16px;
-  background-color: var(--brown10);
+  background-color: var(--feedColor);
   padding: 16px;
   display: flex;
   flex-direction: column;
@@ -65,6 +66,7 @@ const Post = () => {
   const [shortUI, setShortUI] = useState(false);
   const [postData, setPostData] = useState([]);
   const [limit, setLimit] = useState(4);
+  const [isLoading, setIsLoading] = useState(false);
 
   const { themeMode, toggleTheme } = useTheme();
   const { currentSubject, setCurrentSubject } = useSubject();
@@ -81,6 +83,8 @@ const Post = () => {
   // 타겟 요소 지정
   const target = useRef(null);
 
+  let currentQuestionCount = currentSubject.questionCount;
+
   /*
   callback: 교차점이 발생했을 때(관측된 경우) 실행되는 콜백 함수.
   entries: 교차점 정보를 담는 배열
@@ -88,8 +92,7 @@ const Post = () => {
   교차점이 발생하면 limit 8 증가
   */
   const callback = entries => {
-    if (entries[0].isIntersecting) {
-      console.log('관측 완료');
+    if (entries[0].isIntersecting && !isLoading) {
       setLimit(prev => prev + 4);
     }
   };
@@ -106,9 +109,14 @@ const Post = () => {
   const observer = new IntersectionObserver(callback, options);
 
   const fetchData = async (postId, limit) => {
+    if (limit < currentQuestionCount + 4) {
+      setIsLoading(true);
+    }
+
     getQuestionsById(postId, limit).then(res => {
       const { results } = res;
       setPostData(() => results);
+      setIsLoading(false);
     });
   };
 
@@ -193,9 +201,10 @@ const Post = () => {
           </StyledButtonDiv>
         )}
 
-        <Feed>
+        <Feed theme={themeMode}>
           <PostCount questionCount={currentSubject.questionCount} />
           <PostList postData={postData} setPostData={setPostData} />
+          {isLoading && <Loding />}
         </Feed>
 
         {!isAnswerPage && (

@@ -1,3 +1,4 @@
+import { useTheme } from 'context/ThemeContext';
 import styled from 'styled-components';
 
 const StyledTitle = styled.div`
@@ -7,18 +8,30 @@ const StyledTitle = styled.div`
   align-items: center;
   justify-content: center;
   gap: 8px;
-  color: var(--brown40);
+  color: var(--brownToGray);
+`;
+
+const StyledImg = styled.img`
+  filter: ${({ theme }) =>
+    theme === 'dark'
+      ? 'invert(87%) sepia(0%) saturate(33%) hue-rotate(227deg) brightness(100%) contrast(84%)'
+      : 'none'};
 `;
 
 const PostCount = ({ questionCount }) => {
-  const questionExistence =
-    questionCount === 0
-      ? '아직 질문이 없습니다.'
-      : `${questionCount}개의 질문이 있습니다.`;
+  const { themeMode } = useTheme();
+
+  const questionExistence = !questionCount
+    ? '아직 질문이 없습니다.'
+    : `${questionCount}개의 질문이 있습니다.`;
 
   return (
     <StyledTitle>
-      <img src="/icons/Messages.svg" alt="Message Icon" />
+      <StyledImg
+        theme={themeMode}
+        src="/icons/Messages.svg"
+        alt="Message Icon"
+      />
       {questionExistence}
     </StyledTitle>
   );
