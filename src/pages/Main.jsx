@@ -13,7 +13,7 @@ const MainContainer = styled.div`
       theme === 'dark'
         ? `url('/images/Background_Image_DarkMode.svg')`
         : `url('/images/background_image.svg')`}
-    no-repeat bottom;
+    no-repeat center;
   background-size: contain;
 
   position: relative;

@@ -102,7 +102,7 @@ const List = () => {
             handleModalOpen();
           }}
         >
-          답변하러 가기
+          답변하러 가기 →
         </HeadButton>
       </Header>
       <Section>
