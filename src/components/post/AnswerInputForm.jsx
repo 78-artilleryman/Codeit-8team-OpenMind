@@ -4,6 +4,7 @@ import Button from 'components/common/Button';
 import { useEffect, useState } from 'react';
 import { createAnswer, editAnswer, getQuestionsById } from 'api';
 import { useParams } from 'react-router-dom';
+import { handleAsyncOperation } from 'utils/asyncUtils';
 
 const Container = styled.div`
   display: flex;
@@ -70,32 +71,29 @@ const AnswerInputForm = ({
   };
 
   const handleCreateAnswer = () => {
-    createAnswer(questionId, answer)
-      .then(() => getQuestionsById(postId))
-      .then(res => {
-        // 답변을 생성하고 새로운 데이터로 업데이트
-        const { results } = res;
-        setPostData(() => results);
-      })
-      .catch(error => {
-        // 오류 처리
-        console.error('답변을 생성하는데 문제가 생겼습니다', error);
-      });
+    const asyncHandler = handleAsyncOperation(
+      () => createAnswer(questionId, answer),
+      postId,
+      results => setPostData(() => results),
+      error => console.error('답변을 생성하는데 문제가 생겼습니다.', error),
+    );
+
+    asyncHandler();
   };
 
   const handleEditAnswer = () => {
-    editAnswer(answerId, answer)
-      .then(() => getQuestionsById(postId))
-      .then(res => {
-        // 답변을 수정하고 새로운 데이터로 업데이트
-        const { results } = res;
-        setPostData(() => results);
-        onEditCancel();
-      })
-      .catch(error => {
-        // 오류 처리
-        console.error('답변을 수정하는데 문제가 생겼습니다', error);
-      });
+    const onEditSuccess = res => {
+      setPostData(() => res);
+      onEditCancel();
+    };
+    const asyncHandler = handleAsyncOperation(
+      () => editAnswer(answerId, answer),
+      postId,
+      onEditSuccess,
+      error => console.error('답변을 수정하는데 문제가 생겼습니다', error),
+    );
+
+    asyncHandler();
   };
 
   // 원본 답변과 현재 답변이 동일한지 여부를 체크
