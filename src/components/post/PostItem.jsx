@@ -11,9 +11,9 @@ import {
   deleteAnswer,
   deleteQuestion,
   editAnswer,
-  getQuestionsById,
 } from '../../api';
 import { useSubject } from 'context/subjectContext';
+import { handleAsyncOperation } from 'utils/asyncUtils';
 
 const PostContainer = styled.div`
   display: flex;
@@ -42,69 +42,65 @@ const PostItem = ({ qnaData, setPostData, postId }) => {
   const [isEdit, setIsEdit] = useState(false);
 
   const handleDeleteQuestion = () => {
-    deleteQuestion(qnaData.id)
-      .then(() => getQuestionsById(postId))
-      .then(res => {
-        // 질문을 삭제하고 새로운 데이터로 업데이트
-        const { results, count } = res;
-        const updatedSubject = { ...currentSubject };
+    const onDeleteSuccess = (res, count) => {
+      const updatedSubject = { ...currentSubject };
+      updatedSubject.questionCount = count;
 
-        updatedSubject.questionCount = count;
+      setPostData(() => res);
+      setCurrentSubject(updatedSubject);
+    };
 
-        setPostData(() => results);
-        setCurrentSubject(updatedSubject);
-      })
-      .catch(error => {
-        // 오류 처리
-        console.error('질문을 삭제하는데 문제가 생겼습니다.', error);
-      });
+    const onDeleteError = error => {
+      console.error('질문을 삭제하는데 문제가 생겼습니다.', error);
+    };
+
+    const asyncHandler = handleAsyncOperation(
+      () => deleteQuestion(qnaData.id),
+      postId,
+      onDeleteSuccess,
+      onDeleteError,
+    );
+
+    asyncHandler();
   };
 
   const handleDeleteAnswer = () => {
-    if (!qnaData.answer) alert('삭제할 답변이 없어요.😭');
-    else {
-      deleteAnswer(qnaData.answer.id)
-        .then(() => getQuestionsById(postId))
-        .then(res => {
-          // 답변을 삭제하고 새로운 데이터로 업데이트
-          const { results } = res;
-          setPostData(() => results);
-        })
-        .catch(error => {
-          // 오류 처리
-          console.error('답변을 삭제하는데 문제가 생겼습니다.', error);
-        });
+    if (!qnaData.answer) {
+      alert('삭제할 답변이 없어요.😭');
+      return;
     }
+    const asyncHandler = handleAsyncOperation(
+      () => deleteAnswer(qnaData.answer.id),
+      postId,
+      results => setPostData(() => results),
+      error => console.error('답변을 삭제하는데 문제가 생겼습니다.', error),
+    );
+
+    asyncHandler(); //useCallback으로 생성된 콜백을 호출
   };
 
   const handleRejectAnswer = () => {
     // 기존에 답변이 존재하지 않는 경우에는 '답변 거절' 이라는 본문을 넣은 새로운 답변을 생성하며,
     if (!qnaData.answer) {
-      createAnswer(qnaData.id, '답변 거절', true)
-        .then(() => getQuestionsById(postId))
-        .then(res => {
-          // 질문을 삭제하고 새로운 데이터로 업데이트
-          const { results } = res;
-          setPostData(() => results);
-        })
-        .catch(error => {
-          // 오류 처리
-          console.error('답변을 거절하는데 문제가 생겼습니다', error);
-        });
+      const asyncHandler = handleAsyncOperation(
+        () => createAnswer(qnaData.id, '답변 거절', true),
+        postId,
+        results => setPostData(() => results),
+        error => console.error('답변을 거절하는데 문제가 생겼습니다.', error),
+      );
+
+      asyncHandler();
     }
     // 기존에 답변이 존재하는 경우에는 기존 답변의 내용을 담아 isRejected 상태만 수정하여 서버에 보냅니다.
     else {
-      editAnswer(qnaData.answer.id, qnaData.answer.content, true)
-        .then(() => getQuestionsById(postId))
-        .then(res => {
-          // 질문을 삭제하고 새로운 데이터로 업데이트
-          const { results } = res;
-          setPostData(() => results);
-        })
-        .catch(error => {
-          // 오류 처리
-          console.error('답변을 거절하는데 문제가 생겼습니다', error);
-        });
+      const asyncHandler = handleAsyncOperation(
+        () => editAnswer(qnaData.answer.id, qnaData.answer.content, true),
+        postId,
+        results => setPostData(() => results),
+        error => console.error('답변을 거절하는데 문제가 생겼습니다.', error),
+      );
+
+      asyncHandler();
     }
   };
 
