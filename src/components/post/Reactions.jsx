@@ -66,12 +66,12 @@ const Reactions = ({ qnaData }) => {
   if (!qnaData) return <></>;
   return (
     <ButtonsContainer>
-      <LikeButton varient="icon" onClick={handleLike} $clicked={likeClicked}>
+      <LikeButton variant="icon" onClick={handleLike} $clicked={likeClicked}>
         <Icons.ThumbsUp $clicked={likeClicked} />
         좋아요 {like}
       </LikeButton>
       <LikeButton
-        varient="icon"
+        variant="icon"
         onClick={handleDislike}
         $clicked={dislikeClicked}
       >

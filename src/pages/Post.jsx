@@ -8,8 +8,7 @@ import styled from 'styled-components';
 import PostCount from 'components/post/PostCount';
 import PostList from 'components/post/PostList';
 import useBrowserSize from 'hooks/useBrowserSize';
-import ModalContainer from 'components/common/Modal';
-import * as Modal from 'components/common/Modal';
+import ModalContainer, * as Modal from 'components/common/Modal';
 import Editor from 'components/common/Editor';
 import { useModal } from 'hooks/useModal';
 import { useSubject } from 'context/subjectContext';
@@ -218,7 +217,7 @@ const Post = () => {
         {isAnswerPage && (
           <StyledButtonDiv>
             <DeleteQuestionButton
-              varient="floating"
+              variant="floating"
               width={100}
               height={35}
               onClick={handleDelete}
@@ -237,7 +236,7 @@ const Post = () => {
         {!isAnswerPage && (
           <StyledButtonDiv>
             <AddQuestionButton
-              varient="floating"
+              variant="floating"
               width={208}
               onClick={() => {
                 handleModalOpen();

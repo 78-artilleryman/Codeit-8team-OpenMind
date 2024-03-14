@@ -27,14 +27,14 @@ const Share = () => {
           text={window.location.href}
           onCopy={handleShowToast}
         >
-          <Button varient="icon">
+          <Button variant="icon">
             <Icons.LinkCopy />
           </Button>
         </CopyToClipboard>
-        <Button varient="icon" onClick={shareKakao}>
+        <Button variant="icon" onClick={shareKakao}>
           <Icons.Kakao />
         </Button>
-        <Button varient="icon" onClick={shareFacebook}>
+        <Button variant="icon" onClick={shareFacebook}>
           <Icons.Facebook />
         </Button>
       </Container>
