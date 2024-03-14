@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import NoProfile from './NoProfile';
 import { Link } from 'react-router-dom';
+import { useModal } from 'hooks/useModal';
 
 const StyledContainer = styled.div`
   width: 100%;
@@ -30,6 +31,8 @@ const Profile = styled.div`
 `;
 
 const ModalProfileList = () => {
+  const { handleModalClose } = useModal();
+
   const userInfo = localStorage.getItem('user');
   const parsedInfo = JSON.parse(userInfo);
 
@@ -51,7 +54,7 @@ const ModalProfileList = () => {
   return (
     <StyledContainer>
       {userArray.map(user => (
-        <Link key={user.id} to={`/post/${user.id}/answer`}>
+        <Link key={user.id} to={`/post/${user.id}/answer`} onClick={handleModalClose}>
           <Profile key={user.id}>{`${user.name}`}</Profile>
         </Link>
       ))}
