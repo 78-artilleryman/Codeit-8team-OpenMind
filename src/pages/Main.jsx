@@ -13,8 +13,8 @@ const MainContainer = styled.div`
       theme === 'dark'
         ? `url('/images/Background_Image_DarkMode.svg')`
         : `url('/images/background_image.svg')`}
-    no-repeat bottom;
-  background-size: cover;
+    no-repeat center;
+  background-size: contain;
 
   position: relative;
   width: 100%;
@@ -58,7 +58,9 @@ const Main = () => {
         <ThemeToggleButton toggle={toggleTheme} mode={themeMode} />
         <MainLogo />
         <Link to="/list?page=1&sort=createdAt">
-          <HeadButton bright={true}>질문하러 가기 →</HeadButton>
+          <HeadButton width={160} bright={true}>
+            질문하러 가기 →
+          </HeadButton>
         </Link>
         <UserBox />
       </MainContainer>

@@ -17,6 +17,7 @@ import { deleteLocalStorage } from 'utils/useLocalStorage';
 import Avatar from 'components/common/Avatar';
 import ThemeToggleButton from 'components/common/ThemeToggleButton';
 import { useTheme } from 'context/ThemeContext';
+import Loding from 'components/common/Loding';
 
 const PostContainer = styled.div`
   display: flex;
@@ -64,12 +65,22 @@ const Feed = styled.div`
   width: 100%;
 `;
 
+const limit = 4; // limit는 상수라 위에서 따로 선언 가급적 constants 폴더 이용 및 Snake case으로 네이밍 컨벤션
+
 const Post = () => {
   const [shortUI, setShortUI] = useState(false);
   const [postData, setPostData] = useState([]);
-  const [limit, setLimit] = useState(4);
-
+  // 기존 limit 부분 offset으로 변경
+  const [offset, setOffset] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+  // 질문의 총개수 표시하는 count 추가
+  const [count, setCount] = useState(0);
   const { themeMode, toggleTheme } = useTheme();
+
+  // 유저 정보 state
+  const [subject, setSubject] = useState();
+
+  // 안쓰는데 effect 지우면 에러남 ????
   const { currentSubject, setCurrentSubject } = useSubject();
   const { openModal, handleModalOpen, handleModalClose } = useModal();
   const { postId } = useParams();
@@ -84,15 +95,19 @@ const Post = () => {
   // 타겟 요소 지정
   const target = useRef(null);
 
+  let currentQuestionCount = currentSubject.questionCount;
+
   /*
   callback: 교차점이 발생했을 때(관측된 경우) 실행되는 콜백 함수.
   entries: 교차점 정보를 담는 배열
   isIntersecting: 교차점(intersection)이 발생한 요소의 상태
   교차점이 발생하면 limit 8 증가
   */
+
+  //limit을 올리던 기존 방식에서 fetchData수행하게 변경
   const callback = entries => {
-    if (entries[0].isIntersecting) {
-      setLimit(prev => prev + 4);
+    if (entries[0].isIntersecting && !isLoading) {
+      fetchData(postId, limit, offset);
     }
   };
 
@@ -107,10 +122,19 @@ const Post = () => {
   // 첫 번째 인자 - 관측된 경우 실행할 콜백 함수 / 두 번째 인자 - 관측에 대한 옵션 지정
   const observer = new IntersectionObserver(callback, options);
 
-  const fetchData = async (postId, limit) => {
-    getQuestionsById(postId, limit).then(res => {
+
+  //offset 추가, count 추가
+  const fetchData = async (postId, limit, offset) => {
+    setIsLoading(true);
+    getQuestionsById(postId, limit, offset).then(res => {
+
       const { results } = res;
-      setPostData(() => results);
+
+      setCount(res.count);
+      setPostData([...postData, ...results]);
+
+      setOffset(offset + limit);
+      setIsLoading(false);
     });
   };
 
@@ -130,24 +154,33 @@ const Post = () => {
   };
 
   useEffect(() => {
-    if (target) observer.observe(target.current); // 관찰대상이 존재하면 타겟 요소 관측 시작
+    // 질문의 총 개수보다 offset이 높을경우 무한 스크롤 작동 중지
+    if (target.current && count > offset) observer.observe(target.current); // 관찰대상이 존재하면 타겟 요소 관측 시작
     return () => observer.disconnect(); // 모든 요소 관측 중단
-  }, []);
+  }, [observer]);
 
   useEffect(() => {
-    fetchData(postId, limit);
+    fetchData(postId, limit, offset);
   }, [postId, limit]);
 
+  //왜있는지 모르겠는 context ??????? 없으면 에러남
   useEffect(() => {
     getSubjectById(postId).then(setCurrentSubject);
-  }, [postId]);
+  }, [postId, setCurrentSubject]);
 
   useEffect(() => {
     handleUIsize();
   }, [handleUIsize]);
 
-  if (!currentSubject) return <></>;
-
+  // 유저데이터를 받아오는 effect
+  useEffect(() => {
+    const fetchSubject = async () => {
+      const subject = await getSubjectById(postId);
+      setSubject(subject);
+    };
+    fetchSubject();
+  }, [postId]);
+  if (!subject) return <div></div>;
   return (
     <>
       <ThemeToggleButton toggle={toggleTheme} mode={themeMode} />
@@ -161,11 +194,11 @@ const Post = () => {
           <Modal.ToQuestionBox>
             To.
             <PostModalAvatar
-              imageSrc={currentSubject.imageSource}
+              imageSrc={subject.imageSource}
               width="28"
               height="28"
             />
-            <Modal.TextStyle>{currentSubject.name}</Modal.TextStyle>
+            <Modal.TextStyle>{subject.name}</Modal.TextStyle>
           </Modal.ToQuestionBox>
           <Editor
             placeholder="질문을 입력해주세요"
@@ -177,8 +210,8 @@ const Post = () => {
         </ModalContainer>
       )}
       <PostBanner
-        userProfileImage={currentSubject.imageSource}
-        userName={currentSubject.name}
+        userProfileImage={subject.imageSource}
+        userName={subject.name}
       ></PostBanner>
       <PostContainer>
         <Share />
@@ -196,8 +229,9 @@ const Post = () => {
         )}
 
         <Feed theme={themeMode}>
-          <PostCount questionCount={currentSubject.questionCount} />
+          <PostCount questionCount={subject.questionCount} />
           <PostList postData={postData} setPostData={setPostData} />
+          {isLoading && <Loding />}
         </Feed>
 
         {!isAnswerPage && (

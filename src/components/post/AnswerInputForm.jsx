@@ -71,6 +71,7 @@ const AnswerInputForm = ({
   };
 
   const handleCreateAnswer = () => {
+
     const asyncHandler = handleAsyncOperation(
       () => createAnswer(questionId, answer),
       postId,
@@ -94,6 +95,7 @@ const AnswerInputForm = ({
     );
 
     asyncHandler();
+
   };
 
   // 원본 답변과 현재 답변이 동일한지 여부를 체크
@@ -108,6 +110,8 @@ const AnswerInputForm = ({
       />
       <ButtonContainer>
         <StyledCompleteButton
+          type={type}
+          // 답변이 비어있거나 변경되지 않았을 때 '수정 완료'버튼 비활성화
           inactive={answer.trim() === '' || isAnswerUnchanged}
           onClick={
             type === 'create answer' ? handleCreateAnswer : handleEditAnswer

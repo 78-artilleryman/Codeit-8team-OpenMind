@@ -14,6 +14,7 @@ import Loding from 'components/common/Loding';
 
 const Container = styled.section`
   max-width: 940px;
+  min-height: 394px;
   display: grid;
   grid-template: repeat(2, 1fr) / repeat(auto-fit, minmax(186px, 1fr));
   gap: 20px;
@@ -26,6 +27,7 @@ const Container = styled.section`
     grid-template: repeat(2, 1fr) / repeat(3, minmax(186px, 1fr));
   }
   @media (max-width: 661px) {
+    min-height: 601px;
     grid-template: repeat(3, 1fr) / repeat(2, minmax(155.5px, 1fr));
   }
 `;

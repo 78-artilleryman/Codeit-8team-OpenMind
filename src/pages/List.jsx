@@ -32,6 +32,7 @@ const Header = styled.header`
 const MainLogo = styled(LogoBox)`
   display: flex;
   width: 146px;
+  min-height: 57.625px;
   justify-content: center;
   align-items: center;
 `;
@@ -56,6 +57,7 @@ const Section = styled.section`
 
 const TitleFilterArea = styled.div`
   width: 341px;
+  min-height: 95.5px;
   margin: 0 auto 30px;
   display: flex;
   flex-direction: column;
@@ -64,6 +66,7 @@ const TitleFilterArea = styled.div`
 
   @media (max-width: 661px) {
     width: auto;
+    min-height: 36px;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
