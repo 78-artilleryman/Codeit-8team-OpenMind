@@ -10,7 +10,7 @@ export const useModal = () => {
 
   const handleModalClose = () => {
     setOpenModal(false);
-    document.body.style.removeProperty('overflow');
+    document.body.style.overflow = 'auto';
   };
 
   return {
