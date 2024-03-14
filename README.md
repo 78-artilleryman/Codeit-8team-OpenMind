@@ -47,7 +47,7 @@
 ## 🧩 화면 흐름도
 
 <p align="center">
-  <img src="https://github.com/JeongSabibi/memo/assets/80617716/890cad59-6f5d-403c-99e9-d52b8420bf35" width="600" />
+  <img src="https://github.com/78-artilleryman/Codeit-8team-OpenMind/assets/80617716/c0060257-f939-43c2-aa47-5aa90c61fe33" width="600" />
 </p>
 
 <br/>
@@ -55,7 +55,7 @@
 ## 💻 프로젝트 소개
 
 <p align="center">
-  <img src="https://github.com/JeongSabibi/memo/assets/80617716/340f8cbf-3cd5-46fa-a399-aedc753d746f" width="800" />
+  <img src="https://github.com/78-artilleryman/Codeit-8team-OpenMind/assets/80617716/dd5eeb2d-7d2d-4bfb-89af-1c845587f71e" width="800" />
 </p>
 
 <br/>
