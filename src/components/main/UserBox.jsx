@@ -57,7 +57,7 @@ const UserBox = () => {
 
   return (
     <UserBoxContainer>
-      <UserInputForm onChange={handleChangeNickName} />
+      <UserInputForm onChange={handleChangeNickName}/>
       <SubmitButton onClick={handleQuestionClick} width={336} minWidth={257}>
         질문 받기
       </SubmitButton>

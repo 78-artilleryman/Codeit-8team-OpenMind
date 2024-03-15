@@ -24,9 +24,11 @@ const PostContainer = styled.div`
   flex-direction: column;
   gap: 46px;
   padding: 0 32px 24px;
+  margin: auto 10% auto;
   
   @media (max-width: 767px) {
     padding: 0 24px 24px;
+    margin: auto 5% auto;
   }
 `;
 
