@@ -73,19 +73,19 @@ const KebabOptions = ({
 }) => {
   return (
     <ToggleList isClicked={isClicked}>
-      <OptionButton varient="icon" onClick={onEditClick}>
+      <OptionButton variant="icon" onClick={onEditClick}>
         <Icons.Edit />
         수정하기
       </OptionButton>
-      <OptionButton varient="icon" onClick={onDeleteQuestionClick}>
+      <OptionButton variant="icon" onClick={onDeleteQuestionClick}>
         <Icons.DeleteQuestion />
         질문삭제
       </OptionButton>
-      <OptionButton varient="icon" onClick={onDeleteAnswerClick}>
+      <OptionButton variant="icon" onClick={onDeleteAnswerClick}>
         <Icons.DeleteAnswer />
         답변삭제
       </OptionButton>
-      <OptionButton varient="icon" onClick={onRejectClick}>
+      <OptionButton variant="icon" onClick={onRejectClick}>
         <Icons.Rejection />
         답변거절
       </OptionButton>

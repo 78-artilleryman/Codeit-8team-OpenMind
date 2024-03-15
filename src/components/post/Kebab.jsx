@@ -18,7 +18,10 @@ const KebabButton = styled(Button)`
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  filter: ${({theme}) => theme === 'dark' ? 'invert(100%) sepia(0%) saturate(1881%) hue-rotate(322deg) brightness(111%) contrast(62%)' : 'none'};
+  filter: ${({ theme }) =>
+    theme === 'dark'
+      ? 'invert(100%) sepia(0%) saturate(1881%) hue-rotate(322deg) brightness(111%) contrast(62%)'
+      : 'none'};
 
   &:hover {
     border: 1px solid var(--gray30);
@@ -58,7 +61,7 @@ const Kebab = ({
 
   return (
     <Container ref={ref}>
-      <KebabButton varient="icon" onClick={handleToggle} theme={themeMode}>
+      <KebabButton variant="icon" onClick={handleToggle} theme={themeMode}>
         <Icons.Kebab />
       </KebabButton>
       <>

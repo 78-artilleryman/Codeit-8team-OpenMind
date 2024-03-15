@@ -1,27 +1,34 @@
 import styled from 'styled-components';
 
 const BasicButton = styled.button`
+  // 버튼 기본 스타일
   width: ${({ $width }) => $width}px;
   height: ${({ $height }) => ($height ? $height : 46)}px;
-  border-radius: 8px;
-  background-color: ${({ $bright }) =>
-    $bright ? 'var(--btColor2)' : 'var(--btColor1)'};
   padding: 12px 24px;
 
-  font-size: 16px;
-  font-weight: 400;
-  color: ${({ $bright }) => ($bright ? 'var(--btFontColor2)' : 'var(--btFontColor1)')};
-  border: 1px solid ${({ $bright }) => ($bright ? 'var(--btBorderColor)' : 'var(--btColor1)')};
-
-  opacity: ${({ $inactive }) => $inactive && 0.5};
-
-  white-space: nowrap;
   display: flex;
   align-items: center;
   justify-content: center;
 
-  cursor: ${({ $inactive }) => $inactive && 'default'};
+  border-radius: 8px;
 
+  font-size: 16px;
+  font-weight: 400;
+  white-space: nowrap;
+
+  // 버튼 밝기 조정
+  background-color: ${({ $bright }) =>
+    $bright ? 'var(--btColor2)' : 'var(--btColor1)'};
+  color: ${({ $bright }) =>
+    $bright ? 'var(--btFontColor2)' : 'var(--btFontColor1)'};
+  border: 1px solid
+    ${({ $bright }) => ($bright ? 'var(--btBorderColor)' : 'var(--btColor1)')};
+
+  // 버튼 비활성화 스타일
+  opacity: ${({ $inactive }) => ($inactive ? 0.5 : 1)};
+  cursor: ${({ $inactive }) => ($inactive ? 'default' : 'pointer')};
+
+  // 버튼 애니메이션
   &:not([disabled]):hover {
     border: 2px solid var(--brown40);
   }
@@ -46,40 +53,44 @@ const Button = ({
   height,
   bright,
   inactive = false,
-  varient,
+  variant,
 }) => {
+  if (variant === 'icon') {
+    return (
+      <button onClick={onClick} className={className} disabled={inactive}>
+        {children}
+      </button>
+    );
+  }
+
+  if (variant === 'floating') {
+    return (
+      <FloatingButton
+        onClick={onClick}
+        className={className}
+        disabled={inactive}
+        $width={width}
+        $height={height}
+        $bright={bright}
+        $inactive={inactive}
+      >
+        {children}
+      </FloatingButton>
+    );
+  }
+
   return (
-    <>
-      {varient === 'icon' ? (
-        <button onClick={onClick} className={className} disabled={inactive}>
-          {children}
-        </button>
-      ) : varient === 'floating' ? (
-        <FloatingButton
-          onClick={onClick}
-          className={className}
-          $width={width}
-          $height={height}
-          $bright={bright}
-          $inactive={inactive}
-          disabled={inactive}
-        >
-          {children}
-        </FloatingButton>
-      ) : (
-        <BasicButton
-          onClick={onClick}
-          className={className}
-          $width={width}
-          $height={height}
-          $bright={bright}
-          $inactive={inactive}
-          disabled={inactive}
-        >
-          {children}
-        </BasicButton>
-      )}
-    </>
+    <BasicButton
+      onClick={onClick}
+      className={className}
+      disabled={inactive}
+      $width={width}
+      $height={height}
+      $bright={bright}
+      $inactive={inactive}
+    >
+      {children}
+    </BasicButton>
   );
 };
 
